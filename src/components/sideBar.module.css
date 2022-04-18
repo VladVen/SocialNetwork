@@ -1,0 +1,8 @@
+.sideBar {
+    grid-area: sideBar;
+    background-color: brown;
+  }
+
+.bars {
+    color: rgb(251, 255, 0);
+}

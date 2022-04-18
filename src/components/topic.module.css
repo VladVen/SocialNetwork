@@ -1,0 +1,8 @@
+.topic {
+    grid-area: topic;
+    background-color: rgb(136, 0, 255);
+    }
+    
+    .logo {
+      width: 50px;
+    }

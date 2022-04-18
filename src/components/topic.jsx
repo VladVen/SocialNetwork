@@ -1,8 +1,10 @@
+import style from './topic.module.css'
+
 const Topic = () => {
     return (
-        <header className='topic'>
-       <img src='https://v.od.ua/uploads/92/logo.png'/>
-     </header>
+        <heade0r className={style.topic}>
+       <img className={style.logo} src='https://v.od.ua/uploads/92/logo.png'/>
+     </heade0r>
     )
 }
 export default Topic

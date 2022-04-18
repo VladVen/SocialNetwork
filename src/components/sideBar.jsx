@@ -1,20 +1,22 @@
+import style from './sideBar.module.css'
+
 const sideBar = () => {
     return (
-    <nav className='sideBar'>
-         <div>
-           <a href=''>My Profile</a>
+    <nav className={style.sideBar}>
+         <div className={style.bars}>
+           <a>My Profile</a>
          </div>
-         <div>
-           <a href=''>Messages</a>
+         <div className={style.bars}>
+           <a>Messages</a>
           </div>
-         <div>
-           <a href=''>News</a>
+         <div className={style.bars}>
+           <a>News</a>
            </div>
-         <div>
-           <a href=''>Music</a>
+         <div className={style.bars}>
+           <a>Music</a>
            </div>
-         <div>
-           <a href=''>Settings</a>
+         <div className={style.bars}>
+           <a>Settings</a>
            </div>
      </nav>
      )

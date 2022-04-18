@@ -9,22 +9,3 @@
   "topic topic"
   "sideBar inform";
 }
-
-.topic {
-grid-area: topic;
-background-color: blueviolet;
-}
-
-.topic img {
-  width: 50px;
-}
-
-.sideBar {
-  grid-area: sideBar;
-  background-color: brown;
-}
-
-.inform {
- grid-area: inform;
- background-color: rgb(17, 255, 9);
-}
