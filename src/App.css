@@ -1,0 +1,30 @@
+.app-wrapper {
+  display: grid;
+  margin: 0 auto;
+  width: 1900px;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 15fr;
+  grid-gap: 10px;
+  grid-template-areas:
+  "topic topic"
+  "sideBar inform";
+}
+
+.topic {
+grid-area: topic;
+background-color: blueviolet;
+}
+
+.topic img {
+  width: 50px;
+}
+
+.sideBar {
+  grid-area: sideBar;
+  background-color: brown;
+}
+
+.inform {
+ grid-area: inform;
+ background-color: rgb(17, 255, 9);
+}
