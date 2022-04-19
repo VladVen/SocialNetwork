@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import Topic from './components/topic';
-import SideBar from './components/sideBar';
-import Inform from './components/inform';
+import Topic from './components/topic/topic';
+import SideBar from './components/sideBar/sideBar';
+import Inform from './components/inform/inform';
 
 
 const App = () => {
