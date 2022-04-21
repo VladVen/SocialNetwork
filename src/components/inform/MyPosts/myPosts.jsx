@@ -1,5 +1,5 @@
 import style from './myposts.module.css'
-import Post1 from './Post/post1'
+import Post from './Post/post1'
 
 
 const myPosts = () => {
@@ -10,7 +10,8 @@ const myPosts = () => {
              <textarea></textarea>
              <button>New Post</button>
            </div>
-         <Post1 />
+         <Post message="Hello world!!!" likes="15" dislikes="1"/>
+         <Post message="I'm gay" likes="85" dislikes="5"/>
     </div>
    )
 }

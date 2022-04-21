@@ -1,16 +1,19 @@
-import style from './post1.module.css'
+import style from "./post.module.css";
 
-
-const Post1 = () => {
-   return ( 
-           <div className={style.headliner}>
-             <div className={style.post}>
-               <img src='https://forbes.ua/static/storage/thumbs/340x340/a/6a/efeb4bc6-62e1e5563aee5a701e457871e538f6aa.png?v=3960_1'/>
-               Post 1
-               </div>
-               <div><span>like</span></div>
-               <div><span>dislike</span></div>
-               </div>
-   )
-}
-export default Post1
+const Post = (props) => {
+  return (
+    <div className={style.headliner}>
+      <div className={style.post}>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80_%D0%97%D0%B5%D0%BB%D0%B5%D0%BD%D1%81%D0%BA%D0%B8%D0%B9_%2851939489510%29.jpg/250px-%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80_%D0%97%D0%B5%D0%BB%D0%B5%D0%BD%D1%81%D0%BA%D0%B8%D0%B9_%2851939489510%29.jpg" />
+        {props.message}
+      </div>
+      <div>
+        <span>{props.likes} like</span>
+      </div>
+      <div>
+        <span>{props.dislikes} dislike</span>
+      </div>
+    </div>
+  );
+};
+export default Post;
