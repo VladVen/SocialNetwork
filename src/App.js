@@ -3,6 +3,7 @@ import './App.css';
 import Topic from './components/topic/topic';
 import SideBar from './components/sideBar/sideBar';
 import Inform from './components/inform/inform';
+import Dialogues from "./components/dialogues/dialogues";
 
 
 const App = () => {
@@ -11,7 +12,7 @@ const App = () => {
      <Topic />
      <SideBar />
      <Inform />
-     
+     <Dialogues />
     </div>
   );
 }
