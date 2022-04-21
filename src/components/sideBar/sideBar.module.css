@@ -1,8 +1,16 @@
 .sideBar {
     grid-area: sideBar;
     background-color: brown;
+    padding: 20px;
   }
 
+.bars a {
+    color: greenyellow;
+}
+
+.bars a.activeLink {
+    color: gold;
+}
 .bars {
-    color: rgb(251, 255, 0);
+    padding: 10px;
 }
