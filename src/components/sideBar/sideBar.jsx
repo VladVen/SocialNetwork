@@ -4,10 +4,10 @@ const sideBar = () => {
     return (
     <nav className={style.sideBar}>
          <div className={style.bars}>
-           <a>My Profile</a>
+           <a href='/inform'>My Profile</a>
          </div>
          <div className={style.bars}>
-           <a>Messages</a>
+           <a href='/dialogues'>Messages</a>
           </div>
          <div className={style.bars}>
            <a>News</a>
