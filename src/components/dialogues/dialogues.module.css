@@ -1,4 +1,29 @@
-.inform {
-    grid-area: inform;
+.dialogues {
+    display: grid;
     background-color: rgb(17, 255, 9);
+    grid-template-columns: 2fr 13fr;
+}
+
+.dialoguesNames {
+    padding: 15px;
+}
+
+
+.dialogueMembers {
+    padding: 15px;
+}
+
+.dialogueMembers.active {
+    color: gold;
+
+
+}
+
+.messages {
+    padding: 15px;
+}
+
+
+.message {
+    padding: 15px;
 }

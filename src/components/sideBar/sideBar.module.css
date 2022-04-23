@@ -6,10 +6,13 @@
 
 .bars a {
     color: greenyellow;
+    text-decoration: none;
+
 }
 
-.bars a.activeLink {
-    color: gold;
+.bars a.active {
+    color: white;
+    padding: 20px;
 }
 .bars {
     padding: 10px;
