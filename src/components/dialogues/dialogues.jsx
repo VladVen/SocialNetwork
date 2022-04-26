@@ -1,20 +1,21 @@
 import style from './dialogues.module.css'
+import {NavLink} from "react-router-dom";
 
 const Dialogues = () => {
     return (
         <div className={style.dialogues}>
             <div className={style.dialoguesNames}>
                 <div className={style.dialogueMembers + ' ' + style.active}>
-                    Jenya
+                    <NavLink to='/dialogues/jenya'>Jenya</NavLink>
                 </div>
                 <div className={style.dialogueMembers}>
-                    Julia
+                    <NavLink to='/dialogues/juliya'>Juliya</NavLink>
                 </div>
                 <div className={style.dialogueMembers}>
-                    Vilatalyi
+                    <NavLink to='/dialogues/vitalik'>Vitalik</NavLink>
                 </div>
                 <div className={style.dialogueMembers}>
-                    Egor
+                    <NavLink to='/dialogues/egor'>Egor</NavLink>
                 </div>
             </div>
             <div className={style.messages}>
