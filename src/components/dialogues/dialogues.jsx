@@ -1,36 +1,39 @@
 import style from './dialogues.module.css'
 import {NavLink} from "react-router-dom";
 
+const DialogueMembers = (props) => {
+    let path = '/dialogues/' + props.id
+
+    return (
+        <div className={style.dialogueMembers + ' ' + style.active}>
+            <NavLink to={path}>{props.name}</NavLink>
+        </div>
+    )
+}
+
+const Message = (props) => {
+    return (
+        <div className={style.message}>
+            {props.message}
+        </div>
+    )
+}
+
 const Dialogues = () => {
     return (
         <div className={style.dialogues}>
             <div className={style.dialoguesNames}>
-                <div className={style.dialogueMembers + ' ' + style.active}>
-                    <NavLink to='/dialogues/jenya'>Jenya</NavLink>
-                </div>
-                <div className={style.dialogueMembers}>
-                    <NavLink to='/dialogues/juliya'>Juliya</NavLink>
-                </div>
-                <div className={style.dialogueMembers}>
-                    <NavLink to='/dialogues/vitalik'>Vitalik</NavLink>
-                </div>
-                <div className={style.dialogueMembers}>
-                    <NavLink to='/dialogues/egor'>Egor</NavLink>
-                </div>
+                <DialogueMembers name='Jenya' id='1'/>
+                <DialogueMembers name='Juliya' id='2'/>
+                <DialogueMembers name='Vitalik' id='3'/>
+                <DialogueMembers name='Egor' id='4'/>
+
             </div>
             <div className={style.messages}>
-                <div className={style.message}>
-                    hi
-                </div>
-                <div className={style.message}>
-                    hello
-                </div>
-                <div className={style.message}>
-                    how are you
-                </div>
-                <div className={style.message}>
-                    Fuck off
-                </div>
+               <Message message='Hi'/>
+               <Message message='How are you ?'/>
+               <Message message='Slava Ukraine'/>
+               <Message message='Fuck off'/>
             </div>
         </div>
     )
