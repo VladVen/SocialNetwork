@@ -1,6 +1,6 @@
 import style from './dialogues.module.css'
-import CompiledDialoguesData from "./compiledDialoguesData";
-import CompiledMessagesData from "./compiledMessagesData";
+import CompiledDialoguesData from "./dialoguesComponents/compiledDialoguesData";
+import CompiledMessagesData from "./messagesComponents/compiledMessagesData";
 
 
 const Dialogues = () => {

@@ -1,4 +1,5 @@
-import style from "./dialogues.module.css";
+import style from "../dialogues.module.css";
+import {messagesData} from "../../../index";
 
 const Message = (props) => {
     return (
@@ -8,12 +9,7 @@ const Message = (props) => {
     )
 }
 
-let messagesData = [
-    {id: 1, message: 'Hi'},
-    {id: 2, message: 'How are you ?'},
-    {id: 3, message: 'Slava Ukraine!!!'},
-    {id: 4, message: 'Fuck off'}
-]
+
 
 let compiledMessagesData = () => (messagesData.map(messages => <Message message={messages.message} id={messages.id}/>))
 

@@ -1,5 +1,6 @@
-import style from "./dialogues.module.css";
+import style from "../dialogues.module.css";
 import {NavLink} from "react-router-dom";
+import {dialoguesData} from "../../../index";
 
 const DialogueMembers = (props) => {
     let path = '/dialogues/' + props.id
@@ -10,12 +11,7 @@ const DialogueMembers = (props) => {
         </div>
     )
 }
-let dialoguesData = [
-    {id: 1, name: 'Jenya'},
-    {id: 2, name: 'Juliya'},
-    {id: 3, name: 'Vitalik'},
-    {id: 4, name: 'Egor'}
-]
+
 
 let compiledDialoguesData = () => (dialoguesData
     .map(dialogues => <DialogueMembers name={dialogues.name} id={dialogues.id}  />))
