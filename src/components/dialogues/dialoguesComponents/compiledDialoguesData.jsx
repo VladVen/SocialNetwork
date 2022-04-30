@@ -1,6 +1,5 @@
 import style from "../dialogues.module.css";
 import {NavLink} from "react-router-dom";
-/*import {dialoguesData} from "../../../index";*/
 
 const DialogueMembers = (props) => {
     let path = '/dialogues/' + props.id

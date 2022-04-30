@@ -1,5 +1,4 @@
 import Post from "./post1";
-/*import {postData} from "../../../../index";*/
 
 
 
