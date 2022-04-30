@@ -10,7 +10,7 @@ import Music from "./components/Music/music";
 import Settings from "./components/Settings/settings";
 
 
-const App = () => {
+const App = (props) => {
     return(
     <BrowserRouter>
         <div className='app-wrapper'>
@@ -18,8 +18,8 @@ const App = () => {
             <SideBar/>
             <div>
                 <Routes>
-                <Route path='/inform' element={<Inform />}/>
-                <Route path='/dialogues/*' element={<Dialogues />}/>
+                <Route path='/inform' element={<Inform postData={props.postData}/>} />
+                <Route path='/dialogues/*' element={<Dialogues messagesData={props.messagesData} dialoguesData={props.dialoguesData} />}/>
                     <Route path='/news' element={<News />}/>
                     <Route path='/music' element={<Music />}/>
                     <Route path='/settings' element={<Settings />}/>

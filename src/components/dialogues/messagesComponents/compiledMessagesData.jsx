@@ -11,6 +11,6 @@ const Message = (props) => {
 
 
 
-let compiledMessagesData = () => (messagesData.map(messages => <Message message={messages.message} id={messages.id}/>))
+let compiledMessagesData = (props) => (props.messagesData.map(messages => <Message message={messages.message} id={messages.id}/>))
 
 export default compiledMessagesData

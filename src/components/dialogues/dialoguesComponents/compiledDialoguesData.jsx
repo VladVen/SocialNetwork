@@ -1,6 +1,6 @@
 import style from "../dialogues.module.css";
 import {NavLink} from "react-router-dom";
-import {dialoguesData} from "../../../index";
+/*import {dialoguesData} from "../../../index";*/
 
 const DialogueMembers = (props) => {
     let path = '/dialogues/' + props.id
@@ -13,7 +13,6 @@ const DialogueMembers = (props) => {
 }
 
 
-let compiledDialoguesData = () => (dialoguesData
-    .map(dialogues => <DialogueMembers name={dialogues.name} id={dialogues.id}  />))
+let compiledDialoguesData = (props) => (props.dialoguesData.map(dialogues => <DialogueMembers name={dialogues.name} id={dialogues.id}  />))
 
 export default compiledDialoguesData

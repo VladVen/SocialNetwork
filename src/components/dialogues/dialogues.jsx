@@ -3,16 +3,16 @@ import CompiledDialoguesData from "./dialoguesComponents/compiledDialoguesData";
 import CompiledMessagesData from "./messagesComponents/compiledMessagesData";
 
 
-const Dialogues = () => {
+const Dialogues = (props) => {
 
 
     return (
         <div className={style.dialogues}>
-            <div className={style.dialoguesNames}>
-                <CompiledDialoguesData />
+            <div className={style.dialoguesNames} >
+                <CompiledDialoguesData dialoguesData={props.dialoguesData} />
             </div>
             <div className={style.messages}>
-                <CompiledMessagesData/>
+                <CompiledMessagesData messagesData={props.messagesData} />
             </div>
         </div>
     )

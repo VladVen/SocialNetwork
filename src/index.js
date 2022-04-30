@@ -4,13 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
 let dialoguesData = [
     {id: 1, name: 'Jenya'},
     {id: 2, name: 'Juliya'},
@@ -27,16 +20,20 @@ let postData = [
 ]
 
 let messagesData = [
-    {id: 1, message: 'Hi'},
+    {id: 1, message: 'hi'},
     {id: 2, message: 'How are you ?'},
     {id: 3, message: 'Slava Ukraine!!!'},
     {id: 4, message: 'Fuck off'}
 ]
 
+ReactDOM.render(
+  <React.StrictMode>
+    <App postData={postData} messagesData={messagesData} dialoguesData={dialoguesData}/>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+
+
 reportWebVitals();
 
-export {
-    dialoguesData,
-    postData,
-    messagesData
-}
