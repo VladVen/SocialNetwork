@@ -1,4 +1,4 @@
-let dataBase = {
+let state = {
 
     profilePage: {
         postData: [
@@ -26,4 +26,10 @@ let dataBase = {
     }
 }
 
-export default dataBase
+export let addNewPost = (PostMessage) => {
+    let newPost = {id: 5, message: PostMessage, likes: 0, dislikes: 0}
+    state.profilePage.postData.push(newPost)
+}
+
+
+export default state

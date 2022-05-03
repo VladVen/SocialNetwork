@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import dataBase from "./dataBase/dataBase";
+import {addNewPost} from "./state/state";
+import state from "./state/state";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App postData={dataBase.profilePage.postData} messagesData={dataBase.messagesPage.messagesData} dialoguesData={dataBase.messagesPage.dialoguesData}/>
+    <App postData={state.profilePage.postData} messagesData={state.messagesPage.messagesData} dialoguesData={state.messagesPage.dialoguesData} addNewPost={addNewPost} />
   </React.StrictMode>,
   document.getElementById('root')
 );

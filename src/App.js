@@ -18,7 +18,7 @@ const App = (props) => {
             <SideBar/>
             <div>
                 <Routes>
-                <Route path='/inform' element={<Inform postData={props.postData}/>} />
+                <Route path='/inform' element={<Inform postData={props.postData} addNewPost={props.addNewPost}/>} />
                 <Route path='/dialogues/*' element={<Dialogues messagesData={props.messagesData} dialoguesData={props.dialoguesData} />}/>
                     <Route path='/news' element={<News />}/>
                     <Route path='/music' element={<Music />}/>

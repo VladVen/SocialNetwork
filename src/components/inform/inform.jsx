@@ -7,7 +7,7 @@ const Inform = (props) => {
    <div className={style.inform}>
 
             <ProfileInform />
-           <MyPosts postData={props.postData}/>
+           <MyPosts postData={props.postData} addNewPost={props.addNewPost}/>
     </div>
    )
 }
