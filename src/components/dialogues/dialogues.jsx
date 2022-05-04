@@ -2,6 +2,7 @@ import style from './dialogues.module.css'
 import CompiledDialoguesData from "./dialoguesComponents/compiledDialoguesData";
 import CompiledMessagesData from "./messagesComponents/compiledMessagesData";
 import SendMessage from "./messagesComponents/sendMessage";
+import {addNewMessage} from "../../state/state";
 
 
 const Dialogues = (props) => {
@@ -14,7 +15,7 @@ const Dialogues = (props) => {
             </div>
             <div className={style.messages}>
                 <CompiledMessagesData messagesData={props.messagesData} />
-                <SendMessage />
+                <SendMessage messagesData={props.messagesData} addNewMessage={addNewMessage} />
             </div>
         </div>
     )

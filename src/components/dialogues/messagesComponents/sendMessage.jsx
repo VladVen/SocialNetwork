@@ -1,12 +1,13 @@
 import React from "react";
 
 
-let sendMessage = () => {
+let sendMessage = (props) => {
     const newMessageElement = React.createRef()
 
     let addMessage = () => {
         let text = newMessageElement.current.value
-        alert(text)
+        props.addNewMessage(text)
+        newMessageElement.current.value = ' '
     }
     return(
     <div>
