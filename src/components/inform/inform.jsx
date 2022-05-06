@@ -7,7 +7,10 @@ const Inform = (props) => {
    <div className={style.inform}>
 
             <ProfileInform />
-           <MyPosts postData={props.postData} addNewPost={props.addNewPost}/>
+           <MyPosts postData={props.postData}
+                    addNewPost={props.addNewPost}
+                    newPostText={props.newPostText}
+                    updatePostArea={props.updatePostArea}/>
     </div>
    )
 }

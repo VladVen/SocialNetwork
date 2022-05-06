@@ -1,18 +1,24 @@
 import React from 'react';
 import ReactDOM from "react-dom";
 import App from "./App";
-import {addNewMessage, addNewPost} from "./state/state";
+import {addNewMessage, addNewPost, updateMessageArea, updatePostArea} from "./state/state";
+import {BrowserRouter} from "react-router-dom";
 
 let rerenderEntireTree = (state) => {
     ReactDOM.render(
-        <React.StrictMode>
+        <BrowserRouter>
             <App
                 postData={state.profilePage.postData}
                 messagesData={state.messagesPage.messagesData}
                 dialoguesData={state.messagesPage.dialoguesData}
+                newPostText={state.profilePage.newPostText}
+                newMessageText={state.messagesPage.newMessageText}
                 addNewPost={addNewPost}
-                addNewMessage={addNewMessage} />
-        </React.StrictMode>,
+                addNewMessage={addNewMessage}
+                updatePostArea={updatePostArea}
+                updateMessageArea={updateMessageArea}
+            />
+        </BrowserRouter>,
         document.getElementById('root')
     );
 }
