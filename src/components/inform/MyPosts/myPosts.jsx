@@ -8,7 +8,6 @@ const myPosts = (props) => {
 
     let addPost = () => {
         props.addNewPost()
-        props.updatePostArea('')
     }
     let onPostChanger = () => {
         let text = newPostElement.current.value;

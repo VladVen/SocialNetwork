@@ -6,7 +6,6 @@ let sendMessage = (props) => {
 
     let addMessage = () => {
         props.addNewMessage()
-        props.updateMessageArea('')
     }
     let onMessageChanger = () => {
         let text = newMessageElement.current.value
