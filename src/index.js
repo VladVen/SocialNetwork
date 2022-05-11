@@ -1,33 +1,32 @@
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import state, {subscribe} from "./state/state";
 import React from 'react';
 import ReactDOM from "react-dom";
 import App from "./App";
-import {addNewMessage, addNewPost, updateMessageArea, updatePostArea} from "./state/state";
 import {BrowserRouter} from "react-router-dom";
+import store from "./redux/state";
 
-let rerenderEntireTree = (state) => {
+let rerenderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
             <App
-                postData={state.profilePage.postData}
-                messagesData={state.messagesPage.messagesData}
-                dialoguesData={state.messagesPage.dialoguesData}
-                newPostText={state.profilePage.newPostText}
-                newMessageText={state.messagesPage.newMessageText}
-                addNewPost={addNewPost}
-                addNewMessage={addNewMessage}
-                updatePostArea={updatePostArea}
-                updateMessageArea={updateMessageArea}
+                postData={store.getState.profilePage.postData}
+                messagesData={store.getState.messagesPage.messagesData}
+                dialoguesData={store.getState.messagesPage.dialoguesData}
+                newPostText={store.getState.profilePage.newPostText}
+                newMessageText={store.getState.messagesPage.newMessageText}
+                addNewPost={store.addNewPost.bind(store)}
+                addNewMessage={store.addNewMessage.bind(store)}
+                updatePostArea={store.updatePostArea.bind(store)}
+                updateMessageArea={store.updateMessageArea.bind(store)}
             />
         </BrowserRouter>,
         document.getElementById('root')
     );
 }
-rerenderEntireTree(state)
+rerenderEntireTree(store.getState)
 
-subscribe(rerenderEntireTree)
+store.subscribe(rerenderEntireTree)
 
 reportWebVitals();
 
