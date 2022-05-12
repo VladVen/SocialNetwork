@@ -18,11 +18,13 @@ const App = (props) => {
             <div>
                 <Routes>
                 <Route path='/inform' element={<Inform postData={props.postData}
+                                                       newPostText={props.newPostText}
                                                        dispatch={props.dispatch}
                 />}
                 />
                 <Route path='/dialogues/*' element={<Dialogues messagesData={props.messagesData}
                                                                dialoguesData={props.dialoguesData}
+                                                               newMessageText={props.newMessageText}
                                                                dispatch={props.dispatch}
                 />}
                 />

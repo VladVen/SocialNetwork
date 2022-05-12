@@ -6,22 +6,22 @@ import App from "./App";
 import {BrowserRouter} from "react-router-dom";
 import store from "./redux/state";
 
-let rerenderEntireTree = () => {
+let rerenderEntireTree = (state) => {
     ReactDOM.render(
         <BrowserRouter>
             <App
-                postData={store.getState.profilePage.postData}
-                messagesData={store.getState.messagesPage.messagesData}
-                dialoguesData={store.getState.messagesPage.dialoguesData}
-                newPostText={store.getState.profilePage.newPostText}
-                newMessageText={store.getState.messagesPage.newMessageText}
+                postData={state.profilePage.postData}
+                messagesData={state.messagesPage.messagesData}
+                dialoguesData={state.messagesPage.dialoguesData}
+                newPostText={state.profilePage.newPostText}
+                newMessageText={state.messagesPage.newMessageText}
                 dispatch={store.dispatch.bind(store)}
             />
         </BrowserRouter>,
         document.getElementById('root')
     );
 }
-rerenderEntireTree(store.getState)
+rerenderEntireTree(store.getState())
 
 store.subscribe(rerenderEntireTree)
 

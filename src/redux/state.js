@@ -3,7 +3,6 @@ let store = {
 
     },
     _state: {
-
         profilePage: {
             postData: [
                 {id: 1, message: 'Hello world!!!', likes: 85, dislikes: 1},
@@ -34,29 +33,30 @@ let store = {
     subscribe(observer) {
         this._subscribeResult = observer;
     },
-    get getState() {
+    getState () {
         return this._state
     },
+
     dispatch(action) {
         if (action.type === 'ADD-NEW-POST') {
-            let newPost = {id: 6, message: this.getState.profilePage.newPostText, likes: 0, dislikes: 0}
-            this.getState.profilePage.postData.push(newPost)
-            this.getState.profilePage.newPostText = ''
-            this._subscribeResult(this.getState)
+            let newPost = {id: 6, message: this._state.profilePage.newPostText, likes: 0, dislikes: 0}
+            this._state.profilePage.postData.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._subscribeResult(this.getState())
         }
         else if (action.type === 'ADD-NEW-MESSAGE') {
-            let newMessage = {id: 5, message: this.getState.messagesPage.newMessageText}
-            this.getState.messagesPage.messagesData.push(newMessage)
-            this.getState.messagesPage.newMessageText = ''
-            this._subscribeResult(this.getState)
+            let newMessage = {id: 5, message: this._state.messagesPage.newMessageText}
+            this._state.messagesPage.messagesData.push(newMessage)
+            this._state.messagesPage.newMessageText = ''
+            this._subscribeResult(this.getState())
         }
         else if (action.type === 'UPDATE-POST-AREA') {
-            this.getState.profilePage.newPostText = action.postText
-            this._subscribeResult(this.getState)
+            this._state.profilePage.newPostText = action.postText
+            this._subscribeResult(this.getState())
         }
         else if (action.type === 'UPDATE-MESSAGE-AREA') {
-            this.getState.messagesPage.newMessageText = action.messageText
-            this._subscribeResult(this.getState)
+            this._state.messagesPage.newMessageText = action.messageText
+            this._subscribeResult(this.getState())
         }
 
     }

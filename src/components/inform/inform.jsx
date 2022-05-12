@@ -8,6 +8,7 @@ const Inform = (props) => {
 
             <ProfileInform />
            <MyPosts postData={props.postData}
+                    newPostText={props.newPostText}
                     dispatch={props.dispatch}
            />
     </div>
