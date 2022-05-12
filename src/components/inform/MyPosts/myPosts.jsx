@@ -7,11 +7,14 @@ const myPosts = (props) => {
     let newPostElement = React.createRef();
 
     let addPost = () => {
-        props.addNewPost()
+        props.dispatch({type: 'ADD-NEW-POST'})
     }
     let onPostChanger = () => {
         let text = newPostElement.current.value;
-        props.updatePostArea(text)
+        props.dispatch({
+            type: 'UPDATE-POST-AREA',
+            postText: text
+        })
     }
     return (
         <div>

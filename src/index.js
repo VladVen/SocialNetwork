@@ -15,10 +15,7 @@ let rerenderEntireTree = () => {
                 dialoguesData={store.getState.messagesPage.dialoguesData}
                 newPostText={store.getState.profilePage.newPostText}
                 newMessageText={store.getState.messagesPage.newMessageText}
-                addNewPost={store.addNewPost.bind(store)}
-                addNewMessage={store.addNewMessage.bind(store)}
-                updatePostArea={store.updatePostArea.bind(store)}
-                updateMessageArea={store.updateMessageArea.bind(store)}
+                dispatch={store.dispatch.bind(store)}
             />
         </BrowserRouter>,
         document.getElementById('root')

@@ -1,9 +1,6 @@
 let store = {
-    rerenderEntireTree() {
+    _subscribeResult() {
 
-    },
-    subscribe(observer) {
-        this.rerenderEntireTree = observer;
     },
     _state: {
 
@@ -34,30 +31,36 @@ let store = {
             newMessageText: ''
         }
     },
-    get getState () {
+    subscribe(observer) {
+        this._subscribeResult = observer;
+    },
+    get getState() {
         return this._state
     },
-    addNewPost () {
-        let newPost = {id: 5, message: this.getState.profilePage.newPostText, likes: 0, dislikes: 0}
-        this.getState.profilePage.postData.push(newPost)
-        this.getState.profilePage.newPostText = ''
-        this.rerenderEntireTree(this.getState)
-    },
-    addNewMessage() {
-        let newMessage = {id: 5, message: this.getState.messagesPage.newMessageText}
-        this.getState.messagesPage.messagesData.push(newMessage)
-        this.getState.messagesPage.newMessageText = ''
-        this.rerenderEntireTree(this.getState)
-    },
-    updatePostArea(postText) {
-        this.getState.profilePage.newPostText = postText
-        this.rerenderEntireTree(this.getState)
-    },
-    updateMessageArea (messageText) {
-        this.getState.messagesPage.newMessageText = messageText
-        this.rerenderEntireTree(this.getState)
+    dispatch(action) {
+        if (action.type === 'ADD-NEW-POST') {
+            let newPost = {id: 6, message: this.getState.profilePage.newPostText, likes: 0, dislikes: 0}
+            this.getState.profilePage.postData.push(newPost)
+            this.getState.profilePage.newPostText = ''
+            this._subscribeResult(this.getState)
+        }
+        else if (action.type === 'ADD-NEW-MESSAGE') {
+            let newMessage = {id: 5, message: this.getState.messagesPage.newMessageText}
+            this.getState.messagesPage.messagesData.push(newMessage)
+            this.getState.messagesPage.newMessageText = ''
+            this._subscribeResult(this.getState)
+        }
+        else if (action.type === 'UPDATE-POST-AREA') {
+            this.getState.profilePage.newPostText = action.postText
+            this._subscribeResult(this.getState)
+        }
+        else if (action.type === 'UPDATE-MESSAGE-AREA') {
+            this.getState.messagesPage.newMessageText = action.messageText
+            this._subscribeResult(this.getState)
+        }
+
     }
 }
-
+window.store=store
 
 export default store

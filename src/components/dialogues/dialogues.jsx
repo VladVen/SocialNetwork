@@ -16,8 +16,8 @@ const Dialogues = (props) => {
                 <CompiledMessagesData messagesData={props.messagesData} />
                 <SendMessage messagesData={props.messagesData}
                              newMessageText={props.newMessageText}
-                             updateMessageArea={props.updateMessageArea}
-                             addNewMessage={props.addNewMessage}/>
+                             dispatch={props.dispatch}
+                />
             </div>
         </div>
     )

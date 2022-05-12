@@ -5,11 +5,14 @@ let sendMessage = (props) => {
     const newMessageElement = React.createRef()
 
     let addMessage = () => {
-        props.addNewMessage()
+        props.dispatch({type: 'ADD-NEW-MESSAGE'})
     }
     let onMessageChanger = () => {
         let text = newMessageElement.current.value
-        props.updateMessageArea(text)
+        props.dispatch({
+            type: 'UPDATE-MESSAGE-AREA',
+            messageText: text
+        })
     }
     return (
         <div>
