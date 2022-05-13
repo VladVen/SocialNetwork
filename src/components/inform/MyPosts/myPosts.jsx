@@ -1,20 +1,19 @@
 import style from './myposts.module.css'
 import CompiledPostData from "./Post/compiledPostData";
 import React from "react";
+import {addPostActionCreator, onPostChangerActionCreator} from "../../../redux/state";
+
 
 
 const myPosts = (props) => {
     let newPostElement = React.createRef();
 
     let addPost = () => {
-        props.dispatch({type: 'ADD-NEW-POST'})
+        props.dispatch(addPostActionCreator())
     }
     let onPostChanger = () => {
         let text = newPostElement.current.value;
-        props.dispatch({
-            type: 'UPDATE-POST-AREA',
-            postText: text
-        })
+        props.dispatch(onPostChangerActionCreator(text))
     }
     return (
         <div>
