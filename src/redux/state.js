@@ -8,7 +8,7 @@ let store = {
                 {id: 1, message: 'Hello world!!!', likes: 85, dislikes: 1},
                 {id: 2, message: 'Slava Ukraine', likes: 105, dislikes: 15},
                 {id: 3, message: 'Crimea is ours', likes: 100, dislikes: 5},
-                {id: 4, message: 'Русские пидоры', likes: 456, dislikes: 165},
+                {id: 4, message: 'Венгы пидоры', likes: 456, dislikes: 165},
                 {id: 5, message: 'Русские пидоры', likes: 456, dislikes: 165}
             ],
             newPostText: ''
@@ -73,7 +73,7 @@ export const addMessageActionCreator = () => ({
 })
 export const onMessageChangerActionCreator = (text) => ({
     type: actionType.UPDATE_MESSAGE_AREA,
-    postText: text
+    messageText: text
 })
 let actionType = {
     ADD_NEW_POST: 'ADD-NEW-POST',

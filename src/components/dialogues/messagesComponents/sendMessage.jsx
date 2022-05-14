@@ -3,21 +3,20 @@ import {addMessageActionCreator, onMessageChangerActionCreator} from "../../../r
 
 
 let sendMessage = (props) => {
-    const newMessageElement = React.createRef()
-
     let addMessage = () => {
         props.dispatch(addMessageActionCreator())
     }
-    let onMessageChanger = () => {
-        let text = newMessageElement.current.value
+    let onMessageChanger = (event) => {
+        let text = event.currentTarget.value
         props.dispatch(onMessageChangerActionCreator(text))
+
     }
     return (
         <div>
         <textarea
-            ref={newMessageElement}
             value={props.newMessageText}
             onChange={onMessageChanger}
+            placeholder='Enter your message'
         />
             <button onClick={addMessage}>Send Message</button>
         </div>

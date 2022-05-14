@@ -6,13 +6,11 @@ import {addPostActionCreator, onPostChangerActionCreator} from "../../../redux/s
 
 
 const myPosts = (props) => {
-    let newPostElement = React.createRef();
-
     let addPost = () => {
         props.dispatch(addPostActionCreator())
     }
-    let onPostChanger = () => {
-        let text = newPostElement.current.value;
+    let onPostChanger = (event) => {
+        let text = event.target.value;
         props.dispatch(onPostChangerActionCreator(text))
     }
     return (
@@ -20,9 +18,10 @@ const myPosts = (props) => {
             <div>myPost</div>
             <div>
              <textarea
-                 ref={newPostElement}
                  value={props.newPostText}
                  onChange={onPostChanger}
+                 placeholder='Enter your post'
+
              />
                 <button onClick={addPost}>New Post</button>
             </div>
