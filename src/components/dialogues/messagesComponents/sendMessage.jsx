@@ -1,5 +1,6 @@
 import React from "react";
-import {addMessageActionCreator, onMessageChangerActionCreator} from "../../../redux/state";
+import {addMessageActionCreator, onMessageChangerActionCreator} from "../../../redux/reducers/dialoguesPageReducer";
+
 
 
 let sendMessage = (props) => {
