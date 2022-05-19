@@ -1,22 +1,18 @@
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import React from 'react';
+import React, {createContext} from 'react';
 import ReactDOM from "react-dom";
 import App from "./App";
 import {BrowserRouter} from "react-router-dom";
 import store from "./redux/reduxStore";
+import MyContext, {Provider} from "./myContext";
 
 let rerenderEntireTree = (state) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App
-                postData={state.profilePage.postData}
-                messagesData={state.messagesPage.messagesData}
-                dialoguesData={state.messagesPage.dialoguesData}
-                newPostText={state.profilePage.newPostText}
-                newMessageText={state.messagesPage.newMessageText}
-                dispatch={store.dispatch.bind(store)}
-            />
+            <Provider store={store}>
+            <App />
+            </Provider>
         </BrowserRouter>,
         document.getElementById('root')
     );

@@ -1,18 +1,19 @@
-import style from './myposts.module.css'
-import CompiledPostData from "./Post/compiledPostData";
 import React from "react";
-import {addPostActionCreator, onPostChangerActionCreator} from "../../../redux/reducers/profilePageReducer";
+import Post from "./Post/post1";
 
 
 
 
 const myPosts = (props) => {
+
+    let compiledPostData = props.postData.map(posts => <Post id={posts.id} message={posts.message} likes={posts.likes} dislikes={posts.dislikes} /> )
+
+
     let addPost = () => {
-        props.dispatch(addPostActionCreator())
+        props.addPost()
     }
-    let onPostChanger = (event) => {
-        let text = event.target.value;
-        props.dispatch(onPostChangerActionCreator(text))
+    let onPostChanger = (text) => {
+        props.updateTextArea(text)
     }
     return (
         <div>
@@ -26,7 +27,7 @@ const myPosts = (props) => {
              />
                 <button onClick={addPost}>New Post</button>
             </div>
-            <CompiledPostData postData={props.postData}/>
+            <div>{compiledPostData}</div>
         </div>
     )
 }

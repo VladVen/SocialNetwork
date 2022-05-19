@@ -1,25 +1,32 @@
 import style from './dialogues.module.css'
 import CompiledDialoguesData from "./dialoguesComponents/compiledDialoguesData";
 import CompiledMessagesData from "./messagesComponents/compiledMessagesData";
-import SendMessage from "./messagesComponents/sendMessage";
+import SendMessageContainer from "./messagesComponents/sendMessageContainer";
+import MyContext from "../../myContext";
 
 
-const Dialogues = (props) => {
+const Dialogues = () => {
 
 
     return (
-        <div className={style.dialogues}>
-            <div className={style.dialoguesNames} >
-                <CompiledDialoguesData dialoguesData={props.dialoguesData} />
-            </div>
-            <div className={style.messages}>
-                <CompiledMessagesData messagesData={props.messagesData} />
-                <SendMessage messagesData={props.messagesData}
-                             newMessageText={props.newMessageText}
-                             dispatch={props.dispatch}
-                />
-            </div>
-        </div>
+        <MyContext.Consumer >
+            {
+                (store) => {
+                    let state = store.getState()
+                    return (
+                        <div className={style.dialogues}>
+                            <div className={style.dialoguesNames}>
+                                <CompiledDialoguesData dialoguesData={state.messagesPage.dialoguesData}/>
+                            </div>
+                            <div className={style.messages}>
+                                <CompiledMessagesData messagesData={state.messagesPage.messagesData}/>
+                                <SendMessageContainer/>
+                            </div>
+                        </div>
+                    )
+                }
+            }
+        </MyContext.Consumer>
     )
 }
 

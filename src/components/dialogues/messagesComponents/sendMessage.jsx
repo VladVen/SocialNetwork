@@ -1,15 +1,13 @@
 import React from "react";
-import {addMessageActionCreator, onMessageChangerActionCreator} from "../../../redux/reducers/dialoguesPageReducer";
 
 
 
 let sendMessage = (props) => {
     let addMessage = () => {
-        props.dispatch(addMessageActionCreator())
+        props.addMessage()
     }
-    let onMessageChanger = (event) => {
-        let text = event.currentTarget.value
-        props.dispatch(onMessageChangerActionCreator(text))
+    let onMessageChanger = (text) => {
+        props.onMessageChanger(text)
 
     }
     return (

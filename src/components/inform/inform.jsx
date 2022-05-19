@@ -1,16 +1,13 @@
 import style from './inform.module.css'
-import MyPosts from './MyPosts/myPosts'
 import ProfileInform from "./ProfileInform/ProfileInform";
+import MyPostsContainer from "./MyPosts/myPostsContainer";
 
 const Inform = (props) => {
    return ( 
    <div className={style.inform}>
 
             <ProfileInform />
-           <MyPosts postData={props.postData}
-                    newPostText={props.newPostText}
-                    dispatch={props.dispatch}
-           />
+           <MyPostsContainer />
     </div>
    )
 }
