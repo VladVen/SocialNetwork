@@ -1,32 +1,41 @@
 import style from './dialogues.module.css'
-import CompiledDialoguesData from "./dialoguesComponents/compiledDialoguesData";
-import CompiledMessagesData from "./messagesComponents/compiledMessagesData";
 import SendMessageContainer from "./messagesComponents/sendMessageContainer";
-import MyContext from "../../myContext";
+import {NavLink} from "react-router-dom";
 
 
-const Dialogues = () => {
+const Dialogues= (props) => {
+
+    const DialogueMembers = (props) => {
+        let path = '/dialogues/' + props.id
+
+        return (
+            <div className={style.dialogueMembers} >
+                <NavLink to={path}  className = { navData => navData.isActive ? style.active : style.dialogueMembers }>{props.name}</NavLink>
+            </div>
+        )
+    }
+    let compiledDialoguesData = props.dialoguesData.map(dialogues => <DialogueMembers name={dialogues.name} id={dialogues.id}  />)
+
+    const Message = (props) => {
+        return (
+            <div className={style.message}>
+                {props.message}
+            </div>
+        )
+    }
+    let compiledMessagesData = props.messagesData.map(messages => <Message message={messages.message} id={messages.id}/>)
 
 
     return (
-        <MyContext.Consumer >
-            {
-                (store) => {
-                    let state = store.getState()
-                    return (
                         <div className={style.dialogues}>
                             <div className={style.dialoguesNames}>
-                                <CompiledDialoguesData dialoguesData={state.messagesPage.dialoguesData}/>
+                                {compiledDialoguesData}
                             </div>
                             <div className={style.messages}>
-                                <CompiledMessagesData messagesData={state.messagesPage.messagesData}/>
+                                {compiledMessagesData}
                                 <SendMessageContainer/>
                             </div>
                         </div>
-                    )
-                }
-            }
-        </MyContext.Consumer>
     )
 }
 
