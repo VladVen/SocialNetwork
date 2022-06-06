@@ -12,8 +12,9 @@ const myPosts = (props) => {
     let addPost = () => {
         props.addPost()
     }
-    let onPostChanger = (text) => {
-        props.updateTextArea(text)
+    let onPostChanger = (event) => {
+        let text = event.target.value;
+        props.onPostChanger(text)
     }
     return (
         <div>
