@@ -9,11 +9,8 @@ const Dialogues = (props) => {
     let state = props.messagesPage
     let emptyArea = state.newMessageText
 
-
     let compiledDialoguesData = state.dialoguesData.map(dialogues => <DialogueMembers name={dialogues.name}
                                                                                       id={dialogues.id}/>)
-
-
     let compiledMessagesData = state.messagesData.map(messages => <Message message={messages.message}
                                                                            id={messages.id}/>)
     let addMessage = () => {
@@ -24,6 +21,7 @@ const Dialogues = (props) => {
         props.onMessageChanger(text)
 
     }
+
     return (
         <div className={style.dialogues}>
             <div className={style.dialoguesNames}>

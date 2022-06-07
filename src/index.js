@@ -11,22 +11,15 @@ import { createRoot } from 'react-dom/client';
 const container = document.getElementById('root');
 const root = createRoot(container);
 
-
-
-let rerenderEntireTree = () => {
-    root.render(
+root.render(
         <BrowserRouter>
             <Provider store={store}>
             <App />
             </Provider>
         </BrowserRouter>
     );
-}
-rerenderEntireTree(store.getState())
 
-store.subscribe(() => {
-    rerenderEntireTree()
-})
+
 
 reportWebVitals();
 

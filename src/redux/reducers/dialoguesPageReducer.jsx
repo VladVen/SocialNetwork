@@ -30,14 +30,18 @@ let reserveState = {
 const dialoguesPageReducer = (state = reserveState, action) => {
 
     switch (action.type) {
-        case (actionType.ADD_NEW_MESSAGE) :
+        case (actionType.ADD_NEW_MESSAGE) : {
             let newMessage = {id: 5, message: state.newMessageText}
-            state.messagesData.push(newMessage)
-            state.newMessageText = ''
-            return state
-        case (actionType.UPDATE_MESSAGE_AREA):
-            state.newMessageText = action.messageText
-            return state
+            let stateCopy = JSON.parse(JSON.stringify(state))
+            stateCopy.messagesData.push(newMessage)
+            stateCopy.newMessageText = ''
+            return stateCopy
+        }
+        case (actionType.UPDATE_MESSAGE_AREA): {
+            let stateCopy = {...state}
+            stateCopy.newMessageText = action.messageText
+            return stateCopy
+        }
         default:
             return state
     }

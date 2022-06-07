@@ -24,14 +24,18 @@ let reserveState =  {
 const profilePageReducer = (state = reserveState, action) => {
 
     switch (action.type) {
-        case(actionType.ADD_NEW_POST):
+        case(actionType.ADD_NEW_POST): {
             let newPost = {id: 6, message: state.newPostText, likes: 0, dislikes: 0}
-            state.postData.push(newPost)
-            state.newPostText = ''
-            return state
-        case(actionType.UPDATE_POST_AREA):
-            state.newPostText = action.postText
-            return state
+            let stateCopy = JSON.parse(JSON.stringify(state))
+            stateCopy.postData.push(newPost)
+            stateCopy.newPostText = ''
+            return stateCopy
+            }
+        case(actionType.UPDATE_POST_AREA): {
+            let stateCopy = {...state}
+            stateCopy.newPostText = action.postText
+            return stateCopy
+        }
         default:
             return state
     }
