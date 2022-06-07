@@ -5,7 +5,7 @@ let actionType = {
 export const addPostActionCreator = () => ({
     type: actionType.ADD_NEW_POST
 })
-export const onPostChangerActionCreator = (text) => ({
+export let onPostChangerActionCreator = (text) => ({
     type: actionType.UPDATE_POST_AREA,
     postText: text
 })

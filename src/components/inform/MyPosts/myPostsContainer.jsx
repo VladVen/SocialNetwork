@@ -5,8 +5,7 @@ import {connect} from "react-redux";
 
 const mapStateToProps = (state) => {
     return {
-            postData:  state.profilePage.postData,
-            newPostTex: state.profilePage.newPostText
+        profilePage:  state.profilePage,
         }
 
 }
@@ -16,6 +15,7 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(addPostActionCreator())
             },
             onPostChanger: (text) => {
+
                 dispatch(onPostChangerActionCreator(text))
             }
         }

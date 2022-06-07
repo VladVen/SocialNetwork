@@ -3,25 +3,23 @@ import {addMessageActionCreator, onMessageChangerActionCreator} from "../../redu
 import {connect} from "react-redux";
 
 
-
 const mapStateToProps = (state) => {
     return {
-            dialoguesData: state.messagesPage.dialoguesData,
-            messagesData: state.messagesPage.messagesData
-        }
+        messagesPage: state.messagesPage,
+    }
 
 
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-            addMessage:  () => {
-                dispatch(addMessageActionCreator())
-            },
-            onMessageChanger: (text) => {
-                dispatch(onMessageChangerActionCreator(text))
+        addMessage: () => {
+            dispatch(addMessageActionCreator())
+        },
+        onMessageChanger: (text) => {
+            dispatch(onMessageChangerActionCreator(text))
 
-            }
         }
+    }
 }
 
 const DialoguesContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogues)

@@ -1,34 +1,22 @@
 import style from './dialogues.module.css'
-import {NavLink} from "react-router-dom";
 import React from "react";
+import Message from "./Message";
+import DialogueMembers from "./DialogueMembers";
 
 
 const Dialogues = (props) => {
 
-    const DialogueMembers = (props) => {
-        let path = '/dialogues/' + props.id
+    let state = props.messagesPage
+    let emptyArea = state.newMessageText
 
-        return (
-            <div className={style.dialogueMembers}>
-                <NavLink to={path}
-                         className={navData => navData.isActive ? style.active : style.dialogueMembers}>{props.name}</NavLink>
-            </div>
-        )
-    }
-    let compiledDialoguesData = props.dialoguesData.map(dialogues => <DialogueMembers name={dialogues.name}
+
+    let compiledDialoguesData = state.dialoguesData.map(dialogues => <DialogueMembers name={dialogues.name}
                                                                                       id={dialogues.id}/>)
 
-    const Message = (props) => {
-        return (
-            <div className={style.message}>
-                {props.message}
-            </div>
-        )
-    }
-    let compiledMessagesData = props.messagesData.map(messages => <Message message={messages.message}
+
+    let compiledMessagesData = state.messagesData.map(messages => <Message message={messages.message}
                                                                            id={messages.id}/>)
     let addMessage = () => {
-
         props.addMessage()
     }
     let onMessageChanger = (event) => {
@@ -45,7 +33,7 @@ const Dialogues = (props) => {
                 {compiledMessagesData}
                 <div>
                     <textarea
-                        value={props.newMessageText}
+                        value={emptyArea}
                         onChange={onMessageChanger}
                         placeholder='Enter your message'
                     />
