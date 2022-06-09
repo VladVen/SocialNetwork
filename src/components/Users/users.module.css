@@ -1,0 +1,9 @@
+.inform {
+    grid-area: inform;
+    background-color: rgb(17, 255, 9);
+}
+
+.ava img {
+    width: 100px;
+    border-radius: 25px;
+}

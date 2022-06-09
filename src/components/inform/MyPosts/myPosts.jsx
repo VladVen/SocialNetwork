@@ -9,7 +9,7 @@ const myPosts = (props) => {
     let state = props.profilePage
     let emptyArea = state.newPostText
 
-    let compiledPostData = state.postData.map(posts => <Post id={posts.id} message={posts.message} likes={posts.likes} dislikes={posts.dislikes} /> )
+    let compiledPostData = state.postData.map(posts => <Post key={posts.id} id={posts.id} message={posts.message} likes={posts.likes} dislikes={posts.dislikes} /> )
 
 
     let addPost = () => {

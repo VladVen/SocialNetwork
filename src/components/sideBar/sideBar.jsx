@@ -19,6 +19,9 @@ const sideBar = () => {
             <div className={style.bars}>
                 <NavLink to='/settings' className = { navData => navData.isActive ? style.active : style.bars }>Settings</NavLink>
             </div>
+            <div className={style.bars}>
+                <NavLink to='/users' className = { navData => navData.isActive ? style.active : style.bars }>Users</NavLink>
+            </div>
         </nav>
     )
 }
