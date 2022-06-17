@@ -1,13 +1,16 @@
 let actionType = {
     follow: 'FOLLOW',
     unfollow: 'UNFOLLOW',
-    setUsers: 'SETUSERS'
+    setUsers: 'SETUSERS',
+    setCurrentPage: 'SETCURRENTPAGE',
+    setTotalCount: 'SETTOTALCOUNT'
 }
 
-let n = 1
 let reserveState =  {
-
     usersData: [    ],
+    pageSize: 5,
+    totalCount: 0,
+    currentPage: 1
 }
 
 const userPageReducer = (state = reserveState, action) => {
@@ -35,7 +38,17 @@ const userPageReducer = (state = reserveState, action) => {
         case(actionType.setUsers):
             return {
                 ...state,
-                usersData: [...state.usersData, ...action.users]
+                usersData: action.users
+            }
+            case(actionType.setCurrentPage):
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+            case(actionType.setTotalCount):
+            return {
+                ...state,
+                totalCount: action.totalCount
             }
             default:
             return state
@@ -54,6 +67,14 @@ export const unfollowAC = (userId) => ({
 export const setUsersAC = (users) => ({
     type: actionType.setUsers,
     users
+})
+export const setCurrentPageAC = (currentPage) => ({
+    type: actionType.setCurrentPage,
+    currentPage
+})
+export const setTotalCountAC = (totalCount) => ({
+    type: actionType.setTotalCount,
+    totalCount
 })
 
 export default userPageReducer

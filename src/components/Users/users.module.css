@@ -7,3 +7,15 @@
     width: 100px;
     border-radius: 25px;
 }
+
+.selectedPage {
+    color: red;
+    font-weight: bold;
+
+
+}
+
+.pages {
+    text-align: center;
+    font-size: 20px;
+}
