@@ -2,10 +2,10 @@ let actionType = {
     ADD_NEW_MESSAGE: 'ADD-NEW-MESSAGE',
     UPDATE_MESSAGE_AREA: 'UPDATE-MESSAGE-AREA',
 }
-export const addMessageActionCreator = () => ({
+export const addMessage = () => ({
     type: actionType.ADD_NEW_MESSAGE
 })
-export const onMessageChangerActionCreator = (text) => ({
+export const onMessageChanger = (text) => ({
     type: actionType.UPDATE_MESSAGE_AREA,
     messageText: text
 })

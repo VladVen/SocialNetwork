@@ -1,4 +1,4 @@
-import {addMessageActionCreator, onMessageChangerActionCreator} from "../../redux/reducers/dialoguesPageReducer";
+import {addMessage, onMessageChanger} from "../../redux/reducers/dialoguesPageReducer";
 import {connect} from "react-redux";
 import dialogueMemberClass from "./dialogueMemberClass";
 
@@ -12,16 +12,9 @@ const mapStateToProps = (state) => {
 
 
 }
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addMessage: () => {
-            dispatch(addMessageActionCreator())
-        },
-        onMessageChanger: (text) => {
-            dispatch(onMessageChangerActionCreator(text))
-
-        }
-    }
+const mapDispatchToProps =  {
+        addMessage,
+        onMessageChanger
 }
 
 const DialoguesContainer = connect(mapStateToProps, mapDispatchToProps)(dialogueMemberClass)

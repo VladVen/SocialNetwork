@@ -1,5 +1,5 @@
 import style from "./post.module.css";
-import {Avatar} from "../../ProfileInform/avatar";
+import {Avatar} from "../../ProfileDescription/avatar";
 
 const Post = (props) => {
   return (

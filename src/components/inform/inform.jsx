@@ -1,5 +1,5 @@
 import style from './inform.module.css'
-import ProfileInform from "./ProfileInform/ProfileInform";
+import ProfileInform from "./ProfileDescription/ProfileInform";
 import MyPostsContainer from "./MyPosts/myPostsContainer";
 
 const Inform = (props) => {

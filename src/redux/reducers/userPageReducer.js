@@ -1,10 +1,10 @@
 let actionType = {
-    follow: 'FOLLOW',
-    unfollow: 'UNFOLLOW',
+    setFollow: 'FOLLOW',
+    setUnfollow: 'UNFOLLOW',
     setUsers: 'SETUSERS',
     setCurrentPage: 'SETCURRENTPAGE',
     setTotalCount: 'SETTOTALCOUNT',
-    loader: 'LOADER'
+    setFetching: 'SETFETCHING'
 }
 
 let reserveState =  {
@@ -17,7 +17,7 @@ let reserveState =  {
 
 const userPageReducer = (state = reserveState, action) => {
     switch (action.type) {
-        case(actionType.follow):
+        case(actionType.setFollow):
             return {
                 ...state,
                 usersData: state.usersData.map(user => {
@@ -27,7 +27,7 @@ const userPageReducer = (state = reserveState, action) => {
                     return user
                 })
             }
-        case(actionType.unfollow):
+        case(actionType.setUnfollow):
             return {
                 ...state,
                 usersData: state.usersData.map(user => {
@@ -52,7 +52,7 @@ const userPageReducer = (state = reserveState, action) => {
                 ...state,
                 totalCount: action.totalCount
             }
-            case(actionType.loader):
+            case(actionType.setFetching):
             return {
                 ...state,
                 isFetching: action.isFetching
@@ -62,29 +62,28 @@ const userPageReducer = (state = reserveState, action) => {
     }
 
 }
-export const followAC = (userId) => ({
-    type: actionType.follow,
+export const setFollow = (userId) => ({
+    type: actionType.setFollow,
     userId
 })
-export const unfollowAC = (userId) => ({
-    type: actionType.unfollow,
+export const setUnfollow = (userId) => ({
+    type: actionType.setUnfollow,
     userId
 })
-
-export const setUsersAC = (users) => ({
+export const setUsers = (users) => ({
     type: actionType.setUsers,
     users
 })
-export const setCurrentPageAC = (currentPage) => ({
+export const setCurrentPage = (currentPage) => ({
     type: actionType.setCurrentPage,
     currentPage
 })
-export const setTotalCountAC = (totalCount) => ({
+export const setTotalCount = (totalCount) => ({
     type: actionType.setTotalCount,
     totalCount
 })
-export const loaderAC = (isFetching) => ({
-    type: actionType.loader,
+export const setFetching = (isFetching) => ({
+    type: actionType.setFetching,
     isFetching
 })
 

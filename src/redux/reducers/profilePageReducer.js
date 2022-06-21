@@ -2,10 +2,10 @@ let actionType = {
     ADD_NEW_POST: 'ADD-NEW-POST',
     UPDATE_POST_AREA: 'UPDATE-POST-AREA',
 }
-export const addPostActionCreator = () => ({
+export const addPost = () => ({
     type: actionType.ADD_NEW_POST
 })
-export let onPostChangerActionCreator = (text) => ({
+export let onPostChanger = (text) => ({
     type: actionType.UPDATE_POST_AREA,
     postText: text
 })

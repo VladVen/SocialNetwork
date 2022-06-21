@@ -2,11 +2,11 @@ import React from "react";
 import {connect} from "react-redux";
 import UserClass from "./userClass";
 import {
-    followAC, loaderAC,
-    setCurrentPageAC,
-    setTotalCountAC,
-    setUsersAC,
-    unfollowAC
+    setFollow, setFetching,
+    setCurrentPage,
+    setTotalCount,
+    setUsers,
+    setUnfollow
 } from "../../redux/reducers/userPageReducer";
 import axios from "axios";
 import style from './users.module.css'
@@ -62,28 +62,13 @@ const mapStateToProps = (state) => {
     }
 
 }
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setFollow: (userId) => {
-            dispatch(followAC(userId))
-        },
-        setUnfollow: (userId) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (currentPage) => {
-            dispatch(setCurrentPageAC(currentPage))
-        },
-        setTotalCount: (totalCount) => {
-            dispatch(setTotalCountAC(totalCount))
-        },
-        setFetching: (isFetching) => {
-            dispatch(loaderAC(isFetching))
-        }
-
-    }
+const mapDispatchToProps = {
+    setFollow,
+    setUnfollow,
+    setUsers,
+    setCurrentPage,
+    setTotalCount,
+    setFetching
 }
 const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApi)
 
