@@ -7,7 +7,7 @@ const UserClass = (props) => {
 
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
     return (
-        <div className={style.inform}>
+        <div>
             {
                 props.usersData.map(users => <div key={users.id}>
             <span>

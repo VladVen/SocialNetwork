@@ -3,14 +3,16 @@ let actionType = {
     unfollow: 'UNFOLLOW',
     setUsers: 'SETUSERS',
     setCurrentPage: 'SETCURRENTPAGE',
-    setTotalCount: 'SETTOTALCOUNT'
+    setTotalCount: 'SETTOTALCOUNT',
+    loader: 'LOADER'
 }
 
 let reserveState =  {
     usersData: [    ],
     pageSize: 5,
     totalCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 
 const userPageReducer = (state = reserveState, action) => {
@@ -50,6 +52,11 @@ const userPageReducer = (state = reserveState, action) => {
                 ...state,
                 totalCount: action.totalCount
             }
+            case(actionType.loader):
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
             default:
             return state
     }
@@ -75,6 +82,10 @@ export const setCurrentPageAC = (currentPage) => ({
 export const setTotalCountAC = (totalCount) => ({
     type: actionType.setTotalCount,
     totalCount
+})
+export const loaderAC = (isFetching) => ({
+    type: actionType.loader,
+    isFetching
 })
 
 export default userPageReducer
