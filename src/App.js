@@ -2,13 +2,13 @@ import React from 'react';
 import './App.css';
 import Topic from './components/topic/topic';
 import SideBar from './components/sideBar/sideBar';
-import Inform from './components/inform/inform';
 import {Route, Routes} from "react-router-dom";
 import News from "./components/News/news";
 import Music from "./components/Music/music";
 import Settings from "./components/Settings/settings";
 import DialoguesContainer from "./components/dialogues/dialoguesContainer";
 import UsersContainer from "./components/Users/userContainer.";
+import ProfileContainer from "./components/inform/profileContainer";
 
 
 const App = (props) => {
@@ -18,7 +18,7 @@ const App = (props) => {
             <SideBar/>
             <div>
                 <Routes>
-                <Route path='/inform' element={<Inform />}
+                <Route path='/profile/*' element={<ProfileContainer />}
                 />
                 <Route path='/dialogues/*' element={<DialoguesContainer />}
                 />

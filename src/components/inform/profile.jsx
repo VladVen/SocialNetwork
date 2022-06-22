@@ -1,8 +1,8 @@
-import style from './inform.module.css'
+import style from './profile.module.css'
 import ProfileInform from "./ProfileDescription/ProfileInform";
 import MyPostsContainer from "./MyPosts/myPostsContainer";
 
-const Inform = (props) => {
+const Profile = (props) => {
    return ( 
    <div className={style.inform}>
 
@@ -11,4 +11,4 @@ const Inform = (props) => {
     </div>
    )
 }
-export default Inform
+export default Profile
