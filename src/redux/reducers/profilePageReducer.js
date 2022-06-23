@@ -2,7 +2,7 @@ let actionType = {
     ADD_NEW_POST: 'ADD-NEW-POST',
     UPDATE_POST_AREA: 'UPDATE-POST-AREA',
     setFetching:'SET_FETCHING',
-    setProfile: 'SET_PROFILE'
+    setUserProfile: 'SET_USER_PROFILE'
 }
 let n = 1
 let reserveState =  {
@@ -30,7 +30,7 @@ const profilePageReducer = (state = reserveState, action) => {
                 ...state,
                 newPostText: action.postText
             }
-            case(actionType.setProfile):
+            case(actionType.setUserProfile):
             return {
                 ...state,
                 profileData: action.profile
@@ -48,8 +48,8 @@ export const onPostChanger = (text) => ({
     postText: text
 })
 
-export const setProfile = (profile) => ({
-    type: actionType.setProfile,
+export const setUserProfile = (profile) => ({
+    type: actionType.setUserProfile,
     profile
 })
 

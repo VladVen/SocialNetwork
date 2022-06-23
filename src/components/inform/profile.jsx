@@ -3,10 +3,11 @@ import ProfileInform from "./ProfileDescription/ProfileInform";
 import MyPostsContainer from "./MyPosts/myPostsContainer";
 
 const Profile = (props) => {
+
    return ( 
    <div className={style.inform}>
 
-            <ProfileInform />
+            <ProfileInform profileData={props.profileData} />
            <MyPostsContainer />
     </div>
    )

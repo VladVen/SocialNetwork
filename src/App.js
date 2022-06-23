@@ -7,7 +7,7 @@ import News from "./components/News/news";
 import Music from "./components/Music/music";
 import Settings from "./components/Settings/settings";
 import DialoguesContainer from "./components/dialogues/dialoguesContainer";
-import UsersContainer from "./components/Users/userContainer.";
+import UsersContainer from "./components/Users/userContainer";
 import ProfileContainer from "./components/inform/profileContainer";
 
 
@@ -18,7 +18,9 @@ const App = (props) => {
             <SideBar/>
             <div>
                 <Routes>
-                <Route path='/profile/*' element={<ProfileContainer />}
+                <Route path='/profile/:userId' element={<ProfileContainer />}
+                />
+                    <Route path='/profile/' element={<ProfileContainer />}
                 />
                 <Route path='/dialogues/*' element={<DialoguesContainer />}
                 />
