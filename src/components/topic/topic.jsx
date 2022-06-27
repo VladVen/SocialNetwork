@@ -1,10 +1,17 @@
 import style from './topic.module.css'
+import {NavLink} from "react-router-dom";
 
-const Topic = () => {
+const Topic = (props) => {
     return (
         <header className={style.topic}>
        <img className={style.logo} src='https://v.od.ua/uploads/92/logo.png'/>
-     </header>
+            <div className={style.login}>
+
+            { props.isAuth ? props.login
+                : <NavLink to={'/login'}>{props.login}</NavLink>
+            }
+            </div>
+        </header>
     )
 }
 export default Topic

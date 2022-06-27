@@ -1,8 +1,16 @@
 .topic {
     grid-area: topic;
     background-color: rgb(136, 0, 255);
-    }
-    
-    .logo {
-      width: 50px;
-    }
+}
+
+.logo {
+    width: 50px;
+}
+
+.login {
+    float: right;
+}
+.login a {
+    text-decoration: none;
+    color: white;
+}

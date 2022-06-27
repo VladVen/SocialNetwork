@@ -5,20 +5,21 @@ let actionType = {
 }
 
 let reserveState = {
-    authData: {
+        email: null,
         id: null,
         login: null,
-        email: null
-    },
+        isAuth: false,
     isFetching: false
 }
 
 const authReducer = (state = reserveState, action) => {
     switch (action.type) {
         case(actionType.setAuth):
+
             return {
                 ...state,
-                ...action.authData
+                ...action.authData,
+                isAuth:true
             }
         case(actionType.setFetching):
             return {
@@ -31,9 +32,9 @@ const authReducer = (state = reserveState, action) => {
 
 }
 
-export const setAuth = (authData) => ({
+export const setAuth = (email, id, login) => ({
     type: actionType.setAuth,
-    authData
+    authData: {email, id, login}
 })
 
 export const setFetching = (isFetching) => ({
