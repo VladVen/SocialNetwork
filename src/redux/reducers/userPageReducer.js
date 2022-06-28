@@ -22,7 +22,7 @@ const userPageReducer = (state = reserveState, action) => {
                 ...state,
                 usersData: state.usersData.map(user => {
                     if(user.id === action.userId) {
-                        return {...user, follow: true}
+                        return {...user, followed: true}
                     }
                     return user
                 })
@@ -32,7 +32,7 @@ const userPageReducer = (state = reserveState, action) => {
                 ...state,
                 usersData: state.usersData.map(user => {
                     if(user.id === action.userId) {
-                        return {...user, follow: false}
+                        return {...user, followed: false}
                     }
                     return user
                 })

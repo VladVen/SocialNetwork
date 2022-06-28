@@ -3,10 +3,37 @@ import avatar from "../images/logo192.png";
 import Pages from "./Pages";
 import React from "react";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
-const UserClass = (props) => {
-
+const User = (props) => {
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
+    let follow = (users) => {
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${users.id}`, {
+            withCredentials: true,
+            headers: {
+                "API-Key": "c4eac98f-e206-4543-a154-529053d6be82"
+            }
+        })
+            .then(response => {
+                if(response.data.resultCode === 0) {
+                    props.setUnfollow(users.id)
+                }
+            })
+    }
+    let unfollow = (users) => {
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${users.id}`, null , {
+            withCredentials: true,
+            headers: {
+                "API-Key": "c4eac98f-e206-4543-a154-529053d6be82"
+            }
+        })
+            .then(response => {
+                if(response.data.resultCode === 0) {
+                    props.setFollow(users.id)
+                }
+            })
+    }
+
     return (
         <div>
             {
@@ -17,13 +44,9 @@ const UserClass = (props) => {
                     <img src={users.photos.small != null ? users.photos.small : avatar}/>
                         </NavLink>
                 </div>
-                {users.follow
-                    ? <button onClick={() => {
-                        props.setUnfollow(users.id)
-                    }}> Unfollow </button>
-                    : <button onClick={() => {
-                        props.setFollow(users.id)
-                    }}> Follow </button>}
+                {users.followed
+                    ? <button onClick={follow}> Unfollow </button>
+                    : <button onClick={unfollow}> Follow </button>}
             </span>
                         <span>
                     <span>
@@ -44,4 +67,4 @@ const UserClass = (props) => {
         </div>
     )
 }
-export default UserClass
+export default User

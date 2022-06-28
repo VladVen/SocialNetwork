@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import UserClass from "./userClass";
+import User from "./user";
 import {
     setFollow, setFetching,
     setCurrentPage,
@@ -16,7 +16,11 @@ class UsersApi extends React.Component {
 
     componentDidMount() {
         this.props.setFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
+            {
+                withCredentials: true
+            }
+        )
             .then(response => {
                 this.props.setFetching(false)
                 this.props.setUsers(response.data.items)
@@ -27,7 +31,11 @@ class UsersApi extends React.Component {
     currentPageChanger = (pageNumber) => {
         this.props.setCurrentPage(pageNumber)
         this.props.setFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
+            {
+                withCredentials: true
+            }
+        )
             .then(response => {
                 this.props.setFetching(false)
                 this.props.setUsers(response.data.items)
@@ -37,14 +45,14 @@ class UsersApi extends React.Component {
     render() {
         return (
             <div className={style.inform}>
-            {this.props.isFetching ? <Preloader />
-                    :  <UserClass currentPageChanger={this.currentPageChanger} usersData={this.props.usersData}
-                                  pageSize={this.props.pageSize}
-                                  totalCount={this.props.totalCount}
-                                  currentPage={this.props.currentPage}
-                                  setUnfollow={this.props.setUnfollow}
-                                  setFollow={this.props.setFollow}
-                                  isFetching={this.props.isFetching}
+                {this.props.isFetching ? <Preloader/>
+                    : <User currentPageChanger={this.currentPageChanger} usersData={this.props.usersData}
+                            pageSize={this.props.pageSize}
+                            totalCount={this.props.totalCount}
+                            currentPage={this.props.currentPage}
+                            setUnfollow={this.props.setUnfollow}
+                            setFollow={this.props.setFollow}
+                            isFetching={this.props.isFetching}
                     />}
 
             </div>
