@@ -4,7 +4,8 @@ let actionType = {
     setUsers: 'SETUSERS',
     setCurrentPage: 'SETCURRENTPAGE',
     setTotalCount: 'SETTOTALCOUNT',
-    setFetching: 'SETFETCHING'
+    setFetching: 'SETFETCHING',
+    followInProgress: 'FOLLOW_IN_PROGRESS'
 }
 
 let reserveState =  {
@@ -12,7 +13,8 @@ let reserveState =  {
     pageSize: 5,
     totalCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followInProgress: []
 }
 
 const userPageReducer = (state = reserveState, action) => {
@@ -57,6 +59,13 @@ const userPageReducer = (state = reserveState, action) => {
                 ...state,
                 isFetching: action.isFetching
             }
+        case(actionType.followInProgress):
+            return {
+                ...state,
+                followInProgress: action.followInProgress
+                    ? [...state.followInProgress, action.userId]
+                    : state.followInProgress.filter(id => id != action.userId)
+            }
             default:
             return state
     }
@@ -85,6 +94,11 @@ export const setTotalCount = (totalCount) => ({
 export const setFetching = (isFetching) => ({
     type: actionType.setFetching,
     isFetching
+})
+export const setFollowInProgress = (followInProgress, userId) => ({
+    type: actionType.followInProgress,
+    followInProgress,
+    userId
 })
 
 export default userPageReducer
