@@ -1,3 +1,5 @@
+import {followAPI, usersAPI} from "../../API/api";
+
 let actionType = {
     setFollow: 'FOLLOW',
     setUnfollow: 'UNFOLLOW',
@@ -100,5 +102,42 @@ export const setFollowInProgress = (followInProgress, userId) => ({
     followInProgress,
     userId
 })
+
+export const getUsersTC = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setFetching(true))
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setUsers(data.items))
+            dispatch(setTotalCount(data.totalCount))
+            dispatch(setFetching(false))
+        })
+    }
+}
+
+export const setFollowTC = (id) => {
+    return (dispatch) => {
+        dispatch(setFollowInProgress(true, id))
+        followAPI.delFollow(id)
+            .then(data => {
+                if(data.resultCode === 0) {
+                    dispatch(setUnfollow(id))
+                    dispatch(setFollowInProgress(false, id))
+                }
+            })
+    }
+}
+export const setUnfollowTC = (id) => {
+    return (dispatch) => {
+        dispatch(setFollowInProgress(true, id))
+        followAPI.addFollow(id)
+            .then(data => {
+                if(data.resultCode === 0) {
+                    dispatch(setFollow(id))
+                    dispatch(setFollowInProgress(false, id))
+                }
+            })
+    }
+}
+
 
 export default userPageReducer

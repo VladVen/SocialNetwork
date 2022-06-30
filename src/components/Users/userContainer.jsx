@@ -2,34 +2,22 @@ import React from "react";
 import {connect} from "react-redux";
 import User from "./user";
 import {
-    setFollow, setFetching,
+    setFollow,
     setCurrentPage,
-    setTotalCount,
-    setUsers,
-    setUnfollow, setFollowInProgress
+    setUnfollow, setFollowInProgress, getUsersTC, setFollowTC, setUnfollowTC
 } from "../../redux/reducers/userPageReducer";
 import style from './users.module.css'
 import Preloader from "../common/Preloader";
-import {usersAPI} from "../../API/api";
 
 class UsersApi extends React.Component {
 
     componentDidMount() {
-        this.props.setFetching(true)
-            usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-                this.props.setFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalCount(data.totalCount)
-            })
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
     }
 
     currentPageChanger = (pageNumber) => {
         this.props.setCurrentPage(pageNumber)
-        this.props.setFetching(true)
-        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-                this.props.setFetching(false)
-                this.props.setUsers(data.items)
-            })
+        this.props.getUsersTC(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -40,11 +28,9 @@ class UsersApi extends React.Component {
                             pageSize={this.props.pageSize}
                             totalCount={this.props.totalCount}
                             currentPage={this.props.currentPage}
-                            setUnfollow={this.props.setUnfollow}
-                            setFollow={this.props.setFollow}
-                            isFetching={this.props.isFetching}
-                            setFollowInProgress={this.props.setFollowInProgress}
                             followInProgress={this.props.followInProgress}
+                            setFollowTC={this.props.setFollowTC}
+                            setUnfollowTC={this.props.setUnfollowTC}
                     />}
 
             </div>
@@ -66,11 +52,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     setFollow,
     setUnfollow,
-    setUsers,
     setCurrentPage,
-    setTotalCount,
-    setFetching,
-    setFollowInProgress
+    setFollowInProgress,
+    getUsersTC,
+    setFollowTC,
+    setUnfollowTC
 }
 const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApi)
 

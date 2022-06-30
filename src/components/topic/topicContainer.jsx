@@ -1,29 +1,16 @@
 import React from "react";
 import {connect} from "react-redux";
-import axios from "axios";
-import {setAuth, setFetching} from "../../redux/reducers/authReducer";
+import {setAuthTC} from "../../redux/reducers/authReducer";
 import Topic from "./topic";
 
 
 class topicContainer extends React.Component {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    let {email, id, login} = response.data.data
-                    this.props.setAuth(email, id, login)
-                }
-            })
+        this.props.setAuthTC()
     }
     render() {
         return(
-            <>
-                {
                     <Topic {...this.props} />
-                }
-            </>
         )
     }
 }
@@ -33,6 +20,9 @@ const mapStateToProps = (state) => ({
     login: state.auth.login
 })
 
+const mapDispatchToProps = {
+    setAuthTC
+}
 
 
-export default connect(mapStateToProps, {setAuth, setFetching})(topicContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(topicContainer)

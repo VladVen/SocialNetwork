@@ -1,3 +1,5 @@
+import {authAPI} from "../../API/api";
+
 let actionType = {
     setFetching: 'SET_FETCHING',
     setAuth: 'SET_AUTH'
@@ -41,5 +43,17 @@ export const setFetching = (isFetching) => ({
     type: actionType.setFetching,
     isFetching
 })
+
+export const setAuthTC = () => {
+    return (dispatch) => {
+        authAPI.getAuth()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    let {email, id, login} = data.data
+                    dispatch(setAuth(email, id, login))
+                }
+            })
+    }
+}
 
 export default authReducer

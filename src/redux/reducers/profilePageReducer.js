@@ -1,3 +1,5 @@
+import {profileAPI} from "../../API/api";
+
 let actionType = {
     ADD_NEW_POST: 'ADD-NEW-POST',
     UPDATE_POST_AREA: 'UPDATE-POST-AREA',
@@ -47,10 +49,18 @@ export const onPostChanger = (text) => ({
     type: actionType.UPDATE_POST_AREA,
     postText: text
 })
-
 export const setUserProfile = (profile) => ({
     type: actionType.setUserProfile,
     profile
 })
+
+export const getProfileTC = (userId = 24409) => {
+    return (dispatch) => {
+        profileAPI.getProfile(userId)
+            .then(data => {
+                dispatch(setUserProfile(data))
+            })
+    }
+}
 
 export default profilePageReducer
