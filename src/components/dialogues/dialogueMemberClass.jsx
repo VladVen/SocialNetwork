@@ -14,30 +14,32 @@ class dialogueMemberClass extends React.Component {
 
     }
 
+
     render() {
         return (
             <div className={style.dialogues}>
-                <div className={style.dialoguesNames}> {
-                    this.props.dialoguesData.map(dialogues => <DialogueMembers key={dialogues.id}
-                                                                               name={dialogues.name}
-                                                                               id={dialogues.id}/>)
-                }
-                </div>
-                <div className={style.messages}> {
-                    this.props.messagesData.map(messages => <Message key={messages.id}
-                                                                     message={messages.message}
-                                                                     id={messages.id}/>)
-                }
-                    <div>
+                            <div className={style.dialoguesNames}> {
+                                this.props.dialoguesData.map(dialogues => <DialogueMembers key={dialogues.id}
+                                                                                           name={dialogues.name}
+                                                                                           id={dialogues.id}/>)
+                            }
+                            </div>
+                            <div className={style.messages}> {
+                                this.props.messagesData.map(messages => <Message key={messages.id}
+                                                                                 message={messages.message}
+                                                                                 id={messages.id}/>)
+                            }
+                                <div>
                     <textarea
                         value={this.props.newMessageText}
                         onChange={this.onMessageChanger}
                         placeholder='Enter your message'
                     />
-                        <button onClick={this.addMessage}>Send Message</button>
-                    </div>
-                </div>
-            </div>
+                                    <button onClick={this.addMessage}>Send Message</button>
+                                </div>
+                            </div>
+                        </div>
+
         )
     }
 }

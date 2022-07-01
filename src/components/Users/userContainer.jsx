@@ -58,6 +58,5 @@ const mapDispatchToProps = {
     setFollowTC,
     setUnfollowTC
 }
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApi)
 
-export default UsersContainer
+export default connect(mapStateToProps, mapDispatchToProps)(UsersApi)
