@@ -12,7 +12,8 @@ const ProfileInform = (props) => {
             <img src={props.profileData.photos.large} />
             <div>{props.profileData.fullName}</div>
             <div>{props.profileData.aboutMe}</div>
-            <ProfileStatus status={'status'} />
+            <ProfileStatus status = {props.status}
+                           updateProfileStatusTC = {props.updateProfileStatusTC} />
         </div>
     )
 }
