@@ -2,7 +2,6 @@ import {profileAPI} from "../../API/api";
 
 let actionType = {
     ADD_NEW_POST: 'ADD-NEW-POST',
-    UPDATE_POST_AREA: 'UPDATE-POST-AREA',
     setFetching: 'SET_FETCHING',
     setUserProfile: 'SET_USER_PROFILE',
     setProfileStatus: 'SET_PROFILE_STATUS'
@@ -24,15 +23,11 @@ let reserveState = {
 const profilePageReducer = (state = reserveState, action) => {
     switch (action.type) {
         case(actionType.ADD_NEW_POST):
+            let text = action.newPostText
             return {
                 ...state,
                 newPostText: '',
-                postData: [...state.postData, {id: n++, message: state.newPostText, likes: 0, dislikes: 0}]
-            }
-        case(actionType.UPDATE_POST_AREA):
-            return {
-                ...state,
-                newPostText: action.postText
+                postData: [...state.postData, {id: n++, message: text, likes: 0, dislikes: 0}]
             }
         case(actionType.setUserProfile):
             return {
@@ -49,13 +44,11 @@ const profilePageReducer = (state = reserveState, action) => {
     }
 }
 
-export const addPost = () => ({
-    type: actionType.ADD_NEW_POST
+export const addPost = (newPostText) => ({
+    type: actionType.ADD_NEW_POST,
+    newPostText
 })
-export const onPostChanger = (text) => ({
-    type: actionType.UPDATE_POST_AREA,
-    postText: text
-})
+
 export const setUserProfile = (profile) => ({
     type: actionType.setUserProfile,
     profile

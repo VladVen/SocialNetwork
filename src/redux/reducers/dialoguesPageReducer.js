@@ -1,14 +1,7 @@
 let actionType = {
     ADD_NEW_MESSAGE: 'ADD-NEW-MESSAGE',
-    UPDATE_MESSAGE_AREA: 'UPDATE-MESSAGE-AREA',
 }
-export const addMessage = () => ({
-    type: actionType.ADD_NEW_MESSAGE
-})
-export const onMessageChanger = (text) => ({
-    type: actionType.UPDATE_MESSAGE_AREA,
-    messageText: text
-})
+
 let nd = 1
 let nm = 1
 let reserveState = {
@@ -24,7 +17,6 @@ let reserveState = {
         {id: nm++, message: 'Slava Ukraine!!!'},
         {id: nm++, message: 'Fuck off'}
     ],
-    newMessageText: ''
 }
 
 
@@ -32,18 +24,19 @@ const dialoguesPageReducer = (state = reserveState, action) => {
 
     switch (action.type) {
         case (actionType.ADD_NEW_MESSAGE) :
+            let text = action.newMessageText
             return {
                 ...state,
-                newMessageText: '',
-                messagesData: [...state.messagesData, {id: nm++, message: state.newMessageText} ]
+                messagesData: [...state.messagesData, {id: nm++, message: text } ]
             }
-        case (actionType.UPDATE_MESSAGE_AREA):
-            return {
-                ...state,
-                newMessageText: action.messageText
-            }
+
         default:
             return state
     }
 }
+export const addMessage = (newMessageText) => ({
+    type: actionType.ADD_NEW_MESSAGE,
+    newMessageText
+})
+
 export default dialoguesPageReducer

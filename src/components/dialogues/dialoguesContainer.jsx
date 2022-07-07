@@ -1,6 +1,6 @@
-import {addMessage, onMessageChanger} from "../../redux/reducers/dialoguesPageReducer";
+import {addMessage} from "../../redux/reducers/dialoguesPageReducer";
 import {connect} from "react-redux";
-import dialogueMemberClass from "./dialogueMemberClass";
+import dialoguePage from "./dialoguePage";
 import React from "react";
 import withAuthRedirect from "../common/HOC/withAuthRedirect";
 import {compose} from "redux";
@@ -17,7 +17,6 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = {
     addMessage,
-    onMessageChanger
 }
 
 
@@ -25,4 +24,4 @@ const mapDispatchToProps = {
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     withAuthRedirect,
-)(dialogueMemberClass)
+)(dialoguePage)

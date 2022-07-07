@@ -9,7 +9,7 @@ let reducersPack = combineReducers({
     profilePage: profilePageReducer,
     messagesPage: dialoguesPageReducer,
     usersPage: userPageReducer,
-    auth: authReducer
+    auth: authReducer,
 
 })
 

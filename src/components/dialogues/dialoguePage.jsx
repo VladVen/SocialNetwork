@@ -2,17 +2,12 @@ import React from "react";
 import style from "./dialogues.module.css";
 import DialogueMembers from "./DialogueMembers";
 import Message from "./Message";
+import { Formik, Form, Field } from 'formik';
 
 
-class dialogueMemberClass extends React.Component {
-    addMessage = () => {
-        this.props.addMessage()
-    }
-    onMessageChanger = (event) => {
-        let text = event.currentTarget.value
-        this.props.onMessageChanger(text)
 
-    }
+class dialoguePage extends React.Component {
+
 
 
     render() {
@@ -30,12 +25,7 @@ class dialogueMemberClass extends React.Component {
                                                                                  id={messages.id}/>)
                             }
                                 <div>
-                    <textarea
-                        value={this.props.newMessageText}
-                        onChange={this.onMessageChanger}
-                        placeholder='Enter your message'
-                    />
-                                    <button onClick={this.addMessage}>Send Message</button>
+                   <AddMessageForm addMessage={this.props.addMessage}/>
                                 </div>
                             </div>
                         </div>
@@ -44,4 +34,31 @@ class dialogueMemberClass extends React.Component {
     }
 }
 
-export default dialogueMemberClass
+const AddMessageForm = (props) => {
+    const addMessage = (text) => {
+        props.addMessage(text)
+    }
+    return (
+        <Formik
+            initialValues={{
+                newMessageText: "",
+            }}
+            onSubmit={(values, { resetForm }) => {
+                addMessage(values.newMessageText);
+                resetForm({ values: "" });
+            }}>
+                <Form>
+                    <div>
+                        <Field
+                            name={"newMessageText"}
+                            as={"textarea"}
+                            placeholder={"enter text"}
+                        />
+                    </div>
+                    <button type={"submit"}>Send</button>
+                </Form>
+        </Formik>
+    );
+};
+
+export default dialoguePage
