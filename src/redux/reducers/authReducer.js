@@ -2,15 +2,17 @@ import {authAPI} from "../../API/api";
 
 let actionType = {
     setFetching: 'SET_FETCHING',
-    setAuth: 'SET_AUTH'
-
+    setAuth: 'SET_AUTH',
+    login: 'LOG_IN'
 }
 
 let reserveState = {
-        email: null,
-        id: null,
-        login: null,
-        isAuth: false,
+    email: null,
+    id: null,
+    login: null,
+    password: null,
+    rememberMe: false,
+    isAuth: false,
     isFetching: false
 }
 
@@ -21,7 +23,7 @@ const authReducer = (state = reserveState, action) => {
             return {
                 ...state,
                 ...action.authData,
-                isAuth:true
+                isAuth: true
             }
         case(actionType.setFetching):
             return {
@@ -44,6 +46,11 @@ export const setFetching = (isFetching) => ({
     isFetching
 })
 
+export const logIn = (email, password, rememberMe) => ({
+    type: actionType.login,
+    authData: {email, password, rememberMe}
+})
+
 export const setAuthTC = () => {
     return (dispatch) => {
         authAPI.getAuth()
@@ -51,6 +58,16 @@ export const setAuthTC = () => {
                 if (data.resultCode === 0) {
                     let {email, id, login} = data.data
                     dispatch(setAuth(email, id, login))
+                }
+            })
+    }
+}
+export const logInTC = (email, password, rememberMe) => {
+    return (dispatch) => {
+        authAPI.logIn(email, password, rememberMe)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(logIn(email, password, rememberMe))
                 }
             })
     }

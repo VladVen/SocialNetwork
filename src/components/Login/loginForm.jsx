@@ -1,6 +1,8 @@
 import React from "react";
-import style from './login.module.css'
-import { Formik, Form, Field } from 'formik';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import emailValidatorSchema from "../../formValidations/loginValidator";
+import {connect} from "react-redux";
+import {logInTC} from "../../redux/reducers/authReducer";
 
 
 
@@ -10,13 +12,19 @@ class loginForm extends React.Component {
             <div>
                 <h1>Login Form</h1>
                 <Formik
-                    initialValues={{ email: '', password: '' }}
+                    initialValues={{ email: '', password: '', rememberMe: false }}
+                    validationSchema={emailValidatorSchema}
                     onSubmit={(values ) => {
-                       console.log(values)
+                        return this.props.logInTC(values.email, values.password, values.rememberMe);
                     }}>
                         <Form>
                             <Field type="email" name="email" />
-                            <Field type="password" name="password" />
+                            <ErrorMessage name="email" component="span" />
+                            <div><Field type="password" name="password" /></div>
+                            <div>
+                                <Field type={"checkbox"} name={"rememberMe"} />
+                                <label htmlFor={"rememberMe"}> remember me </label>
+                            </div>
                             <button type="submit" >
                                 Submit
                             </button>
@@ -27,4 +35,9 @@ class loginForm extends React.Component {
     }
 };
 
-export default loginForm
+const mapStateToProps = () => {
+
+}
+
+
+export default connect(mapStateToProps, {logInTC}  )(loginForm)

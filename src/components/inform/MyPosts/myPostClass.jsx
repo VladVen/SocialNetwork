@@ -19,13 +19,11 @@ class myPostClass extends React.Component {
 }
 
 const PostForm = (props) => {
-    const addPost = (newPostText) => {
-        props.addPost(newPostText)
-    }
+
     return (
         <Formik initialValues={{newPostText: ''}}
                 onSubmit={(values, {resetForm}) => {
-                    addPost(values.newPostText);
+                    props.addPost(values.newPostText);
                     resetForm({values: ""});
                 }}>
             <Form>

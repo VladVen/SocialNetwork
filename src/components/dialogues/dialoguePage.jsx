@@ -3,6 +3,7 @@ import style from "./dialogues.module.css";
 import DialogueMembers from "./DialogueMembers";
 import Message from "./Message";
 import { Formik, Form, Field } from 'formik';
+import Textarea from "../common/customComponent/textarea";
 
 
 
@@ -35,23 +36,21 @@ class dialoguePage extends React.Component {
 }
 
 const AddMessageForm = (props) => {
-    const addMessage = (text) => {
-        props.addMessage(text)
-    }
+
     return (
         <Formik
             initialValues={{
                 newMessageText: "",
             }}
             onSubmit={(values, { resetForm }) => {
-                addMessage(values.newMessageText);
+                props.addMessage(values.newMessageText);
                 resetForm({ values: "" });
             }}>
                 <Form>
                     <div>
                         <Field
                             name={"newMessageText"}
-                            as={"textarea"}
+                            as={Textarea}
                             placeholder={"enter text"}
                         />
                     </div>
