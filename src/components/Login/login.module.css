@@ -2,3 +2,7 @@
     background: green;
     text-align: center;
 }
+
+.error {
+    color: red;
+}

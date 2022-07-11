@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {setAuthTC} from "../../redux/reducers/authReducer";
+import {logOutTC, setAuthTC} from "../../redux/reducers/authReducer";
 import Topic from "./topic";
 
 
@@ -21,7 +21,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    setAuthTC
+    setAuthTC,
+    logOutTC
 }
 
 

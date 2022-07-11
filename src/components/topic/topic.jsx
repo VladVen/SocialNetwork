@@ -6,7 +6,11 @@ const Topic = (props) => {
         <header className={style.topic}>
        <img className={style.logo} src='https://v.od.ua/uploads/92/logo.png'/>
             <div className={style.login}>
-            { props.isAuth ? props.login
+            { props.isAuth
+                ? <div>
+                    {props.login}
+                    <button onClick={props.logOutTC}>Log out</button>
+            </div>
                 : <NavLink to={'/login'}>Login</NavLink>
             }
             </div>
