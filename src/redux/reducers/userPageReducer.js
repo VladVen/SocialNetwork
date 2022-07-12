@@ -10,7 +10,7 @@ let actionType = {
     followInProgress: 'FOLLOW_IN_PROGRESS'
 }
 
-let reserveState =  {
+let initialState =  {
     usersData: [    ],
     pageSize: 5,
     totalCount: 0,
@@ -19,7 +19,7 @@ let reserveState =  {
     followInProgress: []
 }
 
-const userPageReducer = (state = reserveState, action) => {
+const userPageReducer = (state = initialState, action) => {
     switch (action.type) {
         case(actionType.setFollow):
             return {

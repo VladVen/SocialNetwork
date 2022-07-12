@@ -4,12 +4,14 @@ import dialoguesPageReducer from "./reducers/dialoguesPageReducer";
 import userPageReducer from "./reducers/userPageReducer";
 import authReducer from "./reducers/authReducer";
 import thunkMiddleware from "redux-thunk";
+import appReducer from "./reducers/appReducer";
 
 let reducersPack = combineReducers({
     profilePage: profilePageReducer,
     messagesPage: dialoguesPageReducer,
     usersPage: userPageReducer,
     auth: authReducer,
+    app: appReducer
 
 })
 

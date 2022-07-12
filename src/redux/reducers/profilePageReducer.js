@@ -7,7 +7,7 @@ let actionType = {
     setProfileStatus: 'SET_PROFILE_STATUS'
 }
 let n = 1
-let reserveState = {
+let initialState = {
     profileData: null,
     postData: [
         {id: n++, message: 'Hello world!!!', likes: 85, dislikes: 1},
@@ -20,7 +20,7 @@ let reserveState = {
     status: '',
 }
 
-const profilePageReducer = (state = reserveState, action) => {
+const profilePageReducer = (state = initialState, action) => {
     switch (action.type) {
         case(actionType.ADD_NEW_POST):
             let text = action.newPostText
@@ -59,7 +59,7 @@ export const setProfileStatus = (status) => ({
 })
 
 
-export const getProfileTC = (userId = 24409) => {
+export const getProfileTC = (userId) => {
     return (dispatch) => {
         profileAPI.getProfile(userId)
             .then(data => {
@@ -67,7 +67,7 @@ export const getProfileTC = (userId = 24409) => {
             })
     }
 }
-export const getProfileStatusTC = (userId = 24409) => {
+export const getProfileStatusTC = (userId) => {
     return (dispatch) => {
         profileAPI.getStatus(userId)
             .then(data => {

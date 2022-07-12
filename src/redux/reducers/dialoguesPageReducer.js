@@ -4,7 +4,7 @@ let actionType = {
 
 let nd = 1
 let nm = 1
-let reserveState = {
+let initialState = {
     dialoguesData: [
         {id: nd++, name: 'Jenya'},
         {id: nd++, name: 'Juliya'},
@@ -20,7 +20,7 @@ let reserveState = {
 }
 
 
-const dialoguesPageReducer = (state = reserveState, action) => {
+const dialoguesPageReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case (actionType.ADD_NEW_MESSAGE) :

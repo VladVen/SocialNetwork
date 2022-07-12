@@ -1,13 +1,11 @@
 import React from "react";
 import {connect} from "react-redux";
-import {logOutTC, setAuthTC} from "../../redux/reducers/authReducer";
+import {logOutTC} from "../../redux/reducers/authReducer";
 import Topic from "./topic";
 
 
 class topicContainer extends React.Component {
-    componentDidMount() {
-        this.props.setAuthTC()
-    }
+
     render() {
         return(
                     <Topic {...this.props} />
@@ -21,7 +19,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    setAuthTC,
     logOutTC
 }
 

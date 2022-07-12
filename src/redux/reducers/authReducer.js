@@ -8,7 +8,7 @@ let actionType = {
     captcha: 'CAPTCHA'
 }
 
-let reserveState = {
+let initialState = {
     email: null,
     id: null,
     login: null,
@@ -19,7 +19,7 @@ let reserveState = {
     captchaUrl: null
 }
 
-const authReducer = (state = reserveState, action) => {
+const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case(actionType.setAuth):
 
@@ -73,7 +73,7 @@ export const getCaptcha = (captcha) => ({
 
 export const setAuthTC = () => {
     return (dispatch) => {
-        authAPI.getAuth()
+        return authAPI.getAuth()
             .then(data => {
                 if (data.resultCode === 0) {
                     let {email, id, login} = data.data
