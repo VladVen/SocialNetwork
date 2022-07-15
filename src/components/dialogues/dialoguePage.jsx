@@ -2,15 +2,11 @@ import React from "react";
 import style from "./dialogues.module.css";
 import DialogueMembers from "./DialogueMembers";
 import Message from "./Message";
-import { Formik, Form, Field } from 'formik';
-import Textarea from "../common/customComponent/textarea";
+import AddMessageForm from "./AddMessageForm";
 
 
 
 class dialoguePage extends React.Component {
-
-
-
     render() {
         return (
             <div className={style.dialogues}>
@@ -35,29 +31,6 @@ class dialoguePage extends React.Component {
     }
 }
 
-const AddMessageForm = (props) => {
 
-    return (
-        <Formik
-            initialValues={{
-                newMessageText: "",
-            }}
-            onSubmit={(values, { resetForm }) => {
-                props.addMessage(values.newMessageText);
-                resetForm({ values: "" });
-            }}>
-                <Form>
-                    <div>
-                        <Field
-                            name={"newMessageText"}
-                            as={Textarea}
-                            placeholder={"enter text"}
-                        />
-                    </div>
-                    <button type={"submit"}>Send</button>
-                </Form>
-        </Formik>
-    );
-};
 
 export default dialoguePage
