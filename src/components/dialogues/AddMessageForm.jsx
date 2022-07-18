@@ -1,5 +1,5 @@
 import {Field, Form, Formik} from "formik";
-import Textarea from "../common/customComponent/textarea";
+import Textarea from "../../common/customComponent/textarea";
 import React from "react";
 
 const AddMessageForm = (props) => {

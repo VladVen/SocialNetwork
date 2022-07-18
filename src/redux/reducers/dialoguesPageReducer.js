@@ -1,5 +1,5 @@
 let actionType = {
-    ADD_NEW_MESSAGE: 'ADD-NEW-MESSAGE',
+    ADD_NEW_MESSAGE: 'dialogues/ADD-NEW-MESSAGE',
 }
 
 let nd = 1

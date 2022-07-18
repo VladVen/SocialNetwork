@@ -1,7 +1,7 @@
 import {setAuthTC} from "./authReducer";
 
 let actionType = {
-    setInitialize: 'SET_INITIALIZE'
+    setInitialize: 'app/SET_INITIALIZE'
 }
 
 let initialState = {

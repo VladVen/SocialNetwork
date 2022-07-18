@@ -3,10 +3,11 @@ import React from "react";
 
 
 let Pages = (props) => {
+    let pagesCount = Math.ceil(props.totalCount / props.pageSize)
 
     let pages = []
 
-    for (let n = 1; n <= props.pagesCount; n++) {
+    for (let n = 1; n <= pagesCount; n++) {
         pages.push(n)
     }
 

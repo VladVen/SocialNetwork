@@ -1,13 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
-import User from "./user";
+import Users from "./users";
 import {
     setFollow,
     setCurrentPage,
     setUnfollow, setFollowInProgress, getUsersTC, setFollowTC, setUnfollowTC
 } from "../../redux/reducers/userPageReducer";
 import style from './users.module.css'
-import Preloader from "../common/Preloader";
+import Preloader from "../../common/Preloader";
 import {
     getCurrentPage,
     getFollowInProgress,
@@ -32,13 +32,13 @@ class UsersApi extends React.Component {
         return (
             <div className={style.inform}>
                 {this.props.isFetching ? <Preloader/>
-                    : <User currentPageChanger={this.currentPageChanger} usersData={this.props.usersData}
-                            pageSize={this.props.pageSize}
-                            totalCount={this.props.totalCount}
-                            currentPage={this.props.currentPage}
-                            followInProgress={this.props.followInProgress}
-                            setFollowTC={this.props.setFollowTC}
-                            setUnfollowTC={this.props.setUnfollowTC}
+                    : <Users currentPageChanger={this.currentPageChanger} usersData={this.props.usersData}
+                             pageSize={this.props.pageSize}
+                             totalCount={this.props.totalCount}
+                             currentPage={this.props.currentPage}
+                             followInProgress={this.props.followInProgress}
+                             setFollowTC={this.props.setFollowTC}
+                             setUnfollowTC={this.props.setUnfollowTC}
                     />}
 
             </div>

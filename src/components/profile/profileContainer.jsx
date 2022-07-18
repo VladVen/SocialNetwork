@@ -3,8 +3,8 @@ import style from './profile.module.css'
 import {connect} from "react-redux";
 import Profile from "./profile";
 import {getProfileStatusTC, getProfileTC, updateProfileStatusTC} from "../../redux/reducers/profilePageReducer";
-import withRouter from "../common/withRouter";
-import withAuthRedirect from "../common/HOC/withAuthRedirect";
+import withRouter from "../../common/HOC/withRouter";
+import withAuthRedirect from "../../common/HOC/withAuthRedirect";
 import {compose} from "redux";
 
 

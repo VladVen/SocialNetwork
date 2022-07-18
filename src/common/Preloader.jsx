@@ -1,4 +1,4 @@
-import loader from "../images/loader.gif";
+import loader from "../components/images/loader.gif";
 import React from "react";
 
 let Preloader = () => {

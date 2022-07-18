@@ -1,11 +1,11 @@
 import {authAPI} from "../../API/api";
 
 let actionType = {
-    setFetching: 'SET_FETCHING',
-    setAuth: 'SET_AUTH',
-    login: 'LOG_IN',
-    catchError: 'CATCH_ERROR',
-    captcha: 'CAPTCHA'
+    setFetching: 'auth/SET_FETCHING',
+    setAuth: 'auth/SET_AUTH',
+    login: 'auth/LOG_IN',
+    catchError: 'auth/CATCH_ERROR',
+    captcha: 'auth/CAPTCHA'
 }
 
 let initialState = {
@@ -38,7 +38,7 @@ const authReducer = (state = initialState, action) => {
                 errorMessage: action.error,
                 error: true
             }
-            case(actionType.captcha):
+        case(actionType.captcha):
             return {
                 ...state,
                 captchaUrl: action.captcha,
@@ -51,10 +51,12 @@ const authReducer = (state = initialState, action) => {
 
 export const setAuth = (email, id, login, isAuth,) => ({
     type: actionType.setAuth,
-    authData: {email, id, login, isAuth,
+    authData: {
+        email, id, login, isAuth,
         error: false,
         errorMessage: '',
-        captchaUrl: null }
+        captchaUrl: null
+    }
 })
 
 export const setFetching = (isFetching) => ({
@@ -71,43 +73,34 @@ export const getCaptcha = (captcha) => ({
 })
 
 
-export const setAuthTC = () => {
-    return (dispatch) => {
-        return authAPI.getAuth()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    let {email, id, login} = data.data
-                    dispatch(setAuth(email, id, login, true))
-                }
-            })
+export const setAuthTC = () => async (dispatch) => {
+    let data = await authAPI.getAuth()
+    if (data.resultCode === 0) {
+        let {email, id, login} = data.data
+        dispatch(setAuth(email, id, login, true))
     }
 }
-export const logInTC = (email, password, rememberMe, captcha = null) => {
-    return (dispatch) => {
-        authAPI.logIn(email, password, rememberMe, captcha)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setAuthTC())
-                } else if( data.resultCode === 10) {
-                    dispatch(catchError(data.messages))
-                    authAPI.getCaptcha()
-                        .then(data => {
-                            dispatch(getCaptcha(data.url))
-                        })
-                } else {
-                    dispatch(catchError(data.messages))
-                }
-            })
+export const logInTC = (email, password, rememberMe, captcha = null) =>
+    async (dispatch) => {
+        let data = await authAPI.logIn(email, password, rememberMe, captcha)
+
+        if (data.resultCode === 0) {
+            dispatch(setAuthTC())
+        } else if (data.resultCode === 10) {
+            dispatch(catchError(data.messages))
+            authAPI.getCaptcha()
+                .then(data => {
+                    dispatch(getCaptcha(data.url))
+                })
+        } else {
+            dispatch(catchError(data.messages))
+        }
     }
-}
-export const logOutTC = () => {
-    return (dispatch) => {
-        authAPI.logOut()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setAuth(null, null, null, false,))
-                }
-            })
+
+export const logOutTC = () => async (dispatch) => {
+    let data = await authAPI.logOut()
+    if (data.resultCode === 0) {
+        dispatch(setAuth(null, null, null, false,))
     }
 }
 

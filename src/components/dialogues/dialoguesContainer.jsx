@@ -2,7 +2,7 @@ import {addMessage} from "../../redux/reducers/dialoguesPageReducer";
 import {connect} from "react-redux";
 import dialoguePage from "./dialoguePage";
 import React from "react";
-import withAuthRedirect from "../common/HOC/withAuthRedirect";
+import withAuthRedirect from "../../common/HOC/withAuthRedirect";
 import {compose} from "redux";
 
 

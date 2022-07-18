@@ -7,14 +7,14 @@ import Music from "./components/Music/music";
 import Settings from "./components/Settings/settings";
 import DialoguesContainer from "./components/dialogues/dialoguesContainer";
 import UsersContainer from "./components/Users/userContainer";
-import ProfileContainer from "./components/inform/profileContainer";
+import ProfileContainer from "./components/profile/profileContainer";
 import TopicContainer from "./components/topic/topicContainer";
 import LoginForm from "./components/Login/loginForm";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import withRouter from "./components/common/withRouter";
+import withRouter from "./common/HOC/withRouter";
 import {runInitialize} from "./redux/reducers/appReducer";
-import Preloader from "./components/common/Preloader";
+import Preloader from "./common/Preloader";
 
 
 class App extends React.Component {
