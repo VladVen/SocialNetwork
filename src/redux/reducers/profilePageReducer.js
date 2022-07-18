@@ -4,7 +4,8 @@ let actionType = {
     ADD_NEW_POST: 'ADD-NEW-POST',
     setFetching: 'SET_FETCHING',
     setUserProfile: 'SET_USER_PROFILE',
-    setProfileStatus: 'SET_PROFILE_STATUS'
+    setProfileStatus: 'SET_PROFILE_STATUS',
+    deletePost: 'DELETE_POST'
 }
 let n = 1
 let initialState = {
@@ -12,9 +13,8 @@ let initialState = {
     postData: [
         {id: n++, message: 'Hello world!!!', likes: 85, dislikes: 1},
         {id: n++, message: 'Slava Ukraine', likes: 105, dislikes: 15},
-        {id: n++, message: 'Crimea is ours', likes: 100, dislikes: 5},
-        {id: n++, message: 'Венгы пидоры', likes: 456, dislikes: 165},
-        {id: n++, message: 'Русские пидоры', likes: 456, dislikes: 165}
+        {id: n++, message: 'i start developing my own social network', likes: 456, dislikes: 165},
+        {id: n++, message: 'it is so easy', likes: 456, dislikes: 165}
     ],
     newPostText: '',
     status: '',
@@ -28,6 +28,11 @@ const profilePageReducer = (state = initialState, action) => {
                 ...state,
                 newPostText: '',
                 postData: [...state.postData, {id: n++, message: text, likes: 0, dislikes: 0}]
+            }
+            case(actionType.deletePost):
+            return {
+                ...state,
+                postData: state.postData.filter(p => p.id != action.postId)
             }
         case(actionType.setUserProfile):
             return {
@@ -47,6 +52,10 @@ const profilePageReducer = (state = initialState, action) => {
 export const addPost = (newPostText) => ({
     type: actionType.ADD_NEW_POST,
     newPostText
+})
+export const deletePost = (postId) => ({
+    type: actionType.deletePost,
+    postId
 })
 
 export const setUserProfile = (profile) => ({
