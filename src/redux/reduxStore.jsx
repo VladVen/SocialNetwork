@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, legacy_createStore as createStore} from "redux";
 import profilePageReducer from "./reducers/profilePageReducer";
 import dialoguesPageReducer from "./reducers/dialoguesPageReducer";
 import userPageReducer from "./reducers/userPageReducer";
@@ -15,8 +15,9 @@ let reducersPack = combineReducers({
 
 })
 
-let store = createStore(reducersPack, applyMiddleware(thunkMiddleware))
-
-window.store=store
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducersPack, composeEnhancers(
+    applyMiddleware(thunkMiddleware)
+));
 
 export default store
