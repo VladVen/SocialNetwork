@@ -42,9 +42,9 @@ class profileStatusOUTDATED extends React.Component {
                         value={this.state.status}
                         placeholder='Enter your status'
                     />
-                    :<div onDoubleClick={this.activateEditMode}>
+                    :<span onDoubleClick={this.activateEditMode}>
                         {this.state.status || 'Write your status'}
-                    </div>
+                    </span>
                 }
             </div>
         )
