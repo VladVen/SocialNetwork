@@ -5,7 +5,8 @@ let actionType = {
     setFetching: 'profile/SET_FETCHING',
     setUserProfile: 'profile/SET_USER_PROFILE',
     setProfileStatus: 'profile/SET_PROFILE_STATUS',
-    deletePost: 'profile/DELETE_POST'
+    deletePost: 'profile/DELETE_POST',
+    putPhoto: 'profile/PUT_PHOTO'
 }
 let n = 1
 let initialState = {
@@ -18,6 +19,7 @@ let initialState = {
     ],
     newPostText: '',
     status: '',
+    photos: null
 }
 
 const profilePageReducer = (state = initialState, action) => {
@@ -44,6 +46,11 @@ const profilePageReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status
             }
+        case(actionType.putPhoto):
+            return {
+                ...state,
+                photos: action.photos
+            }
         default:
             return state
     }
@@ -66,6 +73,10 @@ export const setProfileStatus = (status) => ({
     type: actionType.setProfileStatus,
     status
 })
+export const putPhoto = (photos) => ({
+    type: actionType.putPhoto,
+    photos
+})
 
 
 export const getProfileTC = (userId) => async (dispatch) => {
@@ -81,6 +92,12 @@ export const updateProfileStatusTC = (status) => async (dispatch) => {
     let data = await profileAPI.updateStatus(status)
     if (data.resultCode === 0) {
         dispatch(setProfileStatus(status))
+    }
+}
+export const uploadNewAvatar = (photo) => async (dispatch) => {
+    let data = await profileAPI.uploadAvatar(photo)
+    if (data.resultCode === 0) {
+        dispatch(putPhoto(data.photos))
     }
 }
 

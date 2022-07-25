@@ -11,6 +11,8 @@ const Profile = (props) => {
             <ProfileInform profileData={props.profileData}
                            status = {props.status}
                            updateProfileStatusTC = {props.updateProfileStatusTC}
+                           isOwner={props.isOwner}
+                           uploadNewAvatar={props.uploadNewAvatar}
             />
            <MyPostsContainer />
     </div>

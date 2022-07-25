@@ -41,6 +41,16 @@ export const profileAPI = {
             status
         })
             .then(response => response.data)
+    },
+    uploadAvatar (photo) {
+        const formData = new FormData()
+        formData.append('image', photo)
+        return instance.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(response => response.data)
     }
 }
 export const authAPI = {
