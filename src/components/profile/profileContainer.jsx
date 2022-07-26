@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import Profile from "./profile";
 import {
     getProfileStatusTC,
-    getProfileTC,
+    getProfileTC, updateContacts,
     updateProfileStatusTC,
     uploadNewAvatar
 } from "../../redux/reducers/profilePageReducer";
@@ -46,6 +46,7 @@ class ProfileContainer extends React.Component {
                          status = {this.props.status}
                          updateProfileStatusTC = {this.props.updateProfileStatusTC}
                          uploadNewAvatar={this.props.uploadNewAvatar}
+                         updateContacts={this.props.updateContacts}
                 />
             </div>
         )
@@ -62,7 +63,8 @@ const mapDispatchToProps = {
     getProfileTC,
     getProfileStatusTC,
     updateProfileStatusTC,
-    uploadNewAvatar
+    uploadNewAvatar,
+    updateContacts
 }
 
 export default compose(

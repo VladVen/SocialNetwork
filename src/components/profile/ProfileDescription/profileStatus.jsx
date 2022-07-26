@@ -21,7 +21,7 @@ const ProfileStatus = (props) => {
     }
     return (
         <div>
-            {editMode
+            <b>My Status: </b> {editMode
                 ?
                 <input
                     value={status}
@@ -30,9 +30,9 @@ const ProfileStatus = (props) => {
                     onBlur={deactivateEditMode}
                     onChange={onStatusChanger}
                 />
-                : <div onDoubleClick={activateEditMode}>
+                : <span onDoubleClick={activateEditMode}>
                     {status || 'Write your status'}
-                </div>
+                </span>
             }
         </div>
     )

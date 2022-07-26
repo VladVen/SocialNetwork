@@ -1,5 +1,5 @@
 const {create} = require("react-test-renderer");
-import ProfileStatusOUTDATED from "../../components/profile/profileStatusOUTDATED";
+import ProfileStatusOUTDATED from "../../components/profile/ProfileDescription/profileStatusOUTDATED";
 
 describe('Status test', () => {
     test('status should be pushed to state', () => {

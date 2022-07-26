@@ -51,7 +51,13 @@ export const profileAPI = {
             }
         })
             .then(response => response.data)
-    }
+    },
+    updateContacts (contacts) {
+        return instance.put(`profile`, {
+            contacts: contacts
+        })
+            .then(response => response.data)
+    },
 }
 export const authAPI = {
     getAuth () {

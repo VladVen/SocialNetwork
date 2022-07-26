@@ -1,6 +1,6 @@
 import React from "react";
 import Post from "./Post/post1";
-import PostForm from "../postForm";
+import PostForm from "../ProfileDescription/postForm";
 
 
 const myPostClass = React.memo((props) => {

@@ -1,5 +1,5 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import myPostValidatorSchema from "../../formValidations/myPostValidator";
+import myPostValidatorSchema from "../../../formValidations/myPostValidator";
 import React from "react";
 
 const PostForm = (props) => {
