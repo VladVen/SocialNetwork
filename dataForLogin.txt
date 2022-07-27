@@ -1,0 +1,2 @@
+email: venediktov.vlad@gmail.com
+password: password1234
