@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import Profile from "./profile";
 import {
     getProfileStatusTC,
-    getProfileTC, updateContacts,
+    getProfileTC, updateContacts, updateProfile,
     updateProfileStatusTC,
     uploadNewAvatar
 } from "../../redux/reducers/profilePageReducer";
@@ -46,7 +46,9 @@ class ProfileContainer extends React.Component {
                          status = {this.props.status}
                          updateProfileStatusTC = {this.props.updateProfileStatusTC}
                          uploadNewAvatar={this.props.uploadNewAvatar}
-                         updateContacts={this.props.updateContacts}
+                         updateProfile={this.props.updateProfile}
+                         errorMessage={this.props.errorMessage}
+                         error={this.props.error}
                 />
             </div>
         )
@@ -58,13 +60,15 @@ const mapStateToProps = (state) => ({
     profileData: state.profilePage.profileData,
     status: state.profilePage.status,
     authorizeId: state.auth.id,
+    errorMessage: state.profilePage.errorMessage,
+    error: state.profilePage.error
 })
 const mapDispatchToProps = {
     getProfileTC,
     getProfileStatusTC,
     updateProfileStatusTC,
     uploadNewAvatar,
-    updateContacts
+    updateProfile
 }
 
 export default compose(

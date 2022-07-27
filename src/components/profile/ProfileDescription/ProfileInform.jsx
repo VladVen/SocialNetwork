@@ -7,18 +7,20 @@ import UploadAvatar from "./uploadAvatar";
 import Modal from "../../../common/modal/modal";
 import ProfileContacts from "./ProfileContacts";
 import ContactsForm from "./ContactsForm";
+import EditProfileForm from "./EditProfileForm";
 
 const ProfileInform = (props) => {
 
     let [isOpenAvatar, setOpenAvatar] = useState(false)
     let [isOpenContacts, setOpenContacts] = useState(false)
+    let [isOpenEdit, setOpenEdit] = useState(false)
 
     if (!props.profileData) {
         return <Preloader/>
     }
 
     return (
-        <div>
+        <div className={style.myInfo}>
             <img src={props.profileData.photos.large != null ? props.profileData.photos.large : NoAvatar}
                  className={style.avatar}/>
             {
@@ -30,17 +32,30 @@ const ProfileInform = (props) => {
             <div><b>My Name: </b>{props.profileData.fullName}</div>
 
             <ProfileStatus status={props.status}
-                           updateProfileStatusTC={props.updateProfileStatusTC}/>
+                           updateProfileStatusTC={props.updateProfileStatusTC} isOwner={props.isOwner}/>
             <div>
-                <div><b>About me: </b> {props.profileData.aboutMe}</div>
-                <div><b>LookingForAJob:</b> {props.profileData.lookingForAJob ? ' Yes' : ' No'} </div>
+                <div><b>About me: </b> {props.profileData.aboutMe || 'No info'}</div>
+                <div><b>Looking For A Job:</b> {props.profileData.lookingForAJob ? ' Yes' : ' No'} </div>
                 <div>
                     {
                         props.profileData.lookingForAJob && <div>
-                            <b>What i`m looking for a gob:</b> {props.profileData.lookingForAJobDescription} </div>
+                            <b>My skills:</b> {props.profileData.lookingForAJobDescription} </div>
                     }
                 </div>
+                <div>
+                    {
+                        props.isOwner &&
+                        <button onClick={() => setOpenEdit(true)}>Edit Information About me</button>
+                    }
+                    <Modal isOpen={isOpenEdit} onclose={() => setOpenEdit(false)}>
+                        <EditProfileForm onclose={() => setOpenEdit(false)}
+                                         updateProfile={props.updateProfile}
+                                      profileData={props.profileData}
+                        />
+                    </Modal>
+                </div>
             </div>
+            < br/>
             <div>
                 <b>Contacts: </b> {
                 props.isOwner && <button onClick={() => setOpenContacts(true)}>Edit Contacts</button>
@@ -50,7 +65,12 @@ const ProfileInform = (props) => {
                                                  objectKey={key}
                                                  objectValue={props.profileData.contacts[key]}/>)}
                 <Modal isOpen={isOpenContacts} onclose={() => setOpenContacts(false)}>
-                    <ContactsForm onclose={() => setOpenContacts(false)} updateContacts={props.updateContacts} />
+                    <ContactsForm onclose={() => setOpenContacts(false)}
+                                  updateProfile={props.updateProfile}
+                                  profileData={props.profileData}
+                                  errorMessage={props.errorMessage}
+                                  error={props.error}
+                    />
                 </Modal>
             </div>
         </div>

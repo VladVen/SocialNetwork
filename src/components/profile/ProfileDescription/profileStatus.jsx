@@ -21,9 +21,10 @@ const ProfileStatus = (props) => {
     }
     return (
         <div>
-            <b>My Status: </b> {editMode
-                ?
-                <input
+            <b>My Status: </b>
+            {
+                editMode
+                    ? <input
                     value={status}
                     placeholder='Enter your status'
                     autoFocus={true}
@@ -31,8 +32,12 @@ const ProfileStatus = (props) => {
                     onChange={onStatusChanger}
                 />
                 : <span onDoubleClick={activateEditMode}>
-                    {status || 'Write your status'}
+                    {status || 'No Status'}
                 </span>
+            }
+            {
+                props.isOwner &&
+                <b> Double click to edit</b>
             }
         </div>
     )

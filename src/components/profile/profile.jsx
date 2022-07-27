@@ -13,7 +13,9 @@ const Profile = (props) => {
                            updateProfileStatusTC = {props.updateProfileStatusTC}
                            isOwner={props.isOwner}
                            uploadNewAvatar={props.uploadNewAvatar}
-                           updateContacts={props.updateContacts}
+                           updateProfile={props.updateProfile}
+                           errorMessage={props.errorMessage}
+                           error={props.error}
             />
            <MyPostsContainer />
     </div>

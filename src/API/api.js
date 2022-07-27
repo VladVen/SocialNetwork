@@ -9,7 +9,7 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers (currentPage, pageSize)  {
+    getUsers(currentPage, pageSize) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`
         )
             .then(response => response.data)
@@ -17,32 +17,32 @@ export const usersAPI = {
 }
 
 export const followAPI = {
-    delFollow (usersId) {
+    delFollow(usersId) {
         return instance.delete(`follow/${usersId}`)
             .then(response => response.data)
     },
-    addFollow (usersId) {
+    addFollow(usersId) {
         return instance.post(`follow/${usersId}`)
             .then(response => response.data)
     }
 }
 
 export const profileAPI = {
-    getProfile (userId) {
+    getProfile(userId) {
         return instance.get(`profile/` + userId)
             .then(response => response.data)
     },
-    getStatus (userId) {
+    getStatus(userId) {
         return instance.get(`profile/status/` + userId)
             .then(response => response.data)
     },
-    updateStatus (status) {
+    updateStatus(status) {
         return instance.put(`profile/status`, {
             status
         })
             .then(response => response.data)
     },
-    uploadAvatar (photo) {
+    uploadAvatar(photo) {
         const formData = new FormData()
         formData.append('image', photo)
         return instance.put(`profile/photo`, formData, {
@@ -52,28 +52,28 @@ export const profileAPI = {
         })
             .then(response => response.data)
     },
-    updateContacts (contacts) {
-        return instance.put(`profile`, {
-            contacts: contacts
-        })
+    updateProfile(profile) {
+        return instance.put(`profile`,
+            profile
+        )
             .then(response => response.data)
     },
 }
 export const authAPI = {
-    getAuth () {
+    getAuth() {
         return instance.get(`auth/me`)
             .then(response => response.data)
     },
-    logIn ( email, password, rememberMe, captcha = null ) {
-        return instance.post(`/auth/login`, { email, password, rememberMe, captcha })
+    logIn(email, password, rememberMe, captcha = null) {
+        return instance.post(`/auth/login`, {email, password, rememberMe, captcha})
             .then(response => response.data)
     },
-    logOut () {
+    logOut() {
         return instance.delete(`/auth/login`)
             .then(response => response.data)
     },
-    getCaptcha () {
-        return instance.get( '/security/get-captcha-url')
+    getCaptcha() {
+        return instance.get('/security/get-captcha-url')
             .then(response => response.data)
     }
 }

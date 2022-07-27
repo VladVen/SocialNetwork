@@ -5,3 +5,7 @@
 .contactsForm div {
     width: 200px;
 }
+
+.error {
+    color: red;
+}

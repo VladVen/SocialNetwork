@@ -7,7 +7,8 @@ let actionType = {
     setProfileStatus: 'profile/SET_PROFILE_STATUS',
     deletePost: 'profile/DELETE_POST',
     putPhoto: 'profile/PUT_PHOTO',
-    editContacts: 'profile/EDIT_CONTACTS'
+    catchError: 'profile/CATCH_ERROR',
+
 }
 let n = 1
 let initialState = {
@@ -20,8 +21,8 @@ let initialState = {
     ],
     newPostText: '',
     status: '',
-    photos: null,
-    contacts: null
+    errorMessage: null,
+    error: false
 }
 
 const profilePageReducer = (state = initialState, action) => {
@@ -41,7 +42,9 @@ const profilePageReducer = (state = initialState, action) => {
         case(actionType.setUserProfile):
             return {
                 ...state,
-                profileData: action.profile
+                profileData: action.profile,
+                errorMessage: null,
+                error: false
             }
         case(actionType.setProfileStatus):
             return {
@@ -51,12 +54,13 @@ const profilePageReducer = (state = initialState, action) => {
         case(actionType.putPhoto):
             return {
                 ...state,
-                photos: action.photos
+                profileData: {...state.profileData, photos: action.photos}
             }
-            case(actionType.editContacts):
+        case(actionType.catchError):
             return {
                 ...state,
-                contacts: action.contacts
+                errorMessage: action.error,
+                error: true
             }
         default:
             return state
@@ -84,9 +88,9 @@ export const putPhoto = (photos) => ({
     type: actionType.putPhoto,
     photos
 })
-export const editContacts = (contacts) => ({
-    type: actionType.editContacts,
-    contacts
+export const catchError = (error) => ({
+    type: actionType.catchError,
+    error
 })
 
 
@@ -108,13 +112,16 @@ export const updateProfileStatusTC = (status) => async (dispatch) => {
 export const uploadNewAvatar = (photo) => async (dispatch) => {
     let data = await profileAPI.uploadAvatar(photo)
     if (data.resultCode === 0) {
-        dispatch(putPhoto(data.photos))
+        dispatch(putPhoto(data.data.photos))
     }
 }
-export const updateContacts = (contacts) => async (dispatch) => {
-    let data = await profileAPI.updateContacts(contacts)
+export const updateProfile = (profile) => async (dispatch, getState) => {
+    const userId = getState().auth.id
+    let data = await profileAPI.updateProfile(profile)
     if (data.resultCode === 0) {
-        dispatch(editContacts(data.contacts))
+        dispatch(getProfileTC(userId))
+    } else {
+        dispatch(catchError(data.messages))
     }
 }
 
