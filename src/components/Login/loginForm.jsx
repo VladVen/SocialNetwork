@@ -19,8 +19,8 @@ class loginForm extends React.Component {
                 <Formik
                     initialValues={{ email: '', password: '', rememberMe: false, }}
                     validationSchema={emailValidatorSchema}
-                    onSubmit={(values, { setSubmitting }) => {
-                        this.props.logInTC(values.email, values.password, values.rememberMe, values.captcha)
+                    onSubmit={async (values, { setSubmitting }) => {
+                        await this.props.logInTC(values.email, values.password, values.rememberMe, values.captcha)
                         setSubmitting(false);
                     }}>
                     {({ isSubmitting }) => (

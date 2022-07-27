@@ -21,8 +21,8 @@ const ContactsForm = (props) => {
                     lookingForAJob: props.profileData.lookingForAJob,
                     lookingForAJobDescription: props.profileData.lookingForAJobDescription || '',
                 }}
-                onSubmit={(values, {setSubmitting}) => {
-                    props.updateProfile(values)
+                onSubmit={async (values, {setSubmitting}) => {
+                    await props.updateProfile(values)
                     setSubmitting(false);
                     props.onclose()
                 }}>

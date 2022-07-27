@@ -9,8 +9,8 @@ const UploadAvatar = (props) => {
         <div>
             <Formik
                 initialValues={{file: null}}
-                onSubmit={(values, {setSubmitting} ) => {
-                    props.uploadNewAvatar(values.file)
+                onSubmit={async (values, {setSubmitting} ) => {
+                    await props.uploadNewAvatar(values.file)
                     setSubmitting(false);
                     props.onclose()
                 }}>

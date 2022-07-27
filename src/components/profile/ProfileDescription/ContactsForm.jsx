@@ -4,6 +4,8 @@ import style from './contactsForm.module.css'
 
 
 class ContactsForm extends React.Component {
+
+
     render() {
         return (
             <div>
@@ -22,11 +24,10 @@ class ContactsForm extends React.Component {
                         lookingForAJob: this.props.profileData.lookingForAJob,
                         lookingForAJobDescription: this.props.profileData.lookingForAJobDescription || '',
                     }}
-                    onSubmit={(values, {setSubmitting}) => {
-                        let promise = this.props.updateProfile(values)
-                        promise.then(setSubmitting(false),
-                        !this.props.error && this.props.onclose())
-
+                    onSubmit={ async (values, {setSubmitting}) => {
+                        await this.props.updateProfile(values)
+                        setSubmitting(false)
+                        !this.props.error && this.props.onclose()
                     }}>
                     {({isSubmitting}) => (
                         <Form className={style.contactsForm}>
