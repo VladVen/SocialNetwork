@@ -24,21 +24,28 @@ const ProfileStatus = (props) => {
             <b>My Status: </b>
             {
                 editMode
-                    ? <input
+                    ? <><input
                     value={status}
                     placeholder='Enter your status'
                     autoFocus={true}
                     onBlur={deactivateEditMode}
                     onChange={onStatusChanger}
                 />
-                : <span onDoubleClick={activateEditMode}>
+                        {
+                            props.isOwner &&
+                            <b onClick={deactivateEditMode}> Click elsewhere to submit</b>
+                        }
+                    </>
+                :<> <span onDoubleClick={activateEditMode}>
                     {status || 'No Status'}
                 </span>
+                        {
+                            props.isOwner &&
+                            <b onDoubleClick={activateEditMode}> Double click to edit</b>
+                        }
+                </>
             }
-            {
-                props.isOwner &&
-                <b> Double click to edit</b>
-            }
+
         </div>
     )
 }

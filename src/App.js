@@ -13,14 +13,23 @@ import {compose} from "redux";
 import withRouter from "./common/HOC/withRouter";
 import {runInitialize} from "./redux/reducers/appReducer";
 import Preloader from "./common/Preloader";
+import {Navigate} from "react-router-dom";
+
 
 const DialoguesContainer = React.lazy(() => import('./components/dialogues/dialoguesContainer'));
 const ProfileContainer = React.lazy(() => import('./components/profile/profileContainer'));
 
 
 class App extends React.Component {
+    catchAllUnhandledErrors = (promiseRejected) => {
+        alert('Turn on vpn')
+    }
     componentDidMount() {
         this.props.runInitialize()
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+    }
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
 
     render() {
@@ -34,6 +43,7 @@ class App extends React.Component {
                 <div>
                     <React.Suspense fallback={<Preloader/>}>
                         <Routes>
+
                             <Route path='/profile/:userId' element={<ProfileContainer/>}
                             />
                             <Route path='/profile/' element={<ProfileContainer/>}
@@ -45,6 +55,9 @@ class App extends React.Component {
                             <Route path='/settings' element={<Settings/>}/>
                             <Route path='/users/*' element={<UsersContainer/>}/>
                             <Route path='/login' element={<LoginForm/>}/>
+                            <Route path='*' element={<div><b>404 not Found</b></div>}/>
+                            <Route path='/' element={<Navigate to="/profile" />}
+                            />
                         </Routes>
                     </React.Suspense>
                 </div>
