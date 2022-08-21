@@ -1,10 +1,13 @@
 .topic {
     grid-area: topic;
     background-color: rgb(136, 0, 255);
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo {
-    width: 50px;
+    width: 40px;
 }
 
 .login {

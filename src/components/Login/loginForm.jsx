@@ -34,7 +34,7 @@ class loginForm extends React.Component {
                             </div>
                             <div className={style.error}>
                                 {
-                                    this.props.error && this.props.errorMessage
+                                    this.props.errorMessage &&<div>{this.props.errorMessage}</div>
                                 }
                             </div>
                             <div>
@@ -62,7 +62,6 @@ class loginForm extends React.Component {
 
 const mapStateToProps = (state) => ({
     captcha: state.auth.captchaUrl,
-    error: state.auth.error,
     errorMessage: state.auth.errorMessage,
     isAuth: state.auth.isAuth,
     isSubmitting: state.auth.isSubmitting

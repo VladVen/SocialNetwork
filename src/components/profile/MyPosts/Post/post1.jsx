@@ -8,6 +8,7 @@ const Post = (props) => {
         <Avatar/>
         {props.message}
       </div>
+        <button onClick={() => props.onRemove(props.id)}>Delete</button>
       <div>
         <span>{props.likes} like</span>
       </div>

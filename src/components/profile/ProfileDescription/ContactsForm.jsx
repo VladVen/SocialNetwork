@@ -1,4 +1,4 @@
-import { Field, Form, Formik} from "formik";
+import {Field, Form, Formik} from "formik";
 import React from "react";
 import style from './contactsForm.module.css'
 
@@ -24,10 +24,10 @@ class ContactsForm extends React.Component {
                         lookingForAJob: this.props.profileData.lookingForAJob,
                         lookingForAJobDescription: this.props.profileData.lookingForAJobDescription || '',
                     }}
-                    onSubmit={ async (values, {setSubmitting}) => {
+                    onSubmit={async (values, {setSubmitting}) => {
                         await this.props.updateProfile(values)
                         setSubmitting(false)
-                        !this.props.error && this.props.onclose()
+                        !this.props.errorMessage && this.props.onclose()
                     }}>
                     {({isSubmitting}) => (
                         <Form className={style.contactsForm}>
@@ -52,7 +52,10 @@ class ContactsForm extends React.Component {
                             </div>
                             <div className={style.error}>
                                 {
-                                    this.props.error && this.props.errorMessage
+                                    this.props.errorMessage && <div>
+                                        {this.props.errorMessage}
+                                    </div>
+
                                 }
                             </div>
                             <button type="submit" disabled={isSubmitting}>

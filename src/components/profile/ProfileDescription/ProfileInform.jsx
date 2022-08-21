@@ -69,7 +69,6 @@ const ProfileInform = (props) => {
                                   updateProfile={props.updateProfile}
                                   profileData={props.profileData}
                                   errorMessage={props.errorMessage}
-                                  error={props.error}
                     />
                 </Modal>
             </div>

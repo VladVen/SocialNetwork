@@ -32,7 +32,7 @@ class ProfileContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.props.router.params.userId != prevProps.router.params.userId) {
+        if(this.props.router.params.userId !== prevProps.router.params.userId) {
             this.refreshProfile()
         }
     }
@@ -48,7 +48,6 @@ class ProfileContainer extends React.Component {
                          uploadNewAvatar={this.props.uploadNewAvatar}
                          updateProfile={this.props.updateProfile}
                          errorMessage={this.props.errorMessage}
-                         error={this.props.error}
                 />
             </div>
         )
@@ -61,7 +60,6 @@ const mapStateToProps = (state) => ({
     status: state.profilePage.status,
     authorizeId: state.auth.id,
     errorMessage: state.profilePage.errorMessage,
-    error: state.profilePage.error
 })
 const mapDispatchToProps = {
     getProfileTC,

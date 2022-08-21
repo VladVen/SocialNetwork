@@ -1,16 +1,17 @@
 import {setAuthTC} from "./authReducer";
 
-let actionType = {
-    setInitialize: 'app/SET_INITIALIZE'
-}
+const setInitialize = 'app/SET_INITIALIZE'
 
-let initialState = {
+export type initialStateType = {
+    initialized: boolean
+}
+const initialState: initialStateType = {
     initialized: false
 }
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
-        case(actionType.setInitialize):
+        case setInitialize:
             return {
                 ...state,
                 initialized: true,
@@ -18,15 +19,17 @@ const appReducer = (state = initialState, action) => {
         default:
             return state
     }
-
 }
 
-export const setupInitialize = () => ({
-    type: actionType.setInitialize,
+ type setupInitialize = {
+    type: typeof setInitialize,
+}
+ const setupInitialize = (): setupInitialize => ({
+    type: setInitialize,
 })
 
 export const runInitialize = () => {
-    return (dispatch) => {
+    return (dispatch: any) => {
         let promise = dispatch(setAuthTC())
         promise.then(() => dispatch(setupInitialize()))
     }

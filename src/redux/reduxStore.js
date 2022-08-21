@@ -14,7 +14,7 @@ let reducersPack = combineReducers({
     app: appReducer
 
 })
-
+// to provide Redux DevTools extension in Chrome
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducersPack, composeEnhancers(
     applyMiddleware(thunkMiddleware)

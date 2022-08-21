@@ -15,7 +15,9 @@ const myPostClass = React.memo((props) => {
                     [...props.postData]
                         .reverse()
                         .map(posts => <Post key={posts.id} id={posts.id} message={posts.message}
-                                                      likes={posts.likes} dislikes={posts.dislikes}/>)
+                                                      likes={posts.likes} dislikes={posts.dislikes}
+                                            onRemove={props.deletePost}
+                        />)
                 }
             </div>
         </div>

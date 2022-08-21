@@ -2,9 +2,11 @@ import React from "react";
 import {connect} from "react-redux";
 import Users from "./users";
 import {
-    setFollow,
+    getUsersTC,
     setCurrentPage,
-    setUnfollow, setFollowInProgress, getUsersTC, setFollowTC, setUnfollowTC
+    setFollowInProgress,
+    setFollowTC,
+    setUnfollowTC
 } from "../../redux/reducers/userPageReducer";
 import style from './users.module.css'
 import Preloader from "../../common/Preloader";
@@ -59,8 +61,6 @@ const mapStateToProps = (state) => {
 
 }
 const mapDispatchToProps = {
-    setFollow,
-    setUnfollow,
     setCurrentPage,
     setFollowInProgress,
     getUsersTC,

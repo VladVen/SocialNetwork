@@ -15,7 +15,6 @@ const Profile = (props) => {
                            uploadNewAvatar={props.uploadNewAvatar}
                            updateProfile={props.updateProfile}
                            errorMessage={props.errorMessage}
-                           error={props.error}
             />
            <MyPostsContainer />
     </div>
