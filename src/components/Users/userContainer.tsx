@@ -4,7 +4,6 @@ import Users from "./users";
 import {
     getUsersTC,
     setCurrentPage,
-    setFollowInProgress,
     setFollowTC,
     setUnfollowTC
 } from "../../redux/reducers/userPageReducer";
@@ -18,14 +17,35 @@ import {
     getTotalCount,
     getUsers
 } from "../../redux/selectors/usersSelector";
+import {usersDataType} from "../../types/types";
+import {AppStateType} from "../../redux/reduxStore";
 
-class UsersApi extends React.Component {
+type MapStatePropsType = {
+    currentPage: number
+    pageSize: number
+    isFetching: boolean
+    totalCount: number
+    followInProgress: Array<number>
+    usersData: Array<usersDataType>
+}
+type MapDispatchPropsType = {
+    setCurrentPage: (pageNumber: number) => void
+    getUsersTC: (currentPage: number, pageSize: number) => void
+    setFollowTC: (id: number) => void
+    setUnfollowTC: (id: number) => void
+}
+
+type OwnPropsType = {}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+
+class UsersApi extends React.Component<PropsType> {
 
     componentDidMount() {
         this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
     }
 
-    currentPageChanger = (pageNumber) => {
+    currentPageChanger = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
         this.props.getUsersTC(pageNumber, this.props.pageSize)
     }
@@ -49,7 +69,7 @@ class UsersApi extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         usersData: getUsers(state),
         pageSize: getPageSize(state),
@@ -60,12 +80,12 @@ const mapStateToProps = (state) => {
     }
 
 }
-const mapDispatchToProps = {
+
+
+
+export default connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
     setCurrentPage,
-    setFollowInProgress,
     getUsersTC,
     setFollowTC,
     setUnfollowTC
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersApi)
+})(UsersApi)

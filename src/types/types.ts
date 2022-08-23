@@ -1,15 +1,16 @@
 
 
-
 export type contactsType = {
     facebook: string | null
     website: string | null
-    "vk": string | null
+    vk: string | null
     twitter: string | null
     instagram: string | null
     youtube: string | null
     github: string | null
     mainLink: string | null
+    [key: string]: string | null
+
 }
 export type photosType = {
     small: string | null
@@ -24,8 +25,8 @@ export type profileDataType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
     fullName: string
-    userId: number
-    photos: photosType
+    userId?: number
+    photos?: photosType
 }
 
 export type usersDataType = {

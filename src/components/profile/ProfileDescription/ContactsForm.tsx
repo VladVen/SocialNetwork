@@ -1,10 +1,17 @@
 import {Field, Form, Formik} from "formik";
 import React from "react";
 import style from './contactsForm.module.css'
+import {profileDataType} from "../../../types/types";
+
+type Props = {
+    profileData: profileDataType
+    updateProfile: (vales: profileDataType) => void
+    errorMessage: string | null
+    onclose: () => void
+}
 
 
-class ContactsForm extends React.Component {
-
+class ContactsForm extends React.Component<Props> {
 
     render() {
         return (
@@ -18,7 +25,10 @@ class ContactsForm extends React.Component {
                             instagram: this.props.profileData.contacts.instagram || '',
                             twitter: this.props.profileData.contacts.twitter || '',
                             youtube: this.props.profileData.contacts.youtube || '',
-                            website: this.props.profileData.contacts.website || ''
+                            website: this.props.profileData.contacts.website || '',
+                            mainLink: this.props.profileData.contacts.mainLink || '',
+                            vk: this.props.profileData.contacts.vk || '',
+
                         },
                         fullName: this.props.profileData.fullName || '',
                         lookingForAJob: this.props.profileData.lookingForAJob,

@@ -2,8 +2,17 @@ import style from "./users.module.css";
 import avatar from "../images/logo192.png";
 import React from "react";
 import {NavLink} from "react-router-dom";
+import {usersDataType} from "../../types/types";
 
-const UserTemplate = ({users, followInProgress, setFollowTC, setUnfollowTC}) => {
+type Props = {
+    users: usersDataType
+    followInProgress: Array<number>
+    setFollowTC: (id: number)=> void
+    setUnfollowTC:  (id: number)=> void
+}
+
+
+const UserTemplate: React.FC<Props> = ({users, followInProgress, setFollowTC, setUnfollowTC}) => {
 
     return (
         <div>

@@ -43,7 +43,7 @@ const authReducer = (state = initialState, action: any): initialStateType => {
 type authDataType = {
     email: string| null,
     id: number| null,
-    login: string| null,
+    login: string | null,
     isAuth: boolean,
     errorMessage: null,
     captchaUrl: null

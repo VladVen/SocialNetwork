@@ -1,30 +1,40 @@
 import {Field, Form, Formik} from "formik";
 import React from "react";
 import style from './contactsForm.module.css'
+import {profileDataType} from "../../../types/types";
 
 
-const ContactsForm = (props) => {
+type Props = {
+    profileData: profileDataType
+    updateProfile: (vales: profileDataType) => void
+    onclose: () => void
+}
+
+
+const ContactsForm: React.FC<Props> = ({profileData, updateProfile, onclose}) => {
     return (
         <div>
             <Formik
                 initialValues={{
-                    aboutMe: props.profileData.aboutMe || '',
+                    aboutMe: profileData.aboutMe || '',
                     contacts: {
-                        facebook: props.profileData.contacts.facebook || '',
-                        github: props.profileData.contacts.github || '',
-                        instagram: props.profileData.contacts.instagram || '',
-                        twitter: props.profileData.contacts.twitter || '',
-                        youtube: props.profileData.contacts.youtube || '',
-                        website: props.profileData.contacts.website || ''
+                        facebook: profileData.contacts.facebook || '',
+                        github: profileData.contacts.github || '',
+                        instagram: profileData.contacts.instagram || '',
+                        twitter: profileData.contacts.twitter || '',
+                        youtube: profileData.contacts.youtube || '',
+                        website: profileData.contacts.website || '',
+                        mainLink: profileData.contacts.mainLink || '',
+                        vk: profileData.contacts.vk || ''
                     },
-                    fullName: props.profileData.fullName || '',
-                    lookingForAJob: props.profileData.lookingForAJob,
-                    lookingForAJobDescription: props.profileData.lookingForAJobDescription || '',
+                    fullName: profileData.fullName || '',
+                    lookingForAJob: profileData.lookingForAJob,
+                    lookingForAJobDescription: profileData.lookingForAJobDescription || '',
                 }}
                 onSubmit={async (values, {setSubmitting}) => {
-                    await props.updateProfile(values)
+                    await updateProfile(values)
                     setSubmitting(false);
-                    props.onclose()
+                    onclose()
                 }}>
                 {({isSubmitting}) => (
                     <Form className={style.contactsForm}>

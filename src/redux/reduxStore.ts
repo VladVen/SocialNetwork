@@ -6,7 +6,7 @@ import authReducer from "./reducers/authReducer";
 import thunkMiddleware from "redux-thunk";
 import appReducer from "./reducers/appReducer";
 
-let reducersPack = combineReducers({
+const reducersPack = combineReducers({
     profilePage: profilePageReducer,
     messagesPage: dialoguesPageReducer,
     usersPage: userPageReducer,
@@ -14,12 +14,18 @@ let reducersPack = combineReducers({
     app: appReducer
 
 })
+
+type reducersPackType = typeof reducersPack
+export type AppStateType = ReturnType<reducersPackType>
+
 // to provide Redux DevTools extension in Chrome
+// @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducersPack, composeEnhancers(
     applyMiddleware(thunkMiddleware)
 ));
 
+// @ts-ignore
 window.store = store
 
 export default store

@@ -11,6 +11,7 @@ import {
 import withRouter from "../../common/HOC/withRouter";
 import withAuthRedirect from "../../common/HOC/withAuthRedirect";
 import {compose} from "redux";
+import Preloader from "../../common/Preloader";
 
 
 class ProfileContainer extends React.Component {
@@ -37,7 +38,11 @@ class ProfileContainer extends React.Component {
         }
     }
 
+
     render() {
+        if(!this.props.profileData) {
+            return <Preloader />
+        }
         return (
             <div className={style.inform}>
                 <Profile {...this.props}

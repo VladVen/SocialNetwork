@@ -1,23 +1,30 @@
-import style from "./users.module.css";
 import React, {useEffect, useState} from "react";
+import style from './users.module.css'
 
 
-let Pages = (props) => {
-    let pagesCount = Math.ceil(props.totalCount / props.pageSize)
+type propsType = {
+    totalCount: number
+    pageSize: number
+    currentPage: number
+    currentPageChanger: (page: number) => void
+    portionSize?: number
+}
 
-    let pages = []
+ const Pages: React.FC<propsType> = ({totalCount, pageSize,currentPage,currentPageChanger,portionSize = 10,}) => {
+    const pagesCount = Math.ceil(totalCount / pageSize)
+
+    const pages = []
 
     for (let n = 1; n <= pagesCount; n++) {
         pages.push(n)
     }
 
-    const portionSize = 10
 
-    let portionCount = Math.ceil(pagesCount / portionSize)
+    const portionCount = Math.ceil(pagesCount / portionSize)
 
     const [portionNumber, setPortionNumber ] = useState(1)
     useEffect(
-        () => setPortionNumber(Math.ceil(props.currentPage/portionSize)), [props.currentPage]
+        () => setPortionNumber(Math.ceil(currentPage/portionSize)), [currentPage]
     );
 
     let leftPortionNumber = (portionNumber - 1) * portionSize + 1
@@ -33,7 +40,7 @@ let Pages = (props) => {
                     .filter(page => page >= leftPortionNumber && page <= rightPortionNumber )
                     .map(page => {
                         return (
-                            <a className={props.currentPage === page ? style.selectedPage : style.pages} onClick={() => props.currentPageChanger(page)}> {page} </a>
+                            <a className={currentPage === page ? style.selectedPage : style.pages} onClick={() => currentPageChanger(page)}> {page} </a>
                         )
                     })
             }
