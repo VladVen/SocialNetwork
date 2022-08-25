@@ -1,12 +1,12 @@
 import {Field, Form, Formik} from "formik";
 import React from "react";
 import style from './contactsForm.module.css'
-import {profileDataType} from "../../../types/types";
+import {UpdateProfileDataType} from "../../../types/types";
 
 
 type Props = {
-    profileData: profileDataType
-    updateProfile: (vales: profileDataType) => void
+    profileData: UpdateProfileDataType
+    updateProfile: (vales: UpdateProfileDataType) => void
     onclose: () => void
 }
 

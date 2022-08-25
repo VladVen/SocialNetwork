@@ -1,14 +1,27 @@
 import React from "react";
 import {Navigate} from "react-router-dom";
-import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {ErrorMessage, Field, Form, Formik} from 'formik';
 import emailValidatorSchema from "../../formValidations/loginValidator";
 import {connect} from "react-redux";
 import {logInTC} from "../../redux/reducers/authReducer";
 import style from "./login.module.css";
+import {AppStateType} from "../../redux/reduxStore";
 
+type MapState = {
+    isAuth: boolean
+    errorMessage: string | null
+    captcha: null | string
 
+}
+type MapDispatch = {
+    logInTC: (email: string, password:string, rememberMe: boolean, captcha: null | string ) => void
+}
 
-class loginForm extends React.Component {
+type MyOwnProps ={}
+
+type Props = MapState & MapDispatch & MyOwnProps
+
+class loginForm extends React.Component<Props> {
     render() {
         if(this.props.isAuth) {
             return <Navigate to={"/profile"}/>
@@ -17,7 +30,7 @@ class loginForm extends React.Component {
             <div className={style.login}>
                 <h1>Login Form</h1>
                 <Formik
-                    initialValues={{ email: '', password: '', rememberMe: false, }}
+                    initialValues={{ email: '', password: '', rememberMe: false, captcha: null }}
                     validationSchema={emailValidatorSchema}
                     onSubmit={async (values, { setSubmitting }) => {
                         await this.props.logInTC(values.email, values.password, values.rememberMe, values.captcha)
@@ -60,14 +73,15 @@ class loginForm extends React.Component {
     }
 };
 
-const mapStateToProps = (state) => ({
+
+
+const mapStateToProps = (state: AppStateType): MapState => ({
     captcha: state.auth.captchaUrl,
     errorMessage: state.auth.errorMessage,
     isAuth: state.auth.isAuth,
-    isSubmitting: state.auth.isSubmitting
 })
 
 
 
 
-export default connect(mapStateToProps, {logInTC}  )(loginForm)
+export default connect<MapState, MapDispatch, MyOwnProps,  AppStateType>(mapStateToProps, {logInTC})(loginForm)

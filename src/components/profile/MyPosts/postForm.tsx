@@ -2,12 +2,19 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import myPostValidatorSchema from "../../../formValidations/myPostValidator";
 import React from "react";
 
-const PostForm = (props) => {
+
+type Props = {
+    addPost: (value: string) => void
+}
+
+
+const PostForm: React.FC<Props> = ({addPost}) => {
     return (
         <Formik initialValues={{newPostText: ''}}
                 validationSchema={myPostValidatorSchema}
                 onSubmit={(values, {resetForm}) => {
-                    props.addPost(values.newPostText);
+                    addPost(values.newPostText);
+                    // @ts-ignore
                     resetForm({values: ""});
                 }}
         >

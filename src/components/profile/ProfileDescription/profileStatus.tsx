@@ -1,22 +1,30 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 
-const ProfileStatus = (props) => {
+type Props = {
+    status: string
+    isOwner: boolean
+    updateProfileStatusTC: (status: string ) => void
+}
+
+
+
+const ProfileStatus: React.FC<Props> = ({status, isOwner, updateProfileStatusTC}) => {
 
     let  [editMode,setEditMode] = useState(false)
-    let  [status,setStatus] = useState(props.status)
+    let  [statusHook,setStatus] = useState(status)
 
     useEffect(() => {
-        setStatus(props.status)
-    }, [props.status])
+        setStatus(status)
+    }, [status])
 
     const activateEditMode = () => {
         setEditMode(true)
     }
     const deactivateEditMode = () => {
         setEditMode(false)
-        props.updateProfileStatusTC(status)
+        updateProfileStatusTC(statusHook)
     }
-    const onStatusChanger = (e) => {
+    const onStatusChanger = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus( e.currentTarget.value)
     }
     return (
@@ -25,22 +33,22 @@ const ProfileStatus = (props) => {
             {
                 editMode
                     ? <><input
-                    value={status}
+                    value={statusHook}
                     placeholder='Enter your status'
                     autoFocus={true}
                     onBlur={deactivateEditMode}
                     onChange={onStatusChanger}
                 />
                         {
-                            props.isOwner &&
+                            isOwner &&
                             <b onClick={deactivateEditMode}> Click elsewhere to submit</b>
                         }
                     </>
                 :<> <span onDoubleClick={activateEditMode}>
-                    {status || 'No Status'}
+                    {statusHook || 'No Status'}
                 </span>
                         {
-                            props.isOwner &&
+                            isOwner &&
                             <b onDoubleClick={activateEditMode}> Double click to edit</b>
                         }
                 </>

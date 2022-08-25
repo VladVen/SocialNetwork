@@ -15,6 +15,9 @@ const reducersPack = combineReducers({
 
 })
 
+type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
+export type InferActionType<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropertiesType<T>>
+
 type reducersPackType = typeof reducersPack
 export type AppStateType = ReturnType<reducersPackType>
 

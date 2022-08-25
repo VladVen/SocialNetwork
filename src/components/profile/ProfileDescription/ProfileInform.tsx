@@ -8,7 +8,7 @@ import Modal from "../../../common/modal/modal";
 import ProfileContacts from "./ProfileContacts";
 import ContactsForm from "./ContactsForm";
 import EditProfileForm from "./EditProfileForm";
-import {photosType, profileDataType} from "../../../types/types";
+import {profileDataType, UpdateProfileDataType} from "../../../types/types";
 
 
 type Props = {
@@ -18,7 +18,7 @@ type Props = {
     isOwner: boolean
     updateProfileStatusTC: (status: string) => void
     uploadNewAvatar: (file: React.ChangeEvent<HTMLInputElement> | null) => void
-    updateProfile: (values: profileDataType) => void
+    updateProfile: (values: UpdateProfileDataType) => void
 }
 
 const ProfileInform: React.FC<Props> = ({profileData,status,
@@ -64,7 +64,23 @@ const ProfileInform: React.FC<Props> = ({profileData,status,
                     <Modal isOpen={isOpenEdit} onclose={() => setOpenEdit(false)}>
                         <EditProfileForm onclose={() => setOpenEdit(false)}
                                          updateProfile={updateProfile}
-                                      profileData={profileData}
+                                      profileData={{
+                                          aboutMe: profileData.aboutMe,
+                                          contacts: {
+                                              facebook: profileData.contacts.facebook,
+                                              github: profileData.contacts.github,
+                                              instagram: profileData.contacts.instagram,
+                                              twitter: profileData.contacts.twitter,
+                                              youtube: profileData.contacts.youtube,
+                                              website: profileData.contacts.website,
+                                              mainLink: profileData.contacts.mainLink,
+                                              vk: profileData.contacts.vk,
+
+                                          },
+                                          fullName: profileData.fullName,
+                                          lookingForAJob: profileData.lookingForAJob,
+                                          lookingForAJobDescription: profileData.lookingForAJobDescription,
+                                      }}
                         />
                     </Modal>
                 </div>

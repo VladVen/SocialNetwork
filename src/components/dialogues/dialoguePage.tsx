@@ -3,10 +3,10 @@ import style from "./dialogues.module.css";
 import DialogueMembers from "./DialogueMembers";
 import Message from "./Message";
 import AddMessageForm from "./AddMessageForm";
+import {Props} from "./dialoguesContainer";
 
 
-
-class dialoguePage extends React.Component {
+class dialoguePage extends React.Component<Props> {
     render() {
         return (
             <div className={style.dialogues}>
@@ -19,7 +19,7 @@ class dialoguePage extends React.Component {
                             <div className={style.messages}> {
                                 this.props.messagesData.map(messages => <Message key={messages.id}
                                                                                  message={messages.message}
-                                                                                 id={messages.id}/>)
+                                                                                 />)
                             }
                                 <div>
                    <AddMessageForm addMessage={this.props.addMessage}/>

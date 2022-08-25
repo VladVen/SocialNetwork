@@ -1,12 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import Users from "./users";
-import {
-    getUsersTC,
-    setCurrentPage,
-    setFollowTC,
-    setUnfollowTC
-} from "../../redux/reducers/userPageReducer";
+import {actions, getUsersTC, setFollowTC, setUnfollowTC} from "../../redux/reducers/userPageReducer";
 import style from './users.module.css'
 import Preloader from "../../common/Preloader";
 import {
@@ -84,7 +79,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 
 export default connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
-    setCurrentPage,
+    setCurrentPage: actions.setCurrentPage,
     getUsersTC,
     setFollowTC,
     setUnfollowTC

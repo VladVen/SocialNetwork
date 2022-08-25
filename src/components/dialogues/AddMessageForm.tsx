@@ -2,14 +2,20 @@ import {Field, Form, Formik} from "formik";
 import Textarea from "../../common/customComponent/textarea";
 import React from "react";
 
-const AddMessageForm = (props) => {
+type Props = {
+    addMessage: (title: string) => void
+}
+
+
+const AddMessageForm:React.FC<Props> = ({addMessage}) => {
     return (
         <Formik
             initialValues={{
                 newMessageText: "",
             }}
             onSubmit={(values, { resetForm }) => {
-                props.addMessage(values.newMessageText);
+                addMessage(values.newMessageText);
+                // @ts-ignore
                 resetForm({ values: "" });
             }}>
             <Form>

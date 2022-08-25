@@ -1,5 +1,6 @@
 
 
+
 export type contactsType = {
     facebook: string | null
     website: string | null
@@ -10,7 +11,6 @@ export type contactsType = {
     github: string | null
     mainLink: string | null
     [key: string]: string | null
-
 }
 export type photosType = {
     small: string | null
@@ -25,15 +25,32 @@ export type profileDataType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
     fullName: string
-    userId?: number
-    photos?: photosType
+    userId: number
+    photos: photosType
+}
+
+export type UpdateProfileDataType = {
+    aboutMe: string | null
+    contacts: contactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string | null
+    fullName: string
 }
 
 export type usersDataType = {
     name: string ,
-    id: 25567,
+    id: number,
     uniqueUrlName:  string | null,
     photos: photosType,
     status: string | null,
-    followed: false
+    followed: boolean
 }
+
+
+export type dialoguesDataType = {
+    id: number, name: string
+}
+export type messagesDataType = {
+    id: number, message: string
+}
+

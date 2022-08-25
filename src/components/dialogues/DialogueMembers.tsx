@@ -2,7 +2,12 @@ import style from "./dialogues.module.css";
 import {NavLink} from "react-router-dom";
 import React from "react";
 
-const DialogueMembers = ({id, name}) => {
+type Props = {
+    id: number
+    name: string
+}
+
+const DialogueMembers: React.FC<Props> = ({id, name}) => {
     let path = '/dialogues/' + id
 
     return (
