@@ -1,27 +1,34 @@
 import React from 'react';
 import './App.css';
+import {Navigate, Route, Routes} from "react-router-dom";
+import {connect} from "react-redux";
+import {compose} from "redux";
+
+import withRouter from "./common/HOC/withRouter";
+import {AppStateType} from "./redux/reduxStore";
+
+import {runInitialize} from "./redux/reducers/appReducer";
 import SideBar from './components/sideBar/sideBar';
-import {Route, Routes} from "react-router-dom";
 import News from "./components/News/news";
 import Music from "./components/Music/music";
 import Settings from "./components/Settings/settings";
-import UsersContainer from "./components/Users/userContainer";
 import TopicContainer from "./components/topic/topicContainer";
 import LoginForm from "./components/Login/loginForm";
-import {connect} from "react-redux";
-import {compose} from "redux";
-import withRouter from "./common/HOC/withRouter";
-import {runInitialize} from "./redux/reducers/appReducer";
 import Preloader from "./common/Preloader";
-import {Navigate} from "react-router-dom";
+import ProfileContainer from "./components/profile/profileContainer";
 
 
 const DialoguesContainer = React.lazy(() => import('./components/dialogues/dialoguesContainer'));
-const ProfileContainer = React.lazy(() => import('./components/profile/profileContainer'));
+const UsersContainer = React.lazy(() => import('./components/Users/userContainer'));
 
 
-class App extends React.Component {
-    catchAllUnhandledErrors = (promiseRejected) => {
+type mapState = {initialized: boolean}
+type mapDispatch = {runInitialize: () => void}
+
+type Props = mapDispatch & mapState
+
+class App extends React.Component<Props> {
+    catchAllUnhandledErrors = (promiseRejected: PromiseRejectionEvent) => {
         alert('Turn on vpn')
     }
     componentDidMount() {
@@ -66,7 +73,7 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
 

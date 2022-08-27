@@ -12,10 +12,9 @@ type MapDispatchPropsType = {
     addPost: (title: string) => void
     deletePost: (id: number) => void
 }
-type OwnPropsType = {}
 
 
-export type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+export type PropsType = MapStatePropsType & MapDispatchPropsType
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
@@ -24,7 +23,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 }
 
-const myPostsContainer = connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps,
+const myPostsContainer = connect<MapStatePropsType, MapDispatchPropsType, unknown, AppStateType>(mapStateToProps,
     {
         addPost: actions.addPost,
         deletePost: actions.deletePost

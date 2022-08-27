@@ -1,5 +1,6 @@
 
-const Textarea = (props) => {
+
+const Textarea = (props: any) => {
     return(
         <div>
             <textarea {...props}/>

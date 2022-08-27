@@ -30,9 +30,8 @@ type MapDispatchPropsType = {
     setUnfollowTC: (id: number) => void
 }
 
-type OwnPropsType = {}
 
-type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+type PropsType = MapStatePropsType & MapDispatchPropsType
 
 class UsersApi extends React.Component<PropsType> {
 
@@ -78,7 +77,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 
 
-export default connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
+export default connect<MapStatePropsType, MapDispatchPropsType, unknown, AppStateType>(mapStateToProps, {
     setCurrentPage: actions.setCurrentPage,
     getUsersTC,
     setFollowTC,

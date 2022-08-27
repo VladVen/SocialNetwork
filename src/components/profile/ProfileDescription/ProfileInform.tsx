@@ -12,12 +12,12 @@ import {profileDataType, UpdateProfileDataType} from "../../../types/types";
 
 
 type Props = {
-    profileData: profileDataType
-    status: string
+    profileData: profileDataType | null
+    status: string | null
     errorMessage: string | null
     isOwner: boolean
     updateProfileStatusTC: (status: string) => void
-    uploadNewAvatar: (file: React.ChangeEvent<HTMLInputElement> | null) => void
+    uploadNewAvatar: (file: File ) => void
     updateProfile: (values: UpdateProfileDataType) => void
 }
 

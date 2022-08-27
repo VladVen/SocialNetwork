@@ -1,9 +1,9 @@
-import {followAPI, usersAPI} from "../../API/api";
 import updateArraysObj from "../../common/utilites/updateArraysObj";
 import {usersDataType} from "../../types/types";
 import {Dispatch} from "redux";
-import {AppStateType, InferActionType} from "../reduxStore";
-import {ThunkAction} from "redux-thunk";
+import {CommonThunkType, InferActionType} from "../reduxStore";
+import {followAPI, usersAPI} from "../../API/users-api";
+import {ResultCodes} from "../../API/api";
 
 
 const FOLLOW = 'users/FOLLOW'
@@ -108,7 +108,7 @@ export const actions = {
 
 
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
+type ThunkType = CommonThunkType<ActionsType>
 
 export const getUsersTC = (currentPage: number, pageSize: number): ThunkType => async (dispatch) => {
     dispatch(actions.setFetching(true))
@@ -121,17 +121,17 @@ export const getUsersTC = (currentPage: number, pageSize: number): ThunkType => 
 const _followUnfollow = async (dispatch: Dispatch<ActionsType>, id: number, APIMethod: any, actionCreator:(id: number)=> ActionsType ) => {
     dispatch(actions.setFollowInProgress(true, id))
     let data = await APIMethod(id)
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodes.success) {
         dispatch(actionCreator(id))
         dispatch(actions.setFollowInProgress(false, id))
     }
 }
 export const setFollowTC = (id: number): ThunkType => async (dispatch) => {
-    _followUnfollow(dispatch, id, followAPI.delFollow.bind(followAPI), actions.setUnfollow)
+    await _followUnfollow(dispatch, id, followAPI.delFollow.bind(followAPI), actions.setUnfollow)
 
 }
 export const setUnfollowTC = (id: number): ThunkType => async (dispatch) => {
-    _followUnfollow(dispatch, id, followAPI.addFollow.bind(followAPI), actions.setFollow)
+    await _followUnfollow(dispatch, id, followAPI.addFollow.bind(followAPI), actions.setFollow)
 }
 
 

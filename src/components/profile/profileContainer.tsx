@@ -9,30 +9,49 @@ import {
     updateProfileStatusTC,
     uploadNewAvatar
 } from "../../redux/reducers/profilePageReducer";
-import withRouter from "../../common/HOC/withRouter";
-import withAuthRedirect from "../../common/HOC/withAuthRedirect";
+import withRouter, {WithRouterProps} from "../../common/HOC/withRouter";
+import {withAuthRedirect} from "../../common/HOC/withAuthRedirect";
 import {compose} from "redux";
+import {AppStateType} from "../../redux/reduxStore";
+import {UpdateProfileDataType} from "../../types/types";
+import {Navigate} from "react-router-dom";
 
+type MapState = ReturnType<typeof mapStateToProps>
 
-class ProfileContainer extends React.Component {
+type MapDispatch = {
+    getProfileTC: (userId: number) => void
+    getProfileStatusTC: (userId: number) => void
+    updateProfileStatusTC: (status: string) => void
+    uploadNewAvatar: (file: File ) => void
+    updateProfile: (profile: UpdateProfileDataType) => void
+}
 
+type Router = {
+    router: WithRouterProps
+}
+
+type Props = MapState & MapDispatch & Router
+
+class ProfileContainer extends React.Component<Props> {
     refreshProfile () {
-        let userId = this.props.router.params.userId
+        let userId: number | null = +this.props.router.params.userId
         if (!userId) {
             userId = this.props.authorizeId
             if(!userId) {
-                this.props.history.push('/login')
+                // this.props.history.push('/login')
+                return <Navigate to={'/login'}/>
             }
         }
-        this.props.getProfileTC(userId)
-        this.props.getProfileStatusTC(userId)
+            this.props.getProfileTC(userId)
+            this.props.getProfileStatusTC(userId)
+
     }
 
     componentDidMount() {
         this.refreshProfile()
     }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    // todo: complete profile loading
+    componentDidUpdate(prevProps: Props, prevState: Props) {
         if(this.props.router.params.userId !== prevProps.router.params.userId) {
             this.refreshProfile()
         }
@@ -57,7 +76,7 @@ class ProfileContainer extends React.Component {
 }
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     profileData: state.profilePage.profileData,
     status: state.profilePage.status,
     authorizeId: state.auth.id,
@@ -71,8 +90,8 @@ const mapDispatchToProps = {
     updateProfile
 }
 
-export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+export default compose<React.ComponentType>(
+    connect<MapState, MapDispatch, {}, AppStateType>(mapStateToProps, mapDispatchToProps),
     withRouter,
     withAuthRedirect,
 )(ProfileContainer)

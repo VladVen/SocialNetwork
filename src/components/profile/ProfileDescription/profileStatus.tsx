@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 
 type Props = {
-    status: string
+    status: string | null
     isOwner: boolean
     updateProfileStatusTC: (status: string ) => void
 }
@@ -11,10 +11,10 @@ type Props = {
 const ProfileStatus: React.FC<Props> = ({status, isOwner, updateProfileStatusTC}) => {
 
     let  [editMode,setEditMode] = useState(false)
-    let  [statusHook,setStatus] = useState(status)
+    let  [statusHook,setStatus] = useState(status as string)
 
     useEffect(() => {
-        setStatus(status)
+        setStatus(status as string)
     }, [status])
 
     const activateEditMode = () => {
@@ -44,7 +44,7 @@ const ProfileStatus: React.FC<Props> = ({status, isOwner, updateProfileStatusTC}
                             <b onClick={deactivateEditMode}> Click elsewhere to submit</b>
                         }
                     </>
-                :<> <span onDoubleClick={activateEditMode}>
+                :<> <span onDoubleClick={() => isOwner && activateEditMode}>
                     {statusHook || 'No Status'}
                 </span>
                         {

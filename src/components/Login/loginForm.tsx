@@ -17,9 +17,8 @@ type MapDispatch = {
     logInTC: (email: string, password:string, rememberMe: boolean, captcha: null | string ) => void
 }
 
-type MyOwnProps ={}
 
-type Props = MapState & MapDispatch & MyOwnProps
+type Props = MapState & MapDispatch
 
 class loginForm extends React.Component<Props> {
     render() {
@@ -30,7 +29,7 @@ class loginForm extends React.Component<Props> {
             <div className={style.login}>
                 <h1>Login Form</h1>
                 <Formik
-                    initialValues={{ email: '', password: '', rememberMe: false, captcha: null }}
+                    initialValues={{ email: '', password: '', rememberMe: false, captcha: '' }}
                     validationSchema={emailValidatorSchema}
                     onSubmit={async (values, { setSubmitting }) => {
                         await this.props.logInTC(values.email, values.password, values.rememberMe, values.captcha)
@@ -71,7 +70,7 @@ class loginForm extends React.Component<Props> {
             </div>
         );
     }
-};
+}
 
 
 
@@ -84,4 +83,4 @@ const mapStateToProps = (state: AppStateType): MapState => ({
 
 
 
-export default connect<MapState, MapDispatch, MyOwnProps,  AppStateType>(mapStateToProps, {logInTC})(loginForm)
+export default connect<MapState, MapDispatch, unknown,  AppStateType>(mapStateToProps, {logInTC})(loginForm)

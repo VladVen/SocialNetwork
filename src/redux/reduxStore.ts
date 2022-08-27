@@ -1,9 +1,9 @@
-import {applyMiddleware, combineReducers, compose, legacy_createStore as createStore} from "redux";
+import {Action, applyMiddleware, combineReducers, compose, legacy_createStore as createStore} from "redux";
 import profilePageReducer from "./reducers/profilePageReducer";
 import dialoguesPageReducer from "./reducers/dialoguesPageReducer";
 import userPageReducer from "./reducers/userPageReducer";
 import authReducer from "./reducers/authReducer";
-import thunkMiddleware from "redux-thunk";
+import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import appReducer from "./reducers/appReducer";
 
 const reducersPack = combineReducers({
@@ -15,11 +15,13 @@ const reducersPack = combineReducers({
 
 })
 
-type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
-export type InferActionType<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropertiesType<T>>
+export type InferActionType<T> = T extends {[key: string]: (...args: any[]) => infer U} ? U : never
 
 type reducersPackType = typeof reducersPack
 export type AppStateType = ReturnType<reducersPackType>
+
+export type CommonThunkType<A extends Action,P = Promise<void> > = ThunkAction<P, AppStateType, unknown, A>
+
 
 // to provide Redux DevTools extension in Chrome
 // @ts-ignore

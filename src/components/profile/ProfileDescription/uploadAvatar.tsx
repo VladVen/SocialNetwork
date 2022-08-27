@@ -1,11 +1,12 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import {Form, Formik} from "formik";
 
 type Props = {
-    uploadNewAvatar: (file: React.ChangeEvent<HTMLInputElement> | null) => void
+    uploadNewAvatar: (file: File ) => void
     onclose: () => void
 }
 
+// todo: make cool avatar uploading
 
 const UploadAvatar: React.FC<Props> = (props) => {
     return (
@@ -13,15 +14,17 @@ const UploadAvatar: React.FC<Props> = (props) => {
             <Formik
                 initialValues={{file: null}}
                 onSubmit={async (values, {setSubmitting}) => {
-                    await props.uploadNewAvatar(values.file)
+                    if(values.file) {
+                        await props.uploadNewAvatar(values.file)
+                    }
                     setSubmitting(false);
                     props.onclose()
                 }}>
                 {({isSubmitting, setFieldValue}) => (
                     <Form>
                         <input id="file" name="file" type="file"
-                               onChange={(event: any) => {
-                                   setFieldValue("file", event.currentTarget.files[0])
+                               onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                   setFieldValue("file", event.currentTarget.files && event.currentTarget.files[0])
                                }}/>
                         <button type="submit" disabled={isSubmitting}>
                             Submit

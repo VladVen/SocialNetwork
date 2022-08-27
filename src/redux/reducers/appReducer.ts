@@ -1,15 +1,13 @@
 import {setAuthTC} from "./authReducer";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "../reduxStore";
+import {CommonThunkType, InferActionType} from "../reduxStore";
 
 const setInitialize = 'app/SET_INITIALIZE'
 
-export type initialStateType = {
-    initialized: boolean
-}
-const initialState: initialStateType = {
+
+const initialState = {
     initialized: false
 }
+type initialStateType = typeof initialState
 
 const appReducer = (state = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
@@ -22,22 +20,23 @@ const appReducer = (state = initialState, action: ActionsType): initialStateType
             return state
     }
 }
-type ActionsType = setupInitialize
+type ActionsType = InferActionType<typeof actions>
 
- type setupInitialize = {
-    type: typeof setInitialize,
+
+const actions = {
+    setupInitialize: () => ({
+        type: setInitialize,
+    })
 }
- const setupInitialize = (): setupInitialize => ({
-    type: setInitialize,
-})
 
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
+
+type ThunkType = CommonThunkType<ActionsType, void>
 
 
 export const runInitialize = ():ThunkType => {
     return (dispatch) => {
         let promise = dispatch(setAuthTC())
-        promise.then(() => dispatch(setupInitialize()))
+        promise.then(() => dispatch(actions.setupInitialize()))
     }
 }
 

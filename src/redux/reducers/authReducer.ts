@@ -1,6 +1,6 @@
-import {authAPI, ResultCodes} from "../../API/api";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionType} from "../reduxStore";
+import {ResultCodes} from "../../API/api";
+import {CommonThunkType, InferActionType} from "../reduxStore";
+import {authAPI} from "../../API/auth-api";
 
 const SET_AUTH = 'auth/SET_AUTH'
 const CATCH_ERROR = 'auth/CATCH_ERROR'
@@ -46,7 +46,7 @@ type ActionsType = InferActionType<typeof actions>
 
 
 export const actions = {
-    setAuth: (email: string| null, id: number| null, login: string| null, isAuth: boolean,): setAuthType => ({
+    setAuth: (email: string| null, id: number| null, login: string| null, isAuth: boolean) => ({
         type: SET_AUTH,
         authData: {
             email, id, login, isAuth,
@@ -54,6 +54,7 @@ export const actions = {
             captchaUrl: null
         }
     } as const),
+
     catchError: (error: string) => ({
         type: CATCH_ERROR,
         error
@@ -65,23 +66,7 @@ export const actions = {
 
 }
 
-type authDataType = {
-    email: string| null,
-    id: number| null,
-    login: string | null,
-    isAuth: boolean,
-    errorMessage: null,
-    captchaUrl: null
-}
-
-type setAuthType = {
-    type: typeof SET_AUTH,
-    authData: authDataType
-}
-
-
-
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
+type ThunkType = CommonThunkType<ActionsType>
 
 
 export const setAuthTC = (): ThunkType => async (dispatch) => {
@@ -94,17 +79,17 @@ export const setAuthTC = (): ThunkType => async (dispatch) => {
 export const logInTC = (email: string, password: string, rememberMe: boolean, captcha: null | string = null): ThunkType =>
     async (dispatch) => {
         let data = await authAPI.logIn(email, password, rememberMe, captcha)
-
+        console.log(data)
         if (data.resultCode === ResultCodes.success) {
             await dispatch(setAuthTC())
         } else if (data.resultCode === ResultCodes.captcha) {
-            dispatch(actions.catchError(data.messages[1]))
+            dispatch(actions.catchError(data.messages[0]))
             authAPI.getCaptcha()
                 .then(data => {
                     dispatch(actions.getCaptcha(data.url))
                 })
         } else {
-            dispatch(actions.catchError(data.messages[1]))
+            dispatch(actions.catchError(data.messages[0]))
         }
     }
 

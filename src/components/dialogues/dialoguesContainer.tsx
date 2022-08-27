@@ -2,10 +2,10 @@ import {actions} from "../../redux/reducers/dialoguesPageReducer";
 import {connect} from "react-redux";
 import dialoguePage from "./dialoguePage";
 import React from "react";
-import withAuthRedirect from "../../common/HOC/withAuthRedirect";
 import {compose} from "redux";
 import {AppStateType} from "../../redux/reduxStore";
 import {dialoguesDataType, messagesDataType} from "../../types/types";
+import {withAuthRedirect} from "../../common/HOC/withAuthRedirect";
 
 
 type MapState = {
@@ -15,9 +15,8 @@ type MapState = {
 type MapDispatch = {
     addMessage: (title: string) => void
 }
-type MyOwnProps = {}
 
-export type Props = MapState & MapDispatch & MyOwnProps
+export type Props = MapState & MapDispatch
 
 
 const mapStateToProps = (state: AppStateType): MapState => {
@@ -35,7 +34,6 @@ const mapDispatchToProps = {
 
 
 export default compose(
-    connect<MapState, MapDispatch, MyOwnProps,  AppStateType>(mapStateToProps, mapDispatchToProps),
+    connect<MapState, MapDispatch, unknown,  AppStateType>(mapStateToProps, mapDispatchToProps),
     withAuthRedirect,
-    // @ts-ignore
-)(dialoguePage)
+)(dialoguePage) as React.ComponentType

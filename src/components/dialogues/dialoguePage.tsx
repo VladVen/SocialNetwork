@@ -6,31 +6,28 @@ import AddMessageForm from "./AddMessageForm";
 import {Props} from "./dialoguesContainer";
 
 
-class dialoguePage extends React.Component<Props> {
-    render() {
-        return (
-            <div className={style.dialogues}>
-                            <div className={style.dialoguesNames}> {
-                                this.props.dialoguesData.map(dialogues => <DialogueMembers key={dialogues.id}
-                                                                                           name={dialogues.name}
-                                                                                           id={dialogues.id}/>)
-                            }
-                            </div>
-                            <div className={style.messages}> {
-                                this.props.messagesData.map(messages => <Message key={messages.id}
-                                                                                 message={messages.message}
-                                                                                 />)
-                            }
-                                <div>
-                   <AddMessageForm addMessage={this.props.addMessage}/>
-                                </div>
-                            </div>
-                        </div>
+const dialoguePage: React.FC<Props> = (props) => {
+    return (
+        <div className={style.dialogues}>
+            <div className={style.dialoguesNames}> {
+                props.dialoguesData.map(dialogues => <DialogueMembers key={dialogues.id}
+                                                                      name={dialogues.name}
+                                                                      id={dialogues.id}/>)
+            }
+            </div>
+            <div className={style.messages}> {
+                props.messagesData.map(messages => <Message key={messages.id}
+                                                            message={messages.message}
+                />)
+            }
+                <div>
+                    <AddMessageForm addMessage={props.addMessage}/>
+                </div>
+            </div>
+        </div>
 
-        )
-    }
+    )
 }
-
 
 
 export default dialoguePage

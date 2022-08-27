@@ -1,7 +1,7 @@
-import {profileAPI, ResultCodes} from "../../API/api";
+import {ResultCodes} from "../../API/api";
 import {photosType, postDataType, profileDataType, UpdateProfileDataType} from "../../types/types";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionType} from "../reduxStore";
+import {CommonThunkType, InferActionType} from "../reduxStore";
+import {profileAPI} from "../../API/profile-api";
 
 
 const ADD_NEW_POST = 'profile/ADD-NEW-POST'
@@ -56,7 +56,7 @@ const profilePageReducer = (state = initialState, action: ActionsType): initialS
         case PUT_PHOTO:
             return {
                 ...state,
-                profileData: {...state.profileData, photos: action.photos} as unknown as profileDataType
+                profileData: {...state.profileData, photos: action.photos} as profileDataType
             }
         case CATCH_ERRORS:
             return {
@@ -98,10 +98,10 @@ export const actions = {
 }
 
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
+type ThunkType = CommonThunkType<ActionsType>
 
 
-export const getProfileTC = (userId: number | null): ThunkType => async (dispatch) => {
+export const getProfileTC = (userId: number ): ThunkType => async (dispatch) => {
     let data = await profileAPI.getProfile(userId)
     dispatch(actions.setUserProfile(data))
 }
@@ -116,17 +116,17 @@ export const updateProfileStatusTC = (status: string): ThunkType => async (dispa
         dispatch(actions.setProfileStatus(status))
     }
 }
-export const uploadNewAvatar = (photo: profileDataType): ThunkType => async (dispatch) => {
+export const uploadNewAvatar = (photo: File): ThunkType => async (dispatch) => {
     let data = await profileAPI.uploadAvatar(photo)
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodes.success) {
         dispatch(actions.putPhoto(data.data.photos))
     }
 }
 export const updateProfile = (profile: UpdateProfileDataType): ThunkType => async (dispatch, getState) => {
-    let userId = getState().auth.id
+    let userId: number | null = getState().auth.id
     let data = await profileAPI.updateProfile(profile)
     if (data.resultCode === ResultCodes.success) {
-        await dispatch(getProfileTC(userId))
+        await dispatch(getProfileTC(userId as number))
     } else {
         dispatch(actions.catchError(data.messages[0]))
     }
