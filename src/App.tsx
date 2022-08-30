@@ -81,7 +81,7 @@ const mapDispatchToProps = {
     runInitialize,
 }
 
-export default compose(
+export default compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, mapDispatchToProps))
 (App)

@@ -3,7 +3,7 @@ import {usersDataType} from "../../types/types";
 import {Dispatch} from "redux";
 import {CommonThunkType, InferActionType} from "../reduxStore";
 import {followAPI, usersAPI} from "../../API/users-api";
-import {ResultCodes} from "../../API/api";
+import {DefaultResponse, ResultCodes} from "../../API/api";
 
 
 const FOLLOW = 'users/FOLLOW'
@@ -24,9 +24,9 @@ const initialState = {
     followInProgress: [] as Array<number>
 }
 
-type initialStateType = typeof initialState
+export type initialStateType = typeof initialState
 
-const userPageReducer = (state = initialState, action: ActionsType): initialStateType => {
+export const userPageReducer = (state = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -118,7 +118,9 @@ export const getUsersTC = (currentPage: number, pageSize: number): ThunkType => 
     dispatch(actions.setFetching(false))
 }
 
-const _followUnfollow = async (dispatch: Dispatch<ActionsType>, id: number, APIMethod: any, actionCreator:(id: number)=> ActionsType ) => {
+const _followUnfollow = async (dispatch: Dispatch<ActionsType>, id: number,
+                               APIMethod: (id: number) => Promise<DefaultResponse>,
+                               actionCreator:(id: number)=> ActionsType ) => {
     dispatch(actions.setFollowInProgress(true, id))
     let data = await APIMethod(id)
     if (data.resultCode === ResultCodes.success) {
@@ -127,11 +129,11 @@ const _followUnfollow = async (dispatch: Dispatch<ActionsType>, id: number, APIM
     }
 }
 export const setFollowTC = (id: number): ThunkType => async (dispatch) => {
-    await _followUnfollow(dispatch, id, followAPI.delFollow.bind(followAPI), actions.setUnfollow)
+    await _followUnfollow(dispatch, id, followAPI.addFollow.bind(followAPI), actions.setFollow)
 
 }
 export const setUnfollowTC = (id: number): ThunkType => async (dispatch) => {
-    await _followUnfollow(dispatch, id, followAPI.addFollow.bind(followAPI), actions.setFollow)
+    await _followUnfollow(dispatch, id, followAPI.delFollow.bind(followAPI), actions.setUnfollow)
 }
 
 

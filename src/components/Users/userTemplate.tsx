@@ -24,10 +24,10 @@ const UserTemplate: React.FC<Props> = ({users, followInProgress, setFollowTC, se
                 </div>
                 {users.followed
                     ? <button disabled={followInProgress.some(id => id === users.id)} onClick={() => {
-                        setFollowTC(users.id)
+                        setUnfollowTC(users.id)
                     }}> Unfollow </button>
                     : <button disabled={followInProgress.some(id => id === users.id)} onClick={() => {
-                        setUnfollowTC(users.id)
+                        setFollowTC(users.id)
                     }}> Follow </button>}
             </span>
             <span>
