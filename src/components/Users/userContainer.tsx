@@ -1,11 +1,11 @@
 import React from "react";
 import {connect} from "react-redux";
 import Users from "./users";
-import {actions, getUsersTC, setFollowTC, setUnfollowTC} from "../../redux/reducers/userPageReducer";
-import style from './users.module.css'
+import {actions, FilterType, getUsersTC, setFollowTC, setUnfollowTC} from "../../redux/reducers/userPageReducer";
 import Preloader from "../../common/Preloader";
 import {
     getCurrentPage,
+    getFilter,
     getFollowInProgress,
     getIsFetching,
     getPageSize,
@@ -21,11 +21,12 @@ type MapStatePropsType = {
     isFetching: boolean
     totalCount: number
     followInProgress: Array<number>
-    usersData: Array<usersDataType>
+    usersData: Array<usersDataType>,
+    filter: FilterType
 }
 type MapDispatchPropsType = {
     setCurrentPage: (pageNumber: number) => void
-    getUsersTC: (currentPage: number, pageSize: number) => void
+    getUsersTC: (currentPage: number, pageSize: number, filter: FilterType) => void
     setFollowTC: (id: number) => void
     setUnfollowTC: (id: number) => void
 }
@@ -36,17 +37,17 @@ type PropsType = MapStatePropsType & MapDispatchPropsType
 class UsersApi extends React.Component<PropsType> {
 
     componentDidMount() {
-        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize, this.props.filter)
     }
 
     currentPageChanger = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
-        this.props.getUsersTC(pageNumber, this.props.pageSize)
+        this.props.getUsersTC(pageNumber, this.props.pageSize, this.props.filter)
     }
 
     render() {
         return (
-            <div className={style.inform}>
+            <div>
                 {this.props.isFetching ? <Preloader/>
                     : <Users currentPageChanger={this.currentPageChanger} usersData={this.props.usersData}
                              pageSize={this.props.pageSize}
@@ -55,6 +56,8 @@ class UsersApi extends React.Component<PropsType> {
                              followInProgress={this.props.followInProgress}
                              setFollowTC={this.props.setFollowTC}
                              setUnfollowTC={this.props.setUnfollowTC}
+                             getUsersTC={this.props.getUsersTC}
+                             filter={this.props.filter}
                     />}
 
             </div>
@@ -70,7 +73,8 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         totalCount: getTotalCount(state),
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
-        followInProgress: getFollowInProgress(state)
+        followInProgress: getFollowInProgress(state),
+        filter: getFilter(state)
     }
 
 }

@@ -1,8 +1,12 @@
 .inform {
     grid-area: inform;
+    padding-top: 20px;
     background-color: rgb(17, 255, 9);
-    text-align: center;
-
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .ava img {
@@ -13,8 +17,6 @@
 .selectedPage {
     color: red;
     font-weight: bold;
-
-
 }
 
 .pages {
@@ -22,3 +24,6 @@
     font-size: 20px;
 }
 
+.search {
+    width: 100%;
+}

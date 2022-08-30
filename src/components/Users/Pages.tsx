@@ -10,7 +10,7 @@ type propsType = {
     portionSize?: number
 }
 
- const Pages: React.FC<propsType> = ({totalCount, pageSize,currentPage,currentPageChanger,portionSize = 10,}) => {
+ const Pages: React.FC<propsType> = React.memo(({totalCount, pageSize,currentPage,currentPageChanger,portionSize = 10,}) => {
     const pagesCount = Math.ceil(totalCount / pageSize)
 
     const pages = []
@@ -49,7 +49,7 @@ type propsType = {
             }
         </div>
     )
-}
+})
 export default Pages
 
 

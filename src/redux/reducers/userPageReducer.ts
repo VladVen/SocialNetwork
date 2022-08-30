@@ -13,6 +13,7 @@ const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE'
 const SET_TOTAL_COUNT = 'users/SET_TOTAL_COUNT'
 const SET_FETCHING = 'users/SET_FETCHING'
 const FOLLOW_IN_PROGRESS = 'users/FOLLOW_IN_PROGRESS'
+const SET_FILTER = 'users/SET_FILTER'
 
 
 const initialState = {
@@ -21,10 +22,15 @@ const initialState = {
     totalCount: 0,
     currentPage: 1,
     isFetching: false,
-    followInProgress: [] as Array<number>
+    followInProgress: [] as Array<number>,
+    filter: {
+        term: '',
+        friend: null as null | boolean
+    }
 }
 
 export type initialStateType = typeof initialState
+export type FilterType = typeof initialState.filter
 
 export const userPageReducer = (state = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
@@ -57,6 +63,11 @@ export const userPageReducer = (state = initialState, action: ActionsType): init
             return {
                 ...state,
                 isFetching: action.isFetching
+            }
+            case SET_FILTER:
+            return {
+                ...state,
+                filter: action.payload
             }
         case FOLLOW_IN_PROGRESS:
             return {
@@ -103,6 +114,10 @@ export const actions = {
         followInProgress,
         userId
     } as const),
+    setFilter:  (filter: FilterType) => ({
+        type: SET_FILTER,
+        payload: filter
+    } as const),
 }
 
 
@@ -110,13 +125,16 @@ export const actions = {
 
 type ThunkType = CommonThunkType<ActionsType>
 
-export const getUsersTC = (currentPage: number, pageSize: number): ThunkType => async (dispatch) => {
+export const getUsersTC = (currentPage: number, pageSize: number, filter: FilterType): ThunkType => async (dispatch) => {
     dispatch(actions.setFetching(true))
-    let data = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(actions.setFilter(filter))
+    dispatch(actions.setCurrentPage(currentPage))
+    let data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
     dispatch(actions.setUsers(data.items))
     dispatch(actions.setTotalCount(data.totalCount))
     dispatch(actions.setFetching(false))
 }
+
 
 const _followUnfollow = async (dispatch: Dispatch<ActionsType>, id: number,
                                APIMethod: (id: number) => Promise<DefaultResponse>,
