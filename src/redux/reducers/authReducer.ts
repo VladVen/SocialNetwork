@@ -66,7 +66,7 @@ export const actions = {
 
 }
 
-type ThunkType = CommonThunkType<ActionsType>
+export type ThunkType = CommonThunkType<ActionsType>
 
 
 export const setAuthTC = (): ThunkType => async (dispatch) => {

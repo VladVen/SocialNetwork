@@ -4,13 +4,13 @@ import {Field, Form, Formik, FormikValues} from "formik";
 import {FilterType} from "../../redux/reducers/userPageReducer";
 
 type Props = {
-    getUsersTC: (currentPage: number, pageSize: number, filter: FilterType ) => void,
+    onFilter: (filter: FilterType ) => void,
     pageSize: number
     filter: FilterType
 }
 
 
-const UsersSearchForm: React.FC<Props> = React.memo(({getUsersTC, pageSize, filter}) => {
+const UsersSearchForm: React.FC<Props> = React.memo(({onFilter, filter}) => {
 
 
     const onFind = (values: FormikValues) => {
@@ -19,11 +19,12 @@ const UsersSearchForm: React.FC<Props> = React.memo(({getUsersTC, pageSize, filt
             friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false
         }
 
-        getUsersTC(1, pageSize, formData)
+        onFilter(formData)
     }
    return(
        <div>
            <Formik
+               enableReinitialize
                initialValues={{
                    term: filter.term,
                    friend: filter.friend,

@@ -123,7 +123,7 @@ export const actions = {
 
 
 
-type ThunkType = CommonThunkType<ActionsType>
+export type ThunkType = CommonThunkType<ActionsType>
 
 export const getUsersTC = (currentPage: number, pageSize: number, filter: FilterType): ThunkType => async (dispatch) => {
     dispatch(actions.setFetching(true))

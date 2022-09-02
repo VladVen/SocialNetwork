@@ -5,6 +5,7 @@ import userPageReducer from "./reducers/userPageReducer";
 import authReducer from "./reducers/authReducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import appReducer from "./reducers/appReducer";
+import {useDispatch} from "react-redux";
 
 const reducersPack = combineReducers({
     profilePage: profilePageReducer,
@@ -15,22 +16,30 @@ const reducersPack = combineReducers({
 
 })
 
-export type InferActionType<T> = T extends {[key: string]: (...args: any[]) => infer U} ? U : never
+export type InferActionType<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
 
 type reducersPackType = typeof reducersPack
 export type AppStateType = ReturnType<reducersPackType>
 
-export type CommonThunkType<A extends Action,P = Promise<void> > = ThunkAction<P, AppStateType, unknown, A>
+export type CommonThunkType<A extends Action, P = Promise<void>> = ThunkAction<P, AppStateType, unknown, A>
 
 
 // to provide Redux DevTools extension in Chrome
-// @ts-ignore
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(reducersPack, composeEnhancers(
     applyMiddleware(thunkMiddleware)
 ));
 
-// @ts-ignore
-window.store = store
+
+export type TypedDispatch = typeof store.dispatch;
+
+export const useTypedDispatch = () => useDispatch<TypedDispatch>();
 
 export default store

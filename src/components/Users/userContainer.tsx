@@ -1,89 +1,70 @@
-import React from "react";
-import {connect} from "react-redux";
-import Users from "./users";
-import {actions, FilterType, getUsersTC, setFollowTC, setUnfollowTC} from "../../redux/reducers/userPageReducer";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import Users from "./Users";
 import Preloader from "../../common/Preloader";
-import {
-    getCurrentPage,
-    getFilter,
-    getFollowInProgress,
-    getIsFetching,
-    getPageSize,
-    getTotalCount,
-    getUsers
-} from "../../redux/selectors/usersSelector";
-import {usersDataType} from "../../types/types";
-import {AppStateType} from "../../redux/reduxStore";
-
-type MapStatePropsType = {
-    currentPage: number
-    pageSize: number
-    isFetching: boolean
-    totalCount: number
-    followInProgress: Array<number>
-    usersData: Array<usersDataType>,
-    filter: FilterType
-}
-type MapDispatchPropsType = {
-    setCurrentPage: (pageNumber: number) => void
-    getUsersTC: (currentPage: number, pageSize: number, filter: FilterType) => void
-    setFollowTC: (id: number) => void
-    setUnfollowTC: (id: number) => void
-}
+import {getCurrentPage, getFilter, getIsFetching, getPageSize} from "../../redux/selectors/usersSelector";
+import {getUsersTC} from "../../redux/reducers/userPageReducer";
+import {AnyAction} from "redux";
+import {useSearchParams} from "react-router-dom";
 
 
-type PropsType = MapStatePropsType & MapDispatchPropsType
+type Props = {}
 
-class UsersApi extends React.Component<PropsType> {
 
-    componentDidMount() {
-        this.props.getUsersTC(this.props.currentPage, this.props.pageSize, this.props.filter)
+const UsersPage: React.FC<Props> = () => {
+
+    const isFetching = useSelector(getIsFetching)
+    const pageSize = useSelector(getPageSize)
+    const currentPage = useSelector(getCurrentPage)
+    const filter = useSelector(getFilter)
+
+    const dispatch = useDispatch()
+
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    type resultType = {
+        page: number
+        term: string | null
+        friend: boolean | null
+        [key: string]: any
     }
 
-    currentPageChanger = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber)
-        this.props.getUsersTC(pageNumber, this.props.pageSize, this.props.filter)
-    }
+    useEffect(() => {
+        const result: resultType = {} as resultType
 
-    render() {
-        return (
-            <div>
-                {this.props.isFetching ? <Preloader/>
-                    : <Users currentPageChanger={this.currentPageChanger} usersData={this.props.usersData}
-                             pageSize={this.props.pageSize}
-                             totalCount={this.props.totalCount}
-                             currentPage={this.props.currentPage}
-                             followInProgress={this.props.followInProgress}
-                             setFollowTC={this.props.setFollowTC}
-                             setUnfollowTC={this.props.setUnfollowTC}
-                             getUsersTC={this.props.getUsersTC}
-                             filter={this.props.filter}
-                    />}
+        for (const [key, value] of searchParams.entries() as any) {
+            let value2: any = +value
+            if (isNaN(value2)) {
+                value2 = value
+            }
+            if (value === 'true') {
+                value2 = true
+            } else if (value === 'false') {
+                value2 = false
+            }
+            result[key] = value2
+        }
 
-            </div>
-        )
-    }
-}
+        let actualPage = result.page || currentPage
+        let term = result.term || filter.term
 
+        let friend = result.friend || filter.friend
+        if (result.friend === false) {
+            friend = result.friend
+        }
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-    return {
-        usersData: getUsers(state),
-        pageSize: getPageSize(state),
-        totalCount: getTotalCount(state),
-        currentPage: getCurrentPage(state),
-        isFetching: getIsFetching(state),
-        followInProgress: getFollowInProgress(state),
-        filter: getFilter(state)
-    }
+        const actualFilter = {friend, term}
 
+        dispatch(getUsersTC(actualPage, pageSize, actualFilter) as unknown as AnyAction)
+    }, [])
+
+    return (
+        <div>
+            {isFetching ? <Preloader/> : <Users/>}
+
+        </div>
+    )
 }
 
 
-
-export default connect<MapStatePropsType, MapDispatchPropsType, unknown, AppStateType>(mapStateToProps, {
-    setCurrentPage: actions.setCurrentPage,
-    getUsersTC,
-    setFollowTC,
-    setUnfollowTC
-})(UsersApi)
+export default UsersPage

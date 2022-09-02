@@ -12,14 +12,14 @@ import SideBar from './components/sideBar/sideBar';
 import News from "./components/News/news";
 import Music from "./components/Music/music";
 import Settings from "./components/Settings/settings";
-import TopicContainer from "./components/topic/topicContainer";
 import LoginForm from "./components/Login/loginForm";
 import Preloader from "./common/Preloader";
 import ProfileContainer from "./components/profile/profileContainer";
+import Topic from "./components/topic/topic";
 
 
 const DialoguesContainer = React.lazy(() => import('./components/dialogues/dialoguesContainer'));
-const UsersContainer = React.lazy(() => import('./components/Users/userContainer'));
+const UsersPage = React.lazy(() => import('./components/Users/userContainer'));
 
 
 type mapState = {initialized: boolean}
@@ -45,7 +45,7 @@ class App extends React.Component<Props> {
         }
         return (
             <div className='app-wrapper'>
-                <TopicContainer/>
+                <Topic/>
                 <SideBar/>
                 <div>
                     <React.Suspense fallback={<Preloader/>}>
@@ -60,7 +60,7 @@ class App extends React.Component<Props> {
                             <Route path='/news' element={<News/>}/>
                             <Route path='/music' element={<Music/>}/>
                             <Route path='/settings' element={<Settings/>}/>
-                            <Route path='/users/*' element={<UsersContainer/>}/>
+                            <Route path='/users/*' element={<UsersPage/>}/>
                             <Route path='/login' element={<LoginForm/>}/>
                             <Route path='*' element={<div><b>404 not Found</b></div>}/>
                             <Route path='/' element={<Navigate to="/profile" />}

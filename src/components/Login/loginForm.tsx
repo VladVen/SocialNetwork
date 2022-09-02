@@ -2,85 +2,74 @@ import React from "react";
 import {Navigate} from "react-router-dom";
 import {ErrorMessage, Field, Form, Formik} from 'formik';
 import emailValidatorSchema from "../../formValidations/loginValidator";
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {logInTC} from "../../redux/reducers/authReducer";
 import style from "./login.module.css";
-import {AppStateType} from "../../redux/reduxStore";
-
-type MapState = {
-    isAuth: boolean
-    errorMessage: string | null
-    captcha: null | string
-
-}
-type MapDispatch = {
-    logInTC: (email: string, password:string, rememberMe: boolean, captcha: null | string ) => void
-}
+import {getErrorMessage, getIsAuth} from "../../redux/selectors/authSelector";
+import {AnyAction} from "redux";
 
 
-type Props = MapState & MapDispatch
+const LoginForm = () => {
 
-class loginForm extends React.Component<Props> {
-    render() {
-        if(this.props.isAuth) {
-            return <Navigate to={"/profile"}/>
-        }
-        return (
-            <div className={style.login}>
-                <h1>Login Form</h1>
-                <Formik
-                    initialValues={{ email: '', password: '', rememberMe: false, captcha: '' }}
-                    validationSchema={emailValidatorSchema}
-                    onSubmit={async (values, { setSubmitting }) => {
-                        await this.props.logInTC(values.email, values.password, values.rememberMe, values.captcha)
-                        setSubmitting(false);
-                    }}>
-                    {({ isSubmitting }) => (
-                        <Form>
-                            <Field type="email" name="email" />
-                            <ErrorMessage name="email" component="span" />
-                            <div><Field type="password" name="password" /></div>
-                            <div>
-                                <Field type={"checkbox"} name={"rememberMe"} />
-                                <label htmlFor={"rememberMe"}> remember me </label>
-                            </div>
-                            <div className={style.error}>
-                                {
-                                    this.props.errorMessage &&<div>{this.props.errorMessage}</div>
-                                }
-                            </div>
-                            <div>
-                                {
-                                    this.props.captcha && <div>
-                                            <img src={this.props.captcha}/>
-                                            <div>
-                                                <Field as={'input'} name="captcha" />
-                                            </div>
-                                        </div>
-                                }
-                            </div>
+    const captcha = useSelector(getErrorMessage)
+    const errorMessage = useSelector(getErrorMessage)
+    const isAuth = useSelector(getIsAuth)
 
-                            <button type="submit"  disabled={isSubmitting}>
-                                Submit
-                            </button>
+    const dispatch = useDispatch()
 
-                        </Form>
-                        )}
-                </Formik>
-            </div>
-        );
+    if (isAuth) {
+      return <Navigate to={'/profile'} />
     }
+
+
+    const login = async (email: string, password: string, rememberMe: boolean, captcha: string | null) => {
+        await dispatch(logInTC(email, password, rememberMe, captcha) as unknown as AnyAction)
+    }
+
+    return (
+        <div className={style.login}>
+            <h1>Login Form</h1>
+            <Formik
+                initialValues={{email: '', password: '', rememberMe: false, captcha: ''}}
+                validationSchema={emailValidatorSchema}
+                onSubmit={async (values, {setSubmitting}) => {
+                    await login(values.email, values.password, values.rememberMe, values.captcha)
+                    setSubmitting(false);
+                }}>
+                {({isSubmitting}) => (
+                    <Form>
+                        <Field type="email" name="email"/>
+                        <ErrorMessage name="email" component="span"/>
+                        <div><Field type="password" name="password"/></div>
+                        <div>
+                            <Field type={"checkbox"} name={"rememberMe"}/>
+                            <label htmlFor={"rememberMe"}> remember me </label>
+                        </div>
+                        <div className={style.error}>
+                            {
+                                errorMessage && <div>{errorMessage}</div>
+                            }
+                        </div>
+                        <div>
+                            {
+                                captcha && <div>
+                                    <img src={captcha}/>
+                                    <div>
+                                        <Field as={'input'} name="captcha"/>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <button type="submit" disabled={isSubmitting}>
+                            Submit
+                        </button>
+
+                    </Form>
+                )}
+            </Formik>
+        </div>
+    );
 }
 
-
-
-const mapStateToProps = (state: AppStateType): MapState => ({
-    captcha: state.auth.captchaUrl,
-    errorMessage: state.auth.errorMessage,
-    isAuth: state.auth.isAuth,
-})
-
-
-
-
-export default connect<MapState, MapDispatch, unknown,  AppStateType>(mapStateToProps, {logInTC})(loginForm)
+export default LoginForm
