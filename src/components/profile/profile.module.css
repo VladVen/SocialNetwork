@@ -1,6 +1,7 @@
 .inform {
     grid-area: inform;
-    background-color: rgb(17, 255, 9);
+    background-color: rgba(178, 178, 178, 0.1);
+    border-radius: 10px;
    }
 
 .avatar {
