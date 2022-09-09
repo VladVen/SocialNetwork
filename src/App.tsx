@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import {Navigate, Route, Routes, useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AnyAction} from "redux";
 import 'antd/dist/antd.css';
@@ -20,25 +20,28 @@ import {
     MessageOutlined,
     SettingOutlined,
     UploadOutlined,
-    UserAddOutlined
+    UserAddOutlined,
+    WechatOutlined
 } from '@ant-design/icons';
 import {Layout, Menu} from 'antd';
 import Topic from "./components/topic/topic";
 import {Footer} from "antd/es/layout/layout";
 
 const DialoguesContainer = React.lazy(() => import('./components/dialogues/dialoguesContainer'));
+const ChatPage = React.lazy(() => import('./components/Chat/ChatPage'));
 const UsersPage = React.lazy(() => import('./components/Users/userContainer'));
 
-const {Header, Sider, Content} = Layout;
+const { Sider, Content} = Layout;
 
 
-type Props = {}
 
-const App: React.FC<Props> = () => {
+const App: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
     const initialized = useSelector((state: AppStateType) => state.app.initialized)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    let location = useLocation()
+
 
     const catchAllUnhandledErrors = (promiseRejected: PromiseRejectionEvent) => {
         alert('Turn on vpn')
@@ -53,7 +56,6 @@ const App: React.FC<Props> = () => {
     if (!initialized) {
         return <div className='preloader'><Preloader/></div>
     }
-
     return (
         <Layout >
             <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -63,40 +65,46 @@ const App: React.FC<Props> = () => {
                 <Menu
                     theme="dark"
                     mode="inline"
-                    defaultSelectedKeys={['1']}
+                    defaultSelectedKeys={[location.pathname === '/' ? '/profile' : location.pathname]}
                     items={[
                         {
-                            key: '1',
+                            key: '/profile',
                             icon: <HomeOutlined />,
                             label: 'My Profile',
                             onClick: () =>{navigate('/profile')}
                         },
                         {
-                            key: '2',
+                            key: '/dialogues',
                             icon: <MessageOutlined />,
                             label: 'Dialogs',
                             onClick: () =>{navigate('/dialogues')}
                         },
                         {
-                            key: '3',
+                            key: '/chat',
+                            icon: <WechatOutlined />,
+                            label: 'Chat',
+                            onClick: () =>{navigate('/chat')}
+                        },
+                        {
+                            key: '/news',
                             icon: <FileOutlined />,
                             label: 'News',
                             onClick: () =>{navigate('/news')}
                         },
                         {
-                            key: '4',
+                            key: '/music',
                             icon: <UploadOutlined/>,
                             label: 'Music',
                             onClick: () =>{navigate('/music')}
                         },
                         {
-                            key: '5',
+                            key: '/users',
                             icon: <UserAddOutlined />,
                             label: 'Users',
                             onClick: () =>{navigate('/users')}
                         },
                         {
-                            key: '6',
+                            key: '/settings',
                             icon: <SettingOutlined />,
                             label: 'Settings',
                             onClick: () =>{navigate('/settings')}
@@ -116,20 +124,17 @@ const App: React.FC<Props> = () => {
                         <React.Suspense fallback={<Preloader/>}>
                             <Routes>
 
-                                <Route path='/profile/:userId' element={<ProfileContainer/>}
-                                />
-                                <Route path='/profile/' element={<ProfileContainer/>}
-                                />
-                                <Route path='/dialogues/*' element={<DialoguesContainer/>}
-                                />
+                                <Route path='/profile/:userId' element={<ProfileContainer/>}/>
+                                <Route path='/profile/' element={<ProfileContainer/>}/>
+                                <Route path='/dialogues/*' element={<DialoguesContainer />}/>
+                                <Route path='/chat' element={<ChatPage />}/>
                                 <Route path='/news' element={<News/>}/>
                                 <Route path='/music' element={<Music/>}/>
                                 <Route path='/settings' element={<Settings/>}/>
                                 <Route path='/users/*' element={<UsersPage/>}/>
                                 <Route path='/login' element={<LoginForm/>}/>
                                 <Route path='*' element={<div><b>404 not Found</b></div>}/>
-                                <Route path='/' element={<Navigate to="/profile" />}
-                                />
+                                <Route path='/' element={<Navigate to="/profile" />}/>
                             </Routes>
                         </React.Suspense>
                 </Content>

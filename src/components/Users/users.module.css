@@ -1,7 +1,7 @@
 .inform {
     grid-area: inform;
     padding-top: 20px;
-    background-color: rgb(17, 255, 9);
+    background-color: rgba(178, 178, 178, 0.1);
     display: flex;
     flex: 1;
     flex-direction: column;

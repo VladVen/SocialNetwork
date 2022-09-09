@@ -6,13 +6,15 @@ import authReducer from "./reducers/authReducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import appReducer from "./reducers/appReducer";
 import {useDispatch} from "react-redux";
+import chatReducer from "./reducers/chatReducer";
 
 const reducersPack = combineReducers({
     profilePage: profilePageReducer,
     messagesPage: dialoguesPageReducer,
     usersPage: userPageReducer,
     auth: authReducer,
-    app: appReducer
+    app: appReducer,
+    chat: chatReducer
 
 })
 

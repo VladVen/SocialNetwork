@@ -2,6 +2,7 @@ import {Field, Form, Formik} from "formik";
 import React from "react";
 import style from './contactsForm.module.css'
 import {UpdateProfileDataType} from "../../../types/types";
+import {Button} from "antd";
 
 type Props = {
     profileData: UpdateProfileDataType
@@ -68,9 +69,9 @@ class ContactsForm extends React.Component<Props> {
 
                                 }
                             </div>
-                            <button type="submit" disabled={isSubmitting}>
+                            <Button name="submit" disabled={isSubmitting} type={"primary"}>
                                 Submit
-                            </button>
+                            </Button>
 
                         </Form>
                     )}
